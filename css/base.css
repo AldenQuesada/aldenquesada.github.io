@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------------
    BASE
-   Reset curto, fundo, billboard do topo e rodape.
-   Fileiras e posteres ficam em fileiras.css.
+   Reset curto, cenario de fundo, cabecalho de perfil e rodape.
+   Os cards ficam em cards.css.
 ------------------------------------------------------------------ */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -11,11 +11,10 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   min-height: 100svh;
-  font-family: var(--fonte-titulo);
+  font-family: var(--fonte-texto);
   color: var(--texto);
   background: var(--fundo);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 img { display: block; max-width: 100%; }
@@ -23,160 +22,163 @@ img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 
 
-/* --- BILLBOARD: a capa de abertura --------------------------------
-   Foto sangrando no topo, escurecendo ate o preto da pagina. O texto
-   nasce de dentro da escuridao, nao de uma caixa colada por cima.
+/* --- CENARIO ------------------------------------------------------
+   Foto do consultorio, desfocada e escurecida, presa atras de tudo.
+   Ela da profundidade; nao deve ser lida como imagem.
 ------------------------------------------------------------------- */
 
-.billboard {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  min-height: 78svh;
-  padding: var(--esp-6) var(--gutter) var(--esp-5);
-  margin-bottom: var(--esp-2);
-  overflow: hidden;
-}
-
-.billboard__foto {
-  position: absolute;
+.cenario {
+  position: fixed;
   inset: 0;
   z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 22%;
+  background-image: url('../img/fondo/cenario.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
-/* Duas camadas: uma dissolve a base, outra escurece a esquerda. */
-.billboard::before {
+/* Brasa quente no topo e queda para o preto na base. */
+.cenario::after {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1;
   background:
-    linear-gradient(180deg, rgba(10,10,12,.55) 0%, rgba(10,10,12,0) 26%, rgba(10,10,12,.72) 68%, var(--fundo) 100%),
-    linear-gradient(90deg, rgba(10,10,12,.86) 0%, rgba(10,10,12,.30) 52%, rgba(10,10,12,.05) 100%);
+    radial-gradient(120% 60% at 50% 0%, var(--fundo-brasa) 0%, transparent 62%),
+    linear-gradient(180deg, rgba(18,14,11,.55) 0%, rgba(18,14,11,.78) 48%, var(--fundo) 100%);
 }
 
-.billboard__texto {
+@media (min-width: 900px) {
+  .cenario { background-image: url('../img/fondo/cenario-ancho.jpg'); }
+}
+
+
+/* --- Coluna -------------------------------------------------------- */
+
+.pagina {
   position: relative;
   width: 100%;
-  max-width: var(--palco);
+  max-width: calc(var(--coluna) + var(--gutter) * 2);
   margin-inline: auto;
+  padding: var(--esp-5) var(--gutter) var(--esp-5);
 }
 
-.billboard__nome {
+
+/* --- PERFIL -------------------------------------------------------- */
+
+.perfil {
+  position: relative;
+  text-align: center;
+  margin-bottom: var(--esp-4);
+}
+
+/* A assinatura passa POR TRAS do avatar, como na referencia: e marca
+   d'agua, nao titulo. Por isso o z-index negativo e a opacidade baixa. */
+.perfil__assinatura {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  z-index: -1;
+  transform: translateX(-50%);
+  width: max-content;
+  margin: 0;
+  font-family: var(--fonte-assinatura);
+  font-size: var(--t-assinatura);
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--ouro);
+  opacity: .16;
+  pointer-events: none;
+  user-select: none;
+}
+
+.perfil__avatar {
+  width: var(--avatar);
+  height: var(--avatar);
+  margin: 0 auto var(--esp-3);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 2px solid var(--ouro-fraco);
+  box-shadow: 0 6px 22px -6px rgba(0, 0, 0, .9);
+}
+
+.perfil__nome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
   margin: 0;
   font-family: var(--fonte-nome);
   font-size: var(--t-nome);
-  font-weight: 600;
-  line-height: 1.04;
-  letter-spacing: .01em;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, .7);
+  font-weight: 400;
+  letter-spacing: .005em;
+  line-height: 1.15;
 }
 
-.billboard__credencial {
-  margin: var(--esp-2) 0 0;
-  max-width: 30ch;
+.perfil__selo {
+  flex: 0 0 auto;
+  width: 1em;
+  height: 1em;
+}
+
+.perfil__credencial {
+  margin: var(--esp-2) auto 0;
+  max-width: 32ch;
   font-size: var(--t-credencial);
-  font-weight: 600;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--ouro-claro);
-}
-
-.billboard__frase {
-  margin: var(--esp-3) 0 0;
-  max-width: 46ch;
-  font-size: .92rem;
-  line-height: 1.5;
+  font-weight: 500;
+  line-height: 1.45;
   color: var(--texto-suave);
-  text-wrap: pretty;
-}
-
-.billboard__acoes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--esp-2);
-  margin-top: var(--esp-4);
+  text-wrap: balance;
 }
 
 
-/* --- Botoes -------------------------------------------------------- */
-
-.botao {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--esp-1);
-  padding: .72rem 1.4rem;
-  font-size: var(--t-botao);
-  font-weight: 800;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  border-radius: 6px;
-  transition: filter var(--transicao), transform var(--transicao);
-}
-
-.botao:hover  { filter: brightness(1.1); }
-.botao:active { transform: scale(.98); }
-
-.botao--ouro {
-  color: var(--texto-escuro);
-  background: linear-gradient(135deg, var(--ouro-claro), var(--ouro));
-}
-
-.botao--vidro {
-  color: var(--texto);
-  background: rgba(255, 255, 255, .16);
-  backdrop-filter: blur(6px);
-}
-
-.botao:focus-visible {
-  outline: 2px solid var(--ouro-claro);
-  outline-offset: 3px;
-}
-
-
-/* --- Rodape -------------------------------------------------------- */
+/* --- RODAPE -------------------------------------------------------- */
 
 .pie {
-  max-width: var(--palco);
-  margin: var(--esp-6) auto 0;
-  padding: var(--esp-5) var(--gutter) var(--esp-6);
+  margin-top: var(--esp-5);
   text-align: center;
-  font-size: .72rem;
-  color: var(--texto-suave);
-  border-top: 1px solid rgba(255, 255, 255, .07);
 }
 
 .pie__redes {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: var(--esp-3);
+  gap: var(--esp-2);
   margin-bottom: var(--esp-3);
 }
 
 .pie__rede {
-  font-size: .74rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
   color: var(--texto-suave);
-  transition: color var(--transicao);
+  border: 1px solid var(--ouro-fraco);
+  transition: color var(--transicao), border-color var(--transicao), transform var(--transicao);
 }
 
-.pie__rede:hover { color: var(--ouro-claro); }
+.pie__rede:hover {
+  color: var(--ouro-claro);
+  border-color: var(--ouro);
+  transform: translateY(-2px);
+}
+
+.pie__rede svg { width: 19px; height: 19px; }
+
+.pie__texto {
+  margin: 0;
+  font-size: .68rem;
+  color: var(--texto-suave);
+  opacity: .8;
+}
 
 
 /* --- Aviso do modo borrador ---------------------------------------- */
 
 .rascunho-aviso {
-  max-width: var(--palco);
-  margin: 0 auto var(--esp-3);
+  margin: 0 0 var(--esp-3);
   padding: var(--esp-2) var(--esp-3);
-  font-size: .76rem;
+  font-size: .74rem;
   font-weight: 700;
   text-align: center;
   color: #2b0b0b;

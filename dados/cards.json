@@ -1,0 +1,170 @@
+{
+  "_leia": [
+    "Cada objeto da lista e um card da pagina. A pagina inteira sai daqui.",
+    "ordem        = posicao na pilha. Menor numero fica em cima.",
+    "ativo        = false tira o card do ar sem apagar nada.",
+    "link         = destino. Vazio: o card nao aparece na pagina publica.",
+    "foto         = busto 3:4 em img/card/ (420x560).",
+    "lado_da_foto = esquerda ou direita. Alternar deixa a pilha viva.",
+    "cores        = a e o canto de cima, b e o canto de baixo do degrade.",
+    "fonte        = 'serif' poe o titulo em Georgia, com ar de autoridade.",
+    "",
+    "A ordem segue a referencia: o que vende caro fica em cima, os guias",
+    "no meio, contato no fim. Trocar a ordem e so trocar o numero."
+  ],
+  "cards": [
+    {
+      "id": "consulta",
+      "ordem": 1,
+      "ativo": true,
+      "sobretitulo": "Consulta",
+      "titulo": "Agenda tu consulta",
+      "subtitulo": "Cardiología y naturopatía en una sola evaluación",
+      "fonte": "serif",
+      "lado_da_foto": "direita",
+      "foto": "img/card/consulta.jpg",
+      "cores": {
+        "a": "#1d1a14",
+        "b": "#0b0a08"
+      },
+      "link": ""
+    },
+    {
+      "id": "mentoria",
+      "ordem": 2,
+      "ativo": true,
+      "sobretitulo": "Médicos",
+      "titulo": "Mentoría con el Dr. Quesada",
+      "subtitulo": "Acompañamiento directo para profesionales de la salud",
+      "lado_da_foto": "esquerda",
+      "foto": "img/card/mentoria.jpg",
+      "cores": {
+        "a": "#10213a",
+        "b": "#070d18"
+      },
+      "link": ""
+    },
+    {
+      "id": "conferencias",
+      "ordem": 3,
+      "ativo": true,
+      "sobretitulo": "Eventos",
+      "titulo": "Lleva al Dr. Quesada a tu congreso",
+      "subtitulo": "Charlas sobre diabetes, corazón y salud natural",
+      "lado_da_foto": "direita",
+      "foto": "img/card/conferencia.jpg",
+      "cores": {
+        "a": "#0f2a24",
+        "b": "#06110e"
+      },
+      "link": ""
+    },
+    {
+      "id": "diabetes-es",
+      "ordem": 4,
+      "ativo": true,
+      "sobretitulo": "Libro · Español",
+      "titulo": "Diabetes Mellitus",
+      "subtitulo": "El fin de las complicaciones",
+      "fonte": "serif",
+      "lado_da_foto": "esquerda",
+      "foto": "img/card/diabetes-es.jpg",
+      "cores": {
+        "a": "#2b2114",
+        "b": "#120d07"
+      },
+      "link": ""
+    },
+    {
+      "id": "fin-diabetes-es",
+      "ordem": 5,
+      "ativo": true,
+      "sobretitulo": "Libro · Español",
+      "titulo": "El fin de la Diabetes Mellitus",
+      "subtitulo": "Sin medicamentos, en menos de 21 días",
+      "lado_da_foto": "direita",
+      "foto": "img/card/fin-diabetes.jpg",
+      "cores": {
+        "a": "#13284a",
+        "b": "#070f1d"
+      },
+      "link": ""
+    },
+    {
+      "id": "detox-anti-diabetes",
+      "ordem": 6,
+      "ativo": true,
+      "sobretitulo": "Guía",
+      "titulo": "Detox Foods Anti-Diabetes",
+      "subtitulo": "",
+      "lado_da_foto": "esquerda",
+      "foto": "img/card/detox.jpg",
+      "cores": {
+        "a": "#15341f",
+        "b": "#08160d"
+      },
+      "link": ""
+    },
+    {
+      "id": "diabetes-en",
+      "ordem": 7,
+      "ativo": true,
+      "sobretitulo": "Book · English",
+      "titulo": "The End of Diabetes Mellitus",
+      "subtitulo": "Without medications, 100% natural",
+      "lado_da_foto": "direita",
+      "foto": "img/card/diabetes-en.jpg",
+      "cores": {
+        "a": "#2d1b12",
+        "b": "#120a06"
+      },
+      "link": ""
+    },
+    {
+      "id": "diabetes-pt",
+      "ordem": 8,
+      "ativo": true,
+      "sobretitulo": "Livro · Português",
+      "titulo": "O fim da Diabetes Mellitus",
+      "subtitulo": "Sem precisar de remédios",
+      "lado_da_foto": "esquerda",
+      "foto": "img/card/diabetes-pt.jpg",
+      "cores": {
+        "a": "#241427",
+        "b": "#0e080f"
+      },
+      "link": ""
+    },
+    {
+      "id": "autoridade-90",
+      "ordem": 9,
+      "ativo": true,
+      "sobretitulo": "Livro · com Dani Mendes",
+      "titulo": "De invisível a autoridade em 90 dias",
+      "subtitulo": "Para profissionais da saúde",
+      "fonte": "serif",
+      "lado_da_foto": "direita",
+      "foto": "img/card/autoridade90.jpg",
+      "cores": {
+        "a": "#13232b",
+        "b": "#070d10"
+      },
+      "link": ""
+    },
+    {
+      "id": "contacto",
+      "ordem": 10,
+      "ativo": true,
+      "sobretitulo": "WhatsApp",
+      "titulo": "Información sobre libros y cursos",
+      "subtitulo": "Habla con nuestro equipo",
+      "lado_da_foto": "esquerda",
+      "foto": "img/card/contacto.jpg",
+      "cores": {
+        "a": "#0f2b1d",
+        "b": "#06130d"
+      },
+      "link": ""
+    }
+  ]
+}

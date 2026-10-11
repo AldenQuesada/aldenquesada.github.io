@@ -5,35 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dr. Alden J. Quesada</title>
 <meta name="description" content="Especialista en Cardiología y Naturópata. Libros, consultas, mentorías y conferencias.">
-<meta name="theme-color" content="#0a0a0c">
+<meta name="theme-color" content="#120e0b">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Dr. Alden J. Quesada">
 <meta property="og:description" content="Especialista en Cardiología y Naturópata.">
-<meta property="og:image" content="img/poster/autoridade.jpg">
+<meta property="og:image" content="img/dr/avatar.jpg">
 
-<link rel="icon" href="img/favicon.png">
+<link rel="icon" href="img/dr/avatar.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
 
 <!-- O ?v= quebra o cache do navegador. Ao mexer em CSS ou JS, suba o numero. -->
-<link rel="stylesheet" href="css/tokens.css?v=3">
-<link rel="stylesheet" href="css/base.css?v=3">
-<link rel="stylesheet" href="css/fileiras.css?v=3">
+<link rel="stylesheet" href="css/tokens.css?v=4">
+<link rel="stylesheet" href="css/base.css?v=4">
+<link rel="stylesheet" href="css/cards.css?v=4">
 </head>
 <body>
+
+<div class="cenario" aria-hidden="true"></div>
 
 <!-- Tudo abaixo e montado por js/render.js a partir de dados/*.json. -->
 <!-- Nao escreva texto aqui dentro: a copy mora no JSON. -->
 
-<header class="billboard" id="billboard" hidden></header>
+<div class="pagina">
+  <header class="perfil" id="perfil" hidden></header>
+  <main class="vitrine" id="vitrine" aria-label="Enlaces"></main>
+  <footer class="pie" id="pie" hidden></footer>
+</div>
 
-<main class="palco" id="palco"></main>
-
-<footer class="pie" id="pie" hidden></footer>
-
-<script src="js/utm.js?v=3"></script>
-<script src="js/render.js?v=3"></script>
+<script src="js/utm.js?v=4"></script>
+<script src="js/render.js?v=4"></script>
 </body>
 </html>

@@ -50,7 +50,7 @@
       img.addEventListener('error', function () {
         if (img.dataset.reserva) return;
         img.dataset.reserva = '1';
-        img.src = 'img/dr/_reserva.svg';
+        img.src = 'img/dr/reserva.svg';
       });
       alvo.appendChild(img);
     }
@@ -108,7 +108,7 @@
         if (foto.dataset.reserva) return;
         foto.dataset.reserva = '1';
         foto.classList.add('bloco__foto--reserva');
-        foto.src = 'img/dr/_reserva.svg';
+        foto.src = 'img/dr/reserva.svg';
       });
       card.appendChild(foto);
     }

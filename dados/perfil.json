@@ -1,0 +1,20 @@
+{
+  "_leia": "Topo e rodape da pagina. Para esconder o topo, troque mostrar para false.",
+
+  "perfil": {
+    "mostrar": true,
+    "nome": "Dr. Alden J. Quesada",
+    "credencial": "Especialista en Cardiología y Naturópata",
+    "foto": "img/dr/perfil.jpg"
+  },
+
+  "pie": {
+    "mostrar": true,
+    "texto": "Dr. Alden J. Quesada · Todos los derechos reservados",
+    "redes": [
+      { "nome": "Instagram", "link": "" },
+      { "nome": "YouTube",   "link": "" },
+      { "nome": "WhatsApp",  "link": "" }
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+/* ------------------------------------------------------------------
+   TOKENS
+   Unico lugar onde cor, fonte, espaco e medida sao definidos.
+   Mudar a identidade da pagina inteira = mudar valores daqui.
+   Nenhum outro arquivo CSS pode ter cor ou medida crua.
+------------------------------------------------------------------ */
+
+:root {
+
+  /* --- Fundo da pagina --- */
+  --fundo-topo:       #050b16;
+  --fundo-base:       #0a1b33;
+  --fundo-brilho:     #123058;
+
+  /* --- Texto --- */
+  --texto:            #f4f7fb;
+  --texto-suave:      #a9bdd6;
+  --texto-escuro:     #0b1626;
+
+  /* --- Marca --- */
+  --ouro:             #c9a227;
+  --ouro-claro:       #e9ce76;
+  --verde:            #2f9e6f;
+  --verde-claro:      #5fd2a0;
+
+  /* --- Superficies --- */
+  --card-borda:       rgba(233, 206, 118, .28);
+  --card-sombra:      0 18px 40px -18px rgba(0, 0, 0, .85);
+  --card-realce:      rgba(255, 255, 255, .06);
+
+  /* --- Tipografia --- */
+  --fonte-titulo:     'Manrope', system-ui, sans-serif;
+  --fonte-nome:       'Cormorant Garamond', Georgia, serif;
+
+  --t-sobretitulo:    .72rem;
+  --t-titulo:         1.22rem;
+  --t-sub:            .86rem;
+  --t-botao:          .78rem;
+  --t-nome:           2.3rem;
+  --t-credencial:     .84rem;
+
+  /* --- Espaco --- */
+  --esp-1:  .35rem;
+  --esp-2:  .7rem;
+  --esp-3:  1.1rem;
+  --esp-4:  1.6rem;
+  --esp-5:  2.4rem;
+  --esp-6:  3.4rem;
+
+  /* --- Medidas --- */
+  --coluna:          640px;   /* largura da vitrine, igual a referencia */
+  --gutter:          18px;    /* respiro lateral no celular */
+  --raio:            18px;
+  --card-altura:     168px;   /* altura util do bloco no desktop */
+  --card-altura-mob: 150px;
+
+  /* --- Movimento --- */
+  --transicao:       .22s cubic-bezier(.22, .61, .36, 1);
+}
+
+@media (max-width: 480px) {
+  :root {
+    --t-titulo:      1.05rem;
+    --t-sub:         .79rem;
+    --t-nome:        1.85rem;
+    --gutter:        14px;
+  }
+}
+
+/* Quem pediu menos movimento, recebe menos movimento. */
+@media (prefers-reduced-motion: reduce) {
+  :root { --transicao: 0s; }
+}

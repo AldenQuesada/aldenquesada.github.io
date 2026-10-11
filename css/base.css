@@ -1,0 +1,119 @@
+/* ------------------------------------------------------------------
+   BASE
+   Reset curto, fundo da pagina, cabecalho de perfil e rodape.
+   Blocos da vitrine ficam em blocos.css.
+------------------------------------------------------------------ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  font-family: var(--fonte-titulo);
+  color: var(--texto);
+  background: var(--fundo-topo);
+  background-image:
+    radial-gradient(120% 80% at 50% 0%, var(--fundo-brilho) 0%, transparent 58%),
+    linear-gradient(180deg, var(--fundo-topo) 0%, var(--fundo-base) 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+
+/* --- Coluna unica centralizada --- */
+
+.pagina {
+  width: 100%;
+  max-width: calc(var(--coluna) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding: var(--esp-5) var(--gutter) var(--esp-6);
+}
+
+
+/* --- Perfil (topo) --- */
+
+.perfil {
+  text-align: center;
+  margin-bottom: var(--esp-5);
+}
+
+.perfil__foto {
+  width: 104px;
+  height: 104px;
+  margin: 0 auto var(--esp-3);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  border: 2px solid var(--card-borda);
+  box-shadow: 0 0 0 6px rgba(201, 162, 39, .08);
+}
+
+.perfil__nome {
+  margin: 0;
+  font-family: var(--fonte-nome);
+  font-size: var(--t-nome);
+  font-weight: 600;
+  letter-spacing: .01em;
+  line-height: 1.1;
+}
+
+.perfil__credencial {
+  margin: var(--esp-2) auto 0;
+  text-wrap: balance;
+  font-size: var(--t-credencial);
+  font-weight: 500;
+  color: var(--texto-suave);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.perfil__credencial::before,
+.perfil__credencial::after {
+  content: "";
+  display: block;
+  width: 46px;
+  height: 1px;
+  margin: var(--esp-2) auto;
+  background: linear-gradient(90deg, transparent, var(--ouro), transparent);
+}
+
+.perfil__credencial::after { margin-bottom: 0; }
+
+
+/* --- Rodape --- */
+
+.pie {
+  margin-top: var(--esp-5);
+  text-align: center;
+  font-size: .72rem;
+  color: var(--texto-suave);
+}
+
+.pie__redes {
+  display: flex;
+  justify-content: center;
+  gap: var(--esp-3);
+  margin-bottom: var(--esp-3);
+}
+
+.pie__rede {
+  padding: var(--esp-1) var(--esp-2);
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+  border-bottom: 1px solid transparent;
+  transition: color var(--transicao), border-color var(--transicao);
+}
+
+.pie__rede:hover {
+  color: var(--ouro-claro);
+  border-bottom-color: var(--ouro);
+}

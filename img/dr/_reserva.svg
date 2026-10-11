@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400" role="presentation">
+  <!-- Silhueta de reserva. Sai do ar assim que a foto recortada entra. -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e9ce76" stop-opacity=".30"/>
+      <stop offset="1" stop-color="#e9ce76" stop-opacity=".06"/>
+    </linearGradient>
+  </defs>
+  <g fill="url(#g)">
+    <circle cx="150" cy="128" r="62"/>
+    <path d="M150 206c-62 0-112 42-112 94v100h224V300c0-52-50-94-112-94z"/>
+  </g>
+</svg>

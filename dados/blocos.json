@@ -1,0 +1,87 @@
+{
+  "_leia": [
+    "Cada objeto da lista e um card da pagina. A pagina inteira sai daqui.",
+    "ordem        = posicao na vitrine. Menor numero fica em cima.",
+    "ativo        = false tira o bloco do ar sem apagar nada.",
+    "link         = destino. Vazio: o bloco nao aparece na pagina publica.",
+    "foto         = PNG do Dr. Quesada recortado, sem fundo, alinhado pelo pe.",
+    "lado_da_foto = direita ou esquerda. Alternar deixa a vitrine viva.",
+    "cores        = a e o canto de cima, b e o canto de baixo do degrade.",
+    "botao_cor    = verde para o que e clinico. Vazio: dourado."
+  ],
+
+  "blocos": [
+
+    {
+      "id": "libros-digitales",
+      "ordem": 1,
+      "ativo": true,
+      "sobretitulo": "Libros digitales",
+      "titulo": "Quiero leer ahora mismo",
+      "subtitulo": "Descarga inmediata. Empiezas hoy, desde el celular.",
+      "botao": "Ver los libros",
+      "link": "",
+      "foto": "img/dr/libros.png",
+      "lado_da_foto": "direita",
+      "cores": { "a": "#13335c", "b": "#06172c" }
+    },
+
+    {
+      "id": "libros-pdf",
+      "ordem": 2,
+      "ativo": true,
+      "sobretitulo": "Edición en PDF",
+      "titulo": "Quiero el libro en PDF para imprimir",
+      "subtitulo": "La misma obra, lista para leer en papel y subrayar.",
+      "botao": "Quiero el PDF",
+      "link": "",
+      "foto": "img/dr/pdf.png",
+      "lado_da_foto": "esquerda",
+      "cores": { "a": "#2b2410", "b": "#120d04" }
+    },
+
+    {
+      "id": "consulta",
+      "ordem": 3,
+      "ativo": true,
+      "sobretitulo": "Consulta",
+      "titulo": "Quiero mi consulta con el Dr. Quesada",
+      "subtitulo": "Cardiología y naturopatía en una sola evaluación.",
+      "botao": "Agendar consulta",
+      "botao_cor": "verde",
+      "link": "",
+      "foto": "img/dr/consulta.png",
+      "lado_da_foto": "direita",
+      "cores": { "a": "#0d3a2c", "b": "#041710" }
+    },
+
+    {
+      "id": "mentoria",
+      "ordem": 4,
+      "ativo": true,
+      "sobretitulo": "Mentoría",
+      "titulo": "Quiero ser mentoreado por el Dr. Quesada",
+      "subtitulo": "Acompañamiento directo, para profesionales de la salud.",
+      "botao": "Postular ahora",
+      "link": "",
+      "foto": "img/dr/mentoria.png",
+      "lado_da_foto": "esquerda",
+      "cores": { "a": "#3a2a0c", "b": "#1a1204" }
+    },
+
+    {
+      "id": "conferencias",
+      "ordem": 5,
+      "ativo": true,
+      "sobretitulo": "Conferencias",
+      "titulo": "Quiero al Dr. Quesada en mi evento",
+      "subtitulo": "Charlas y congresos sobre corazón y salud natural.",
+      "botao": "Solicitar fecha",
+      "link": "",
+      "foto": "img/dr/conferencia.png",
+      "lado_da_foto": "direita",
+      "cores": { "a": "#1c2f52", "b": "#0a1424" }
+    }
+
+  ]
+}

@@ -7,37 +7,36 @@
 
 :root {
 
-  /* --- Fundo da pagina --- */
-  --fundo-topo:       #050b16;
-  --fundo-base:       #0a1b33;
-  --fundo-brilho:     #123058;
+  /* --- Fundo: preto de sala escura, como na Netflix --- */
+  --fundo:            #0a0a0c;
+  --fundo-eleva:      #141418;
 
   /* --- Texto --- */
-  --texto:            #f4f7fb;
-  --texto-suave:      #a9bdd6;
-  --texto-escuro:     #0b1626;
+  --texto:            #f5f5f7;
+  --texto-suave:      #a7a7b0;
+  --texto-escuro:     #111014;
 
-  /* --- Marca --- */
+  /* --- Marca: dourado, nao o vermelho da Netflix --- */
   --ouro:             #c9a227;
   --ouro-claro:       #e9ce76;
   --verde:            #2f9e6f;
   --verde-claro:      #5fd2a0;
 
   /* --- Superficies --- */
-  --card-borda:       rgba(233, 206, 118, .28);
-  --card-sombra:      0 18px 40px -18px rgba(0, 0, 0, .85);
-  --card-realce:      rgba(255, 255, 255, .06);
+  --poster-raio:      8px;
+  --poster-sombra:    0 10px 30px -10px rgba(0, 0, 0, .9);
+  --poster-ativo:     0 20px 44px -12px rgba(0, 0, 0, 1);
 
   /* --- Tipografia --- */
   --fonte-titulo:     'Manrope', system-ui, sans-serif;
   --fonte-nome:       'Cormorant Garamond', Georgia, serif;
 
-  --t-sobretitulo:    .72rem;
-  --t-titulo:         1.22rem;
-  --t-sub:            .86rem;
-  --t-botao:          .78rem;
-  --t-nome:           2.3rem;
-  --t-credencial:     .84rem;
+  --t-fileira:        1.02rem;
+  --t-poster:         .82rem;
+  --t-etiqueta:       .6rem;
+  --t-nome:           2.8rem;
+  --t-credencial:     .82rem;
+  --t-botao:          .8rem;
 
   /* --- Espaco --- */
   --esp-1:  .35rem;
@@ -48,22 +47,21 @@
   --esp-6:  3.4rem;
 
   /* --- Medidas --- */
-  --coluna:          640px;   /* largura da vitrine, igual a referencia */
-  --gutter:          18px;    /* respiro lateral no celular */
-  --raio:            18px;
-  --card-altura:     168px;   /* altura util do bloco no desktop */
-  --card-altura-mob: 150px;
+  --palco:            1180px;  /* largura maxima do conteudo */
+  --gutter:           18px;    /* respiro lateral, tambem recuo das fileiras */
+  --poster-larg:      172px;   /* a altura sai de 3/2 disso */
+  --poster-gap:       10px;
 
   /* --- Movimento --- */
-  --transicao:       .22s cubic-bezier(.22, .61, .36, 1);
+  --transicao:        .28s cubic-bezier(.22, .61, .36, 1);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   :root {
-    --t-titulo:      1.05rem;
-    --t-sub:         .79rem;
-    --t-nome:        1.85rem;
-    --gutter:        14px;
+    --t-nome:         2rem;
+    --t-fileira:      .94rem;
+    --poster-larg:    132px;
+    --gutter:         14px;
   }
 }
 

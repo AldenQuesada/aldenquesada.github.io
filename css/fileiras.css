@@ -1,0 +1,159 @@
+/* ------------------------------------------------------------------
+   FILEIRAS E POSTERES
+   Uma fileira = uma categoria. Um poster = um produto.
+   O poster e 2:3, como cartaz de cinema, e o titulo mora sobre ele.
+   Nada aqui conhece o nome de nenhum produto.
+------------------------------------------------------------------ */
+
+.palco {
+  max-width: calc(var(--palco) + var(--gutter) * 2);
+  margin-inline: auto;
+}
+
+
+/* --- A fileira ----------------------------------------------------- */
+
+.fileira { margin-bottom: var(--esp-5); }
+
+.fileira__titulo {
+  margin: 0 0 var(--esp-2);
+  padding-inline: var(--gutter);
+  font-size: var(--t-fileira);
+  font-weight: 800;
+  letter-spacing: .01em;
+}
+
+/* O trilho rola de lado. O card cortado na borda direita e o que
+   avisa, sem texto nenhum, que ha mais coisa para ver. */
+.fileira__trilho {
+  display: flex;
+  gap: var(--poster-gap);
+  padding: var(--esp-1) var(--gutter) var(--esp-4);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fileira__trilho::-webkit-scrollbar { display: none; }
+
+
+/* --- O poster ------------------------------------------------------ */
+
+.poster {
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--poster-larg);
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border-radius: var(--poster-raio);
+  background: var(--fundo-eleva);
+  box-shadow: var(--poster-sombra);
+  scroll-snap-align: start;
+  transition: transform var(--transicao), box-shadow var(--transicao);
+}
+
+.poster:hover,
+.poster:focus-visible {
+  transform: scale(1.06);
+  box-shadow: var(--poster-ativo);
+  z-index: 2;
+}
+
+.poster:focus-visible {
+  outline: 2px solid var(--ouro-claro);
+  outline-offset: 2px;
+}
+
+.poster__foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform var(--transicao);
+}
+
+.poster:hover .poster__foto { transform: scale(1.04); }
+
+/* A base escurece para o titulo caber sobre qualquer foto. */
+.poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.34) 0%, transparent 28%, transparent 44%, rgba(0,0,0,.92) 100%);
+  pointer-events: none;
+}
+
+.poster__texto {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  padding: var(--esp-2);
+}
+
+/* Titulo e subtitulo sao cortados por numero de linhas. Sem isso, um
+   titulo longo sobe pelo poster inteiro e tapa o rosto. */
+.poster__titulo {
+  margin: 0;
+  font-size: var(--t-poster);
+  font-weight: 800;
+  line-height: 1.22;
+  text-wrap: balance;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .9);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.poster__sub {
+  margin: 2px 0 0;
+  font-size: .68rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--texto-suave);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Etiqueta de canto: idioma, formato, "nuevo". */
+.poster__etiqueta {
+  position: absolute;
+  top: var(--esp-1);
+  left: var(--esp-1);
+  z-index: 1;
+  padding: .2rem .42rem;
+  font-size: var(--t-etiqueta);
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--texto-escuro);
+  background: var(--ouro-claro);
+  border-radius: 4px;
+}
+
+.poster[data-etiqueta-cor="verde"] .poster__etiqueta {
+  color: #06241a;
+  background: var(--verde-claro);
+}
+
+
+/* --- Fileira de servicos: poster mais largo, 3:4 ------------------- */
+
+.fileira[data-formato="largo"] .poster {
+  width: calc(var(--poster-larg) * 1.5);
+  aspect-ratio: 3 / 4;
+}
+
+
+/* --- Modo borrador ------------------------------------------------- */
+
+.poster--pendente { opacity: .68; }
+
+.poster--pendente .poster__etiqueta {
+  color: #2b0b0b;
+  background: #ffb020;
+}

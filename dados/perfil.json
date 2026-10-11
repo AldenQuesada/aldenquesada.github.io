@@ -1,20 +1,25 @@
 {
-  "_leia": "Topo e rodape da pagina. Para esconder o topo, troque mostrar para false.",
+  "_leia": "Capa de abertura e rodape. Os produtos ficam em fileiras.json.",
 
-  "perfil": {
+  "billboard": {
     "mostrar": true,
     "nome": "Dr. Alden J. Quesada",
     "credencial": "Especialista en Cardiología y Naturópata",
-    "foto": "img/dr/perfil.jpg"
+    "frase": "Libros, consultas, mentorías y conferencias sobre diabetes, corazón y salud natural.",
+    "foto": "img/poster/autoridade.jpg",
+    "acoes": [
+      { "id": "cta-libros",  "texto": "Ver los libros", "link": "" },
+      { "id": "cta-consulta", "texto": "Agendar consulta", "link": "" }
+    ]
   },
 
   "pie": {
     "mostrar": true,
     "texto": "Dr. Alden J. Quesada · Todos los derechos reservados",
     "redes": [
-      { "nome": "Instagram", "link": "" },
-      { "nome": "YouTube",   "link": "" },
-      { "nome": "WhatsApp",  "link": "" }
+      { "id": "instagram", "nome": "Instagram", "link": "" },
+      { "id": "youtube",   "nome": "YouTube",   "link": "" },
+      { "id": "whatsapp",  "nome": "WhatsApp",  "link": "" }
     ]
   }
 }

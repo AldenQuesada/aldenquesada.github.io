@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------------
    RENDER
-   Le dados/perfil.json e dados/blocos.json e monta a pagina.
+   Le dados/perfil.json e dados/fileiras.json e monta a pagina.
    Nenhuma copy, nenhum link e nenhuma cor moram aqui.
    Para mudar a pagina, mexe no JSON. Este arquivo fica quieto.
 ------------------------------------------------------------------ */
@@ -10,9 +10,9 @@
   const rascunho = new URLSearchParams(location.search).get('rascunho') === '1';
 
   const alvos = {
-    perfil:  document.getElementById('perfil'),
-    vitrine: document.getElementById('vitrine'),
-    pie:     document.getElementById('pie')
+    billboard: document.getElementById('billboard'),
+    palco:     document.getElementById('palco'),
+    pie:       document.getElementById('pie')
   };
 
   /* --- utilitarios --- */
@@ -30,119 +30,153 @@
     return r.json();
   }
 
-  function temLink(bloco) {
-    return typeof bloco.link === 'string' && /^https?:/i.test(bloco.link.trim());
+  function temLink(item) {
+    return typeof item.link === 'string' && /^https?:/i.test(item.link.trim());
+  }
+
+  /* Prepara um <a> de saida: UTM propagada, nova aba, gancho de medicao. */
+  function ligar(a, item) {
+    a.href = UTM.aplicar(item.link.trim());
+    if (item.nova_aba !== false) {
+      a.target = '_blank';
+      a.rel = 'noopener';
+    }
+    a.addEventListener('click', function () {
+      document.dispatchEvent(new CustomEvent('bloco:clique', {
+        detail: { id: item.id, titulo: item.titulo, link: item.link }
+      }));
+    });
+  }
+
+  function reserva(img) {
+    img.addEventListener('error', function () {
+      if (img.dataset.reserva) return;
+      img.dataset.reserva = '1';
+      img.src = 'img/dr/reserva.svg';
+    });
   }
 
 
-  /* --- perfil --- */
+  /* --- billboard --- */
 
-  function montarPerfil(perfil) {
-    if (!perfil || perfil.mostrar === false) return;
-    const alvo = alvos.perfil;
+  function montarBillboard(b) {
+    if (!b || b.mostrar === false) return;
+    const alvo = alvos.billboard;
 
-    if (perfil.foto) {
-      const img = el('img', 'perfil__foto');
-      img.src = perfil.foto;
-      img.alt = perfil.nome || '';
-      img.width = 104;
-      img.height = 104;
-      img.addEventListener('error', function () {
-        if (img.dataset.reserva) return;
-        img.dataset.reserva = '1';
-        img.src = 'img/dr/reserva.svg';
-      });
+    if (b.foto) {
+      const img = el('img', 'billboard__foto');
+      img.src = b.foto;
+      img.alt = b.nome || '';
+      img.fetchPriority = 'high';
+      reserva(img);
       alvo.appendChild(img);
     }
 
-    if (perfil.nome) alvo.appendChild(el('h1', 'perfil__nome', perfil.nome));
-    if (perfil.credencial) alvo.appendChild(el('p', 'perfil__credencial', perfil.credencial));
+    const caixa = el('div', 'billboard__texto');
+    if (b.nome)       caixa.appendChild(el('h1', 'billboard__nome', b.nome));
+    if (b.credencial) caixa.appendChild(el('p', 'billboard__credencial', b.credencial));
+    if (b.frase)      caixa.appendChild(el('p', 'billboard__frase', b.frase));
 
+    const acoes = (b.acoes || []).filter(a => rascunho || temLink(a));
+    if (acoes.length) {
+      const linha = el('div', 'billboard__acoes');
+      acoes.forEach((acao, i) => {
+        const a = el('a', 'botao ' + (i === 0 ? 'botao--ouro' : 'botao--vidro'), acao.texto);
+        if (temLink(acao)) {
+          ligar(a, acao);
+        } else {
+          a.href = '#';
+          a.setAttribute('aria-disabled', 'true');
+          a.addEventListener('click', e => e.preventDefault());
+        }
+        linha.appendChild(a);
+      });
+      caixa.appendChild(linha);
+    }
+
+    alvo.appendChild(caixa);
     alvo.hidden = false;
-    if (perfil.nome) document.title = perfil.nome;
+    if (b.nome) document.title = b.nome;
   }
 
 
-  /* --- um bloco --- */
+  /* --- um poster --- */
 
-  function montarBloco(bloco) {
-    const pendente = !temLink(bloco);
+  function montarPoster(card) {
+    const pendente = !temLink(card);
 
-    const card = el('a', 'bloco');
-    card.dataset.lado  = bloco.lado_da_foto || 'direita';
-    card.dataset.id    = bloco.id || '';
-    if (bloco.botao_cor) card.dataset.botao = bloco.botao_cor;
-
-    const cores = bloco.cores || {};
-    card.style.setProperty('--cor-a', cores.a || '#102a4c');
-    card.style.setProperty('--cor-b', cores.b || '#071428');
+    const a = el('a', 'poster');
+    a.dataset.id = card.id || '';
+    if (card.etiqueta_cor) a.dataset.etiquetaCor = card.etiqueta_cor;
 
     if (pendente) {
-      card.classList.add('bloco--pendente');
-      card.href = '#';
-      card.setAttribute('aria-disabled', 'true');
-      card.addEventListener('click', e => e.preventDefault());
+      a.classList.add('poster--pendente');
+      a.href = '#';
+      a.setAttribute('aria-disabled', 'true');
+      a.addEventListener('click', e => e.preventDefault());
     } else {
-      card.href = UTM.aplicar(bloco.link.trim());
-      if (bloco.nova_aba !== false) {
-        card.target = '_blank';
-        card.rel = 'noopener';
-      }
-      // Gancho para a medicao da fase 2. Ninguem escuta ainda.
-      card.addEventListener('click', function () {
-        document.dispatchEvent(new CustomEvent('bloco:clique', {
-          detail: { id: bloco.id, titulo: bloco.titulo, link: bloco.link }
-        }));
-      });
+      ligar(a, card);
     }
 
-    if (bloco.foto) {
-      const foto = el('img', 'bloco__foto');
-      foto.src = bloco.foto;
-      foto.alt = '';
-      foto.setAttribute('aria-hidden', 'true');
-      foto.loading = 'lazy';
-      foto.decoding = 'async';
-      // Enquanto a foto de verdade nao chega, uma silhueta segura o layout.
-      foto.addEventListener('error', function () {
-        if (foto.dataset.reserva) return;
-        foto.dataset.reserva = '1';
-        foto.classList.add('bloco__foto--reserva');
-        foto.src = 'img/dr/reserva.svg';
-      });
-      card.appendChild(foto);
+    if (card.foto) {
+      const img = el('img', 'poster__foto');
+      img.src = card.foto;
+      img.alt = card.titulo || '';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      reserva(img);
+      a.appendChild(img);
     }
 
-    const texto = el('div', 'bloco__texto');
-    if (bloco.sobretitulo) texto.appendChild(el('p', 'bloco__sobretitulo', bloco.sobretitulo));
-    if (bloco.titulo)      texto.appendChild(el('h2', 'bloco__titulo', bloco.titulo));
-    if (bloco.subtitulo)   texto.appendChild(el('p', 'bloco__sub', bloco.subtitulo));
-    if (bloco.botao)       texto.appendChild(el('span', 'bloco__botao', bloco.botao));
-    card.appendChild(texto);
+    const etiqueta = pendente && rascunho ? 'PENDIENTE' : card.etiqueta;
+    if (etiqueta) a.appendChild(el('span', 'poster__etiqueta', etiqueta));
 
-    return card;
+    const texto = el('div', 'poster__texto');
+    if (card.titulo)    texto.appendChild(el('h3', 'poster__titulo', card.titulo));
+    if (card.subtitulo) texto.appendChild(el('p', 'poster__sub', card.subtitulo));
+    a.appendChild(texto);
+
+    return a;
   }
 
 
-  /* --- vitrine --- */
+  /* --- fileiras --- */
 
-  function montarVitrine(blocos) {
-    const lista = (blocos || [])
-      .filter(b => b.ativo !== false)
-      .filter(b => rascunho || temLink(b))   // sem link, so aparece no rascunho
-      .sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
+  function montarFileiras(fileiras) {
+    let faltam = 0;
+
+    (fileiras || []).forEach(fileira => {
+      if (fileira.ativo === false) return;
+
+      const cards = (fileira.cards || [])
+        .filter(c => c.ativo !== false)
+        .sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
+
+      faltam += cards.filter(c => !temLink(c)).length;
+
+      const visiveis = rascunho ? cards : cards.filter(temLink);
+      if (!visiveis.length) return;   // fileira sem nada publicavel nao aparece
+
+      const sec = el('section', 'fileira');
+      sec.setAttribute('aria-label', fileira.titulo || '');
+      if (fileira.formato) sec.dataset.formato = fileira.formato;
+
+      if (fileira.titulo) sec.appendChild(el('h2', 'fileira__titulo', fileira.titulo));
+
+      const trilho = el('div', 'fileira__trilho');
+      visiveis.forEach(c => trilho.appendChild(montarPoster(c)));
+      sec.appendChild(trilho);
+
+      alvos.palco.appendChild(sec);
+    });
 
     if (rascunho) {
-      const faltam = lista.filter(b => !temLink(b)).length;
-      alvos.vitrine.appendChild(el(
-        'p', 'rascunho-aviso',
+      const aviso = el('p', 'rascunho-aviso',
         faltam
-          ? 'MODO BORRADOR · ' + faltam + ' bloque(s) sin enlace. No aparecen en la página pública.'
-          : 'MODO BORRADOR · todos los bloques tienen enlace.'
-      ));
+          ? 'MODO BORRADOR · ' + faltam + ' tarjeta(s) sin enlace. No aparecen en la página pública.'
+          : 'MODO BORRADOR · todas las tarjetas tienen enlace.');
+      alvos.palco.prepend(aviso);
     }
-
-    lista.forEach(b => alvos.vitrine.appendChild(montarBloco(b)));
   }
 
 
@@ -152,17 +186,15 @@
     if (!pie || pie.mostrar === false) return;
     const alvo = alvos.pie;
 
-    if (Array.isArray(pie.redes) && pie.redes.length) {
+    const redes = (pie.redes || []).filter(r => temLink(r));
+    if (redes.length) {
       const linha = el('div', 'pie__redes');
-      pie.redes.forEach(rede => {
-        if (!rede.link) return;
+      redes.forEach(rede => {
         const a = el('a', 'pie__rede', rede.nome);
-        a.href = UTM.aplicar(rede.link);
-        a.target = '_blank';
-        a.rel = 'noopener';
+        ligar(a, rede);
         linha.appendChild(a);
       });
-      if (linha.childElementCount) alvo.appendChild(linha);
+      alvo.appendChild(linha);
     }
 
     if (pie.texto) alvo.appendChild(el('p', null, pie.texto));
@@ -172,15 +204,15 @@
 
   /* --- inicio --- */
 
-  Promise.all([carregar('dados/perfil.json'), carregar('dados/blocos.json')])
-    .then(([perfil, blocos]) => {
-      montarPerfil(perfil.perfil || perfil);
-      montarVitrine(blocos.blocos || blocos);
+  Promise.all([carregar('dados/perfil.json'), carregar('dados/fileiras.json')])
+    .then(([perfil, conteudo]) => {
+      montarBillboard(perfil.billboard);
+      montarFileiras(conteudo.fileiras);
       montarPie(perfil.pie);
     })
     .catch(err => {
       console.error(err);
-      alvos.vitrine.appendChild(el('p', 'rascunho-aviso', 'Error al cargar el contenido: ' + err.message));
+      alvos.palco.appendChild(el('p', 'rascunho-aviso', 'Error al cargar el contenido: ' + err.message));
     });
 
 })();

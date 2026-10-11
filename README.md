@@ -9,35 +9,35 @@ Nenhuma copy, nenhum link e nenhuma cor vivem no HTML. Tudo sai de dois arquivos
 
 | Arquivo | O que controla |
 |---|---|
-| `dados/perfil.json` | nome, credencial, foto do topo, redes e rodapé |
-| `dados/blocos.json` | os cards da vitrine: ordem, texto, botão, link, foto, cor |
+| `dados/perfil.json` | billboard do topo (nome, credencial, frase, botões) e rodapé |
+| `dados/fileiras.json` | as fileiras e seus cards: ordem, título, etiqueta, link, pôster |
 
 Trocar um título, ligar e desligar um produto, reordenar a vitrine: tudo é edição de JSON.
 Não é preciso abrir CSS nem JavaScript.
 
-### Campos de um bloco
+### Campos de um card
 
 ```json
 {
   "id": "consulta",
-  "ordem": 3,
+  "ordem": 1,
   "ativo": true,
-  "sobretitulo": "Consulta",
-  "titulo": "Quiero mi consulta con el Dr. Quesada",
-  "subtitulo": "Cardiología y naturopatía en una sola evaluación.",
-  "botao": "Agendar consulta",
-  "botao_cor": "verde",
-  "link": "https://...",
-  "foto": "img/dr/consulta.png",
-  "lado_da_foto": "direita",
-  "cores": { "a": "#0d3a2c", "b": "#041710" }
+  "titulo": "Consulta con el Dr. Quesada",
+  "subtitulo": "Cardiología y naturopatía en una sola evaluación",
+  "etiqueta": "Agenda",
+  "etiqueta_cor": "verde",
+  "foto": "img/poster/consulta.jpg",
+  "link": "https://..."
 }
 ```
 
-- `ordem` menor fica em cima.
-- `ativo: false` tira o bloco do ar sem apagar nada.
-- `link` vazio: o bloco **não aparece** na página pública.
-- `botao_cor: "verde"` para o que é clínico. Sem o campo, o botão é dourado.
+- `ordem` menor fica à esquerda dentro da fileira.
+- `ativo: false` tira do ar sem apagar nada. Vale para card e para fileira inteira.
+- `link` vazio: o card **não aparece** na página pública.
+- `etiqueta` é o selo do canto: idioma, formato, "nuevo".
+- `etiqueta_cor: "verde"` para o que é clínico. Sem o campo, é dourado.
+- Uma fileira com `"formato": "largo"` usa cards 3:4 em vez de 2:3.
+- O título é cortado em 3 linhas e o subtítulo em 2. Títulos curtos rendem mais.
 
 ## Modo borrador
 
@@ -45,19 +45,22 @@ Abra a página com `?rascunho=1` no fim da URL. Os blocos sem link aparecem
 marcados com o selo PENDIENTE e um aviso dizendo quantos faltam.
 Sem esse parâmetro, a página pública segue limpa.
 
-## As fotos
+## Os pôsteres
 
-Cada card leva uma foto do Dr. Quesada recortada. É a assinatura visual da página.
+Cada card é um pôster vertical, como cartaz de cinema. O formato Netflix
+dispensa recorte de fundo: a foto entra inteira, retangular.
 
-- Formato: **PNG com fundo transparente** (ou WebP com alfa).
-- Enquadramento: do joelho ou da cintura para cima, corpo inteiro no quadro.
-- Altura recomendada: 900px ou mais. A página reduz, não amplia.
-- Alinhamento: a figura precisa encostar na **borda de baixo** do arquivo, sem
-  margem. O card corta por baixo, então pé ou barra do jaleco tocando o limite.
-- Nomes esperados em `img/dr/`: `libros.png`, `pdf.png`, `consulta.png`,
-  `mentoria.png`, `conferencia.png`, e `perfil.jpg` para o topo.
+- Formato: **JPG 800x1200** (proporção 2:3), em `img/poster/`.
+- O que precisa aparecer: o rosto na metade de cima e, nos cards de livro,
+  a capa do livro grande e legível na metade de baixo.
+- A base do pôster escurece por CSS, então deixe a parte inferior sem
+  nada importante: é onde entram o título e o subtítulo.
+- O billboard do topo usa um pôster também, com enquadramento mais aberto.
 
-Enquanto uma foto não existe, entra uma silhueta de reserva e o layout não quebra.
+O script que gerou os pôsteres atuais a partir das fotos de celular está em
+`ferramentas/posters.py`. Rodar: `python3 ferramentas/posters.py <pasta-de-saida>`,
+ajustando o PLANO (foco vertical, horizontal e zoom de cada corte).
+
 
 ## Rastreamento
 

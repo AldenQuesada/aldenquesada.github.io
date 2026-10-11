@@ -10,7 +10,7 @@ A página precisa de três tipos de imagem:
 |---|---|---|---|
 | Cenário | `img/fondo/cenario.jpg` e `cenario-ancho.jpg` | 3:4 e 16:10 | fundo fixo de tudo |
 | Avatar | `img/dr/avatar.jpg` | 1:1 | círculo do topo |
-| Busto | `img/card/<id>.jpg` | 3:4 | lado de cada card |
+| Imagem do card | `img/card/<id>.jpg` | 1,15:1 | metade de cada card |
 
 Os nomes importam: são eles que estão escritos nos JSON. Gerou a imagem nova,
 salva com o mesmo nome, troca o arquivo e pronto, sem mexer em código.
@@ -63,26 +63,27 @@ Nome do arquivo: `avatar.jpg`.
 
 ---
 
-## 3. Bustos dos cards
+## 3. Imagem de cada card
 
 Regra comum. Cole as quatro linhas no fim de qualquer prompt desta seção:
 
 ```
-Formato vertical 3:4, 840x1120 pixels.
-Enquadramento fechado: da cintura ou do peito para cima, rosto na metade de cima do quadro.
-Fundo escuro e desfocado, sem detalhe que chame atenção: no card a imagem aparece com 126 pixels de altura e se dissolve na borda.
+Formato quase quadrado, 1120x974 pixels (proporção 1,15:1).
+Enquadramento de meio-corpo: da cintura para cima, figura centralizada e com folga nas bordas.
+A imagem ocupa metade do card e é cortada reta na emenda com o texto: não deixe nada importante colado nas bordas.
 Mantenha o rosto, a barba, os óculos e o tom de pele exatamente como na foto original, sem retoque de feição.
 ```
 
-**Por que fechado:** no card a foto tem 126 pixels de altura. Plano aberto não é
-lido, vira borrão. Precisa ser rosto e ombros.
+**Por que quase quadrada:** a imagem ocupa 47% da largura do card por toda a
+altura. Foto vertical demais fica cortada nas laterais; horizontal demais perde
+a cabeça.
 
 ### `consulta.jpg`
 
 ```
 Use a foto do Dr. Quesada no consultório.
-Ele de jaleco branco sobre roupa escura, estetoscópio no pescoço, expressão acolhedora, olhando para a câmera.
-Fundo de consultório moderno desfocado, em tons de verde profundo e madeira.
+Ele de jaleco branco sobre roupa escura, estetoscópio no pescoço, expressão acolhedora, olhando para a câmera, sentado à mesa do consultório.
+Ambiente de consultório moderno levemente desfocado, em tons de verde profundo e madeira.
 ```
 
 ### `mentoria.jpg`
@@ -160,22 +161,20 @@ Fundo desfocado em verde escuro.
 
 ---
 
-## Se um dia quiser o card inteiro como arte
+## Uma ideia que a gabifarias usa e vale copiar
 
-A referência não usa foto mais texto HTML: cada card de lá é uma arte única, um
-WebP de 626x180 com a foto, a tipografia e o mockup do livro já embutidos. Dá
-mais controle visual e custa a facilidade de editar: mudar uma palavra passa a
-exigir abrir editor de imagem.
+Um dos cards dela não traz foto dela: traz uma **pintura clássica** (uma cena de
+cirurgia antiga) como ilustração. Quebra a repetição de ver a mesma pessoa em
+todo card, e dá ar de autoridade.
 
-Se quiser testar em um card só, o prompt é este, e me avise que eu adapto o CSS
-para o card virar imagem pura:
+Para os cards de livro isso funcionaria bem: no lugar da sua foto, uma
+ilustração do tema. O prompt seria este, e o resto do card não muda:
 
 ```
-Monte um banner horizontal 626x180 pixels, cantos arredondados, borda clara fina de 1 pixel.
-À direita, o Dr. Quesada do peito para cima, recortado, sangrando na borda.
-À esquerda, o título "<título do card>" em tipografia serif elegante, cor branca, e abaixo uma linha menor com "<subtítulo>".
-Fundo em degradê escuro de <cor> para preto, com um brilho suave atrás da figura.
-Nada de logotipo, marca d'água ou texto além do indicado.
+Pintura a óleo clássica, estilo século XIX, representando <tema: um médico examinando um paciente / alimentos frescos sobre uma mesa de madeira / um coração anatômico em estudo>.
+Tons escuros e quentes, luz dramática lateral, pinceladas visíveis.
+Formato quase quadrado, 1120x974 pixels.
+Nada de texto, assinatura ou marca d'água.
 ```
 
 ---

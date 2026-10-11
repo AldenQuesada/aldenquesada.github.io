@@ -8,38 +8,46 @@
 :root {
 
   /* --- Fundo: marrom tao escuro que le como preto, com brasa por tras --- */
-  --fundo:            #120e0b;
+  --fundo:            #0e0b08;
   --fundo-brasa:      #2a1a10;
 
   /* --- Texto --- */
-  --texto:            #f3efe9;
-  --texto-suave:      #a79c8e;
+  --texto:            #f0ded0;
+  --texto-suave:      #a3907f;
   --texto-escuro:     #140f0a;
 
   /* --- Marca --- */
   --ouro:             #c9a227;
   --ouro-claro:       #e9ce76;
   --ouro-fraco:       rgba(233, 206, 118, .22);
-  --verde:            #2f9e6f;
   --verde-claro:      #5fd2a0;
 
+  /* Acento de cada card. O JSON pode trocar por card. */
+  --acento:           var(--ouro-claro);
+
   /* --- Card --- */
-  --card-raio:        10px;
-  --card-borda:       rgba(243, 239, 233, .38);
-  --card-sombra:      0 10px 26px -12px rgba(0, 0, 0, .9);
-  --card-sombra-at:   0 16px 34px -12px rgba(0, 0, 0, 1);
+  --card-raio:        12px;
+  --card-sombra:      0 10px 26px -14px rgba(0, 0, 0, .9);
+  --card-sombra-at:   0 18px 36px -14px rgba(0, 0, 0, 1);
 
   /* --- Tipografia --- */
-  --fonte-texto:      'Manrope', system-ui, sans-serif;
+  --fonte-texto:      'Inter', system-ui, sans-serif;
+  --fonte-titulo:     'Oswald', 'Arial Narrow', sans-serif;
   --fonte-nome:       Georgia, 'Times New Roman', Times, serif;
   --fonte-assinatura: 'Mrs Saint Delafield', cursive;
 
   --t-nome:           1.75rem;
   --t-credencial:     .8rem;
   --t-assinatura:     5.4rem;
-  --t-card-sobre:     .62rem;
-  --t-card-titulo:    1.12rem;
-  --t-card-sub:       .72rem;
+
+  /* Medidas do card, lidas da referencia */
+  --t-card-titulo:    1.375rem;   /* 22px */
+  --lh-card-titulo:   1;
+  --ls-card-titulo:   .04em;
+  --t-card-sobre:     .4375rem;   /* 7px */
+  --ls-card-sobre:    .18em;
+  --t-card-desc:      .75rem;     /* 12px */
+  --lh-card-desc:     1.55;
 
   /* --- Espaco --- */
   --esp-1:  .35rem;
@@ -50,11 +58,13 @@
   --esp-6:  3.4rem;
 
   /* --- Medidas --- */
-  --coluna:           500px;   /* largura da pilha de cards */
+  --coluna:           460px;
   --gutter:           20px;
-  --card-alt:         126px;   /* mesma altura da referencia */
-  --card-gap:         14px;
-  --avatar:           92px;
+  --card-razao:       2.44;   /* 440 / 180, como na referencia */
+  --card-razao-mob:   1.95;   /* no celular o card sobe: a descricao precisa caber */
+  --card-img:         47%;
+  --card-gap:         12px;
+  --avatar:           96px;
 
   /* --- Movimento --- */
   --transicao:        .24s cubic-bezier(.22, .61, .36, 1);
@@ -64,10 +74,11 @@
   :root {
     --t-nome:         1.5rem;
     --t-assinatura:   4.2rem;
-    --t-card-titulo:  1rem;
-    --card-alt:       112px;
-    --avatar:         82px;
+    --t-card-titulo:  1.2rem;
+    --t-card-desc:    .72rem;
+    --avatar:         86px;
     --gutter:         16px;
+    --card-razao:     var(--card-razao-mob);
   }
 }
 

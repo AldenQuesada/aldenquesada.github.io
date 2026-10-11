@@ -57,22 +57,22 @@ salvar(recorte(av, 1.0, 0.31, 0.575, 0.46), os.path.join(DEST, "dr/avatar.jpg"),
 
 
 # ---------------------------------------------------------------- bustos
-# Faixa vertical 3:4 de cada card. Fechado no busto, porque no card ela
-# aparece com 126px de altura: plano aberto nao le.
+# A imagem do card ocupa 47% da largura por toda a altura: fica quase
+# quadrada (207x180 = 1.15). Enquadramento de meio-corpo.
 print("bustos dos cards:")
 BUSTOS = [
     #  arquivo,  nome,            fy,   fx,  zoom
-    ("10.jpg", "diabetes-es",   0.46, 0.52, 0.60),
-    ("6.jpg",  "fin-diabetes",  0.44, 0.48, 0.60),
-    ("7.jpg",  "diabetes-en",   0.47, 0.50, 0.60),
-    ("8.jpg",  "diabetes-pt",   0.43, 0.52, 0.60),
-    ("5.jpg",  "detox",         0.44, 0.50, 0.60),
-    ("2.jpg",  "autoridade90",  0.34, 0.62, 0.56),
-    ("9.jpg",  "consulta",      0.42, 0.50, 0.58),
-    ("3.jpg",  "mentoria",      0.44, 0.50, 0.60),
-    ("4.jpg",  "conferencia",   0.42, 0.52, 0.58),
-    ("1.jpg",  "contacto",      0.40, 0.55, 0.66),
+    ("10.jpg", "diabetes-es",   0.50, 0.52, 0.86),
+    ("6.jpg",  "fin-diabetes",  0.47, 0.48, 0.86),
+    ("7.jpg",  "diabetes-en",   0.52, 0.50, 0.86),
+    ("8.jpg",  "diabetes-pt",   0.46, 0.52, 0.86),
+    ("5.jpg",  "detox",         0.47, 0.50, 0.86),
+    ("2.jpg",  "autoridade90",  0.40, 0.56, 0.86),
+    ("9.jpg",  "consulta",      0.45, 0.50, 0.84),
+    ("3.jpg",  "mentoria",      0.47, 0.50, 0.86),
+    ("4.jpg",  "conferencia",   0.45, 0.52, 0.84),
+    ("1.jpg",  "contacto",      0.44, 0.56, 0.92),
 ]
 for arquivo, nome, fy, fx, zoom in BUSTOS:
     im = Image.open(os.path.join(ORIG, arquivo)).convert("RGB")
-    salvar(recorte(im, 0.75, fy, fx, zoom), os.path.join(DEST, f"card/{nome}.jpg"), 420, 560)
+    salvar(recorte(im, 1.15, fy, fx, zoom), os.path.join(DEST, f"card/{nome}.jpg"), 560, 487)

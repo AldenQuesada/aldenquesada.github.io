@@ -19,16 +19,16 @@ Não é preciso abrir CSS nem JavaScript.
 
 ```json
 {
-  "id": "consulta",
-  "ordem": 1,
+  "id": "diabetes-es",
+  "ordem": 4,
   "ativo": true,
-  "sobretitulo": "Consulta",
-  "titulo": "Agenda tu consulta",
-  "subtitulo": "Cardiología y naturopatía en una sola evaluación",
-  "fonte": "serif",
+  "titulo": "Diabetes Mellitus",
+  "sobretitulo": "Libro · Español",
+  "descricao": "El método para controlar la diabetes mellitus [[de forma rápida y segura.]]",
   "lado_da_foto": "direita",
-  "foto": "img/card/consulta.jpg",
-  "cores": { "a": "#1d1a14", "b": "#0b0a08" },
+  "foto": "img/card/diabetes-es.jpg",
+  "cor": "#3a120c",
+  "acento": "#e07a42",
   "link": "https://..."
 }
 ```
@@ -36,9 +36,17 @@ Não é preciso abrir CSS nem JavaScript.
 - `ordem` menor fica em cima. A ordem é comercial: o que vende caro no topo.
 - `ativo: false` tira o card do ar sem apagar nada.
 - `link` vazio: o card **não aparece** na página pública.
+- `titulo` sai em caixa alta. **Não escreva o ponto final**: ele entra sozinho,
+  na cor do acento. É a assinatura do formato.
+- `descricao` aceita `[[colchetes duplos]]` para realçar um trecho na cor do
+  acento, com fundo. Pode realçar mais de um trecho.
 - `lado_da_foto` alterna entre `esquerda` e `direita` para a pilha não ficar monótona.
-- `fonte: "serif"` põe o título em Georgia, com ar de autoridade.
-- O título é cortado em 3 linhas e o subtítulo em 2.
+- `cor` é o fundo sólido do card. `acento` sem valor usa o dourado.
+
+**Tamanho da descrição:** o card corta em 4 linhas. Título de uma linha aguenta
+uns 95 caracteres de descrição; título de duas linhas, uns 80. Passar disso
+corta a frase no meio.
+
 
 ### O selo de verificado
 

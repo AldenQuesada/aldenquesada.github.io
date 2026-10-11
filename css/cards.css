@@ -1,8 +1,9 @@
 /* ------------------------------------------------------------------
    CARDS
-   Um card = um produto. Faixa horizontal baixa, foto de um lado,
-   texto do outro, borda clara fina. Nada aqui conhece nenhum produto:
-   cor, foto e lado vem do JSON.
+   Formato "ticket": metade imagem, metade texto, lado alternado.
+   O que o formato trouxe de novo e espaco para descricao de verdade:
+   o card nao e mais so um botao com titulo.
+   Nada aqui conhece nenhum produto. Cor, foto e lado vem do JSON.
 ------------------------------------------------------------------ */
 
 .vitrine {
@@ -15,145 +16,169 @@
 /* --- O card -------------------------------------------------------- */
 
 .card {
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: var(--card-alt);
-  overflow: hidden;
-  isolation: isolate;
-  border-radius: var(--card-raio);
-  border: 1px solid var(--card-borda);
-  box-shadow: var(--card-sombra);
-  background-image: linear-gradient(110deg, var(--cor-a) 0%, var(--cor-b) 100%);
-  transition: transform var(--transicao), box-shadow var(--transicao), border-color var(--transicao);
+  display: block;
+  transition: transform var(--transicao);
 }
 
-.card:hover {
-  transform: translateY(-2px);
-  border-color: var(--ouro-claro);
-  box-shadow: var(--card-sombra-at);
-}
-
+.card:hover  { transform: translateY(-2px); }
 .card:active { transform: translateY(0); }
 
 .card:focus-visible {
-  outline: 2px solid var(--ouro-claro);
-  outline-offset: 3px;
+  outline: 2px solid var(--acento);
+  outline-offset: 4px;
+  border-radius: var(--card-raio);
 }
 
+/* O miolo e quem tem cor, raio e recorte. O <a> por fora so move. */
+.card__inner {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  aspect-ratio: var(--card-razao);
+  overflow: hidden;
+  border-radius: var(--card-raio);
+  background: var(--cor-card);
+  box-shadow: var(--card-sombra);
+  transition: box-shadow var(--transicao);
+}
 
-/* --- Foto: a assinatura visual, presente em todo card -------------- */
+.card:hover .card__inner { box-shadow: var(--card-sombra-at); }
 
-.card__foto {
-  position: absolute;
-  inset: 0 auto 0 0;
-  z-index: -1;
-  width: 40%;
+/* Imagem a esquerda por padrao; o JSON inverte com data-lado. */
+.card[data-lado="direita"] .card__inner { flex-direction: row-reverse; }
+
+
+/* --- Metade da imagem ---------------------------------------------- */
+
+.card__img {
+  position: relative;
+  flex: 0 0 var(--card-img);
+  overflow: hidden;
+}
+
+.card__img img {
+  width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 18%;
-  /* A foto se dissolve no card em vez de cortar reto. */
-  -webkit-mask-image: linear-gradient(90deg, #000 42%, transparent 96%);
-          mask-image: linear-gradient(90deg, #000 42%, transparent 96%);
+  object-position: center 22%;
 }
 
-.card[data-lado="direita"] .card__foto {
-  inset: 0 0 0 auto;
-  -webkit-mask-image: linear-gradient(270deg, #000 42%, transparent 96%);
-          mask-image: linear-gradient(270deg, #000 42%, transparent 96%);
-}
-
-/* Veu sobre a metade do texto, para a copy nunca brigar com a foto. */
-.card::before {
+/* Fio de luz na emenda das duas metades. */
+.card__img::after {
   content: "";
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(270deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.34) 46%, transparent 84%);
+  inset: 0 0 0 auto;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,.14), transparent);
 }
 
-.card[data-lado="direita"]::before {
-  background: linear-gradient(90deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.34) 46%, transparent 84%);
-}
+.card[data-lado="direita"] .card__img::after { inset: 0 auto 0 0; }
 
 
-/* --- Texto --------------------------------------------------------- */
+/* --- Metade do texto ----------------------------------------------- */
 
 .card__texto {
   position: relative;
-  width: 64%;
-  margin-left: auto;
-  padding: var(--esp-2) var(--esp-3);
-  text-align: center;
-}
-
-.card[data-lado="direita"] .card__texto {
-  margin-left: 0;
-  margin-right: auto;
-}
-
-.card__sobretitulo {
-  display: inline-block;
-  margin: 0 0 var(--esp-1);
-  padding: .14rem .5rem;
-  font-size: var(--t-card-sobre);
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--ouro-claro);
-  border: 1px solid var(--ouro-fraco);
-  border-radius: 999px;
+  z-index: 1;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 13px 15px 11px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .card__titulo {
   margin: 0;
+  font-family: var(--fonte-titulo);
   font-size: var(--t-card-titulo);
-  font-weight: 800;
-  line-height: 1.22;
-  letter-spacing: -.005em;
+  font-weight: 700;
+  line-height: var(--lh-card-titulo);
+  letter-spacing: var(--ls-card-titulo);
+  text-transform: uppercase;
+  color: var(--texto);
   text-wrap: balance;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, .8);
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
-/* Titulo em serif, para os cards que precisam de ar de autoridade. */
-.card[data-fonte="serif"] .card__titulo {
-  font-family: var(--fonte-nome);
-  font-weight: 400;
-  letter-spacing: .01em;
-}
+/* O ponto final em cor: a assinatura do formato. */
+.card__ponto { color: var(--acento); }
 
-.card__sub {
-  margin: var(--esp-1) 0 0;
-  font-size: var(--t-card-sub);
+.card__sobretitulo {
+  margin: 4px 0 0;
+  font-size: var(--t-card-sobre);
   font-weight: 500;
-  line-height: 1.35;
-  color: var(--texto-suave);
+  letter-spacing: var(--ls-card-sobre);
+  text-transform: uppercase;
+  color: var(--texto);
+  opacity: .72;
+}
+
+.card__desc {
+  margin: 9px 0 0;
+  font-size: var(--t-card-desc);
+  font-weight: 400;
+  line-height: var(--lh-card-desc);
+  color: var(--texto);
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Trecho em destaque. No JSON e escrito entre [[colchetes duplos]].
+   O box-decoration-break faz o realce quebrar linha sem perder a caixa. */
+.card__desc em {
+  font-style: normal;
+  color: var(--acento);
+  background: color-mix(in srgb, var(--acento) 20%, transparent);
+  padding: .04em .22em;
+  -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+}
+
+/* Aneis decorativos no canto, bem apagados, como na referencia. */
+.card__aneis {
+  position: absolute;
+  right: -14px;
+  bottom: -18px;
+  z-index: -1;
+  width: 120px;
+  height: 84px;
+  opacity: .1;
+  color: var(--texto);
+  pointer-events: none;
+}
+
+.card[data-lado="direita"] .card__aneis {
+  right: auto;
+  left: -14px;
 }
 
 
 /* --- Modo borrador ------------------------------------------------- */
 
-.card--pendente { opacity: .72; }
+.card--pendente .card__inner { opacity: .72; }
 
-.card--pendente::after {
+/* O selo fica embaixo: em cima ele tapava o titulo. */
+.card--pendente .card__inner::after {
   content: "PENDIENTE";
   position: absolute;
-  top: 0;
   right: 0;
-  padding: .24rem .5rem;
-  font-size: .58rem;
+  bottom: 0;
+  z-index: 2;
+  padding: .2rem .45rem;
+  font-size: .54rem;
   font-weight: 800;
   letter-spacing: .12em;
   color: #2b0b0b;
   background: #ffb020;
-  border-bottom-left-radius: 8px;
-  border-top-right-radius: calc(var(--card-raio) - 1px);
+  border-top-left-radius: 8px;
+}
+
+
+/* --- Celular estreito ---------------------------------------------- */
+
+@media (max-width: 380px) {
+  .card__texto { padding: 11px 12px 9px; }
+  .card__desc  { -webkit-line-clamp: 3; }
 }

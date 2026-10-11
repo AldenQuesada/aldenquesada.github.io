@@ -131,6 +131,52 @@
   }
 
 
+  /* --- pecas do card --- */
+
+  /* O titulo termina com um ponto na cor de acento. Se o texto ja vier
+     com ponto, usamos o dele; senao, acrescentamos um. */
+  function tituloComPonto(texto) {
+    const h2 = el('h2', 'card__titulo');
+    const corpo = texto.replace(/\s*\.\s*$/, '');
+    h2.appendChild(document.createTextNode(corpo));
+    h2.appendChild(el('span', 'card__ponto', '.'));
+    return h2;
+  }
+
+  /* A descricao aceita [[trecho]] para realce. Montada com nos de texto,
+     nunca com innerHTML: o JSON nao pode injetar marcacao na pagina. */
+  function descricaoComRealce(texto) {
+    const p = el('p', 'card__desc');
+    texto.split(/(\[\[[^\]]*\]\])/).forEach(parte => {
+      if (!parte) return;
+      if (parte.startsWith('[[') && parte.endsWith(']]')) {
+        p.appendChild(el('em', null, parte.slice(2, -2)));
+      } else {
+        p.appendChild(document.createTextNode(parte));
+      }
+    });
+    return p;
+  }
+
+  function aneisDecorativos() {
+    const ns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('viewBox', '0 0 120 84');
+    svg.setAttribute('class', 'card__aneis');
+    svg.setAttribute('aria-hidden', 'true');
+    [[60, 42, 58, 40], [60, 42, 42, 29], [60, 42, 26, 18]].forEach(([cx, cy, rx, ry]) => {
+      const e = document.createElementNS(ns, 'ellipse');
+      e.setAttribute('cx', cx); e.setAttribute('cy', cy);
+      e.setAttribute('rx', rx); e.setAttribute('ry', ry);
+      e.setAttribute('fill', 'none');
+      e.setAttribute('stroke', 'currentColor');
+      e.setAttribute('stroke-width', '1');
+      svg.appendChild(e);
+    });
+    return svg;
+  }
+
+
   /* --- um card --- */
 
   function montarCard(card) {
@@ -139,11 +185,9 @@
     const a = el('a', 'card');
     a.dataset.lado = card.lado_da_foto || 'esquerda';
     a.dataset.id   = card.id || '';
-    if (card.fonte) a.dataset.fonte = card.fonte;
 
-    const cores = card.cores || {};
-    a.style.setProperty('--cor-a', cores.a || '#1b1510');
-    a.style.setProperty('--cor-b', cores.b || '#0c0907');
+    a.style.setProperty('--cor-card', card.cor || '#1c1208');
+    if (card.acento) a.style.setProperty('--acento', card.acento);
 
     if (pendente) {
       a.classList.add('card--pendente');
@@ -154,23 +198,29 @@
       ligar(a, card);
     }
 
+    const inner = el('div', 'card__inner');
+
+    const caixaImg = el('div', 'card__img');
     if (card.foto) {
-      const img = el('img', 'card__foto');
+      const img = el('img');
       img.src = card.foto;
       img.alt = '';
       img.setAttribute('aria-hidden', 'true');
       img.loading = 'lazy';
       img.decoding = 'async';
       reserva(img);
-      a.appendChild(img);
+      caixaImg.appendChild(img);
     }
+    inner.appendChild(caixaImg);
 
     const texto = el('div', 'card__texto');
-    if (card.sobretitulo) texto.appendChild(el('span', 'card__sobretitulo', card.sobretitulo));
-    if (card.titulo)      texto.appendChild(el('h2', 'card__titulo', card.titulo));
-    if (card.subtitulo)   texto.appendChild(el('p', 'card__sub', card.subtitulo));
-    a.appendChild(texto);
+    if (card.titulo)      texto.appendChild(tituloComPonto(card.titulo));
+    if (card.sobretitulo) texto.appendChild(el('p', 'card__sobretitulo', card.sobretitulo));
+    if (card.descricao)   texto.appendChild(descricaoComRealce(card.descricao));
+    texto.appendChild(aneisDecorativos());
+    inner.appendChild(texto);
 
+    a.appendChild(inner);
     return a;
   }
 

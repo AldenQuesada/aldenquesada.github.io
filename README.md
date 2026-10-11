@@ -85,3 +85,9 @@ Abrir `http://localhost:8111` e `http://localhost:8111/?rascunho=1`.
 
 Servidor é obrigatório: os JSON são lidos por `fetch` e abrir o `index.html`
 direto pelo Finder não funciona.
+
+## Cache
+
+CSS e JS são carregados com `?v=N` no `index.html`. Ao mexer nesses arquivos,
+suba o número, senão o navegador de quem já visitou continua servindo a versão
+velha. Os JSON não precisam disso: já são lidos com cache-bust automático.

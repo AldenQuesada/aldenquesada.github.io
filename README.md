@@ -113,3 +113,15 @@ direto pelo Finder não funciona.
 CSS e JS são carregados com `?v=N` no `index.html`. Ao mexer nesses arquivos,
 suba o número, senão o navegador de quem já visitou continua servindo a versão
 velha. Os JSON não precisam disso: já são lidos com cache-bust automático.
+
+## Prévia do compartilhamento
+
+`ferramentas/social.py` gera `img/social/og.jpg` (1200x630), a imagem que
+WhatsApp, Instagram e Facebook mostram quando o link é colado, mais os ícones
+de aba e de atalho na tela inicial.
+
+As URLs nas metatags `og:` são **absolutas**. Essas plataformas não resolvem
+caminho relativo: com `img/social/og.jpg` a prévia sai em branco.
+
+Depois de trocar a imagem, o WhatsApp guarda a antiga em cache por um tempo.
+Para forçar, mude o nome do arquivo ou acrescente `?v=2` na URL da metatag.

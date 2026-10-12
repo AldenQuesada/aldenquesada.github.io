@@ -64,6 +64,35 @@
 
 .hero__video iframe { width: 100%; height: 100%; border: 0; }
 
+/* Espaco reservado do video. Fica visivel enquanto o video nao existe,
+   em vez de sumir: assim a pagina ja mostra onde ele vai entrar. */
+.hero__video--vazio {
+  display: grid;
+  place-items: center;
+  gap: var(--esp-3);
+  border-style: dashed;
+  border-color: var(--ouro-fraco);
+  color: var(--texto-fraco);
+}
+
+.hero__video--vazio .play {
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  color: var(--ouro-claro);
+  border: 1px solid var(--ouro-fraco);
+  font-size: 1.3rem;
+  padding-left: 5px;
+}
+
+.hero__video--vazio p {
+  font-size: .82rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
 /* Marcas de confianca sob o botao: exclusividade, cupos, formato. */
 .hero__marcas {
   display: flex;
@@ -552,4 +581,208 @@
   letter-spacing: .03em;
   text-transform: uppercase;
   color: var(--ouro-claro);
+}
+
+
+/* === CONTEXTO: numero grande e texto ao lado =======================
+   Na referencia e "Prepare-se para a medicina do futuro", com dado de
+   mercado. O numero grande e o que segura a secao.
+------------------------------------------------------------------- */
+
+.contexto__grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: var(--esp-3);
+  margin-top: var(--esp-5);
+}
+
+.dado {
+  padding: var(--esp-5) var(--esp-4);
+  border-radius: var(--card-raio);
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+}
+
+.dado__numero {
+  font-family: var(--fonte-titulo);
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ouro-claro);
+}
+
+.dado__texto { margin-top: var(--esp-3); font-size: .96rem; }
+
+.contexto__fecho {
+  max-width: var(--texto-largo);
+  margin-top: var(--esp-5);
+  font-family: var(--fonte-titulo);
+  font-size: 1.32rem;
+  line-height: 1.42;
+  color: var(--texto-forte);
+}
+
+
+/* === PASSOS: lista numerada vertical ===============================
+   Na referencia e "Voce ve o raciocinio ao vivo", com 4 passos ligados
+   por uma linha. A linha e o que mostra que ha ordem, nao lista solta.
+------------------------------------------------------------------- */
+
+.passos {
+  display: grid;
+  gap: 0;
+  max-width: 760px;
+  margin-top: var(--esp-5);
+}
+
+.passo {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--esp-4);
+  padding-bottom: var(--esp-5);
+}
+
+.passo:last-child { padding-bottom: 0; }
+
+/* A linha que liga um passo ao proximo. */
+.passo:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 21px;
+  top: 44px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--ouro-fraco), transparent);
+}
+
+.passo__num {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  font-family: var(--fonte-titulo);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ouro-claro);
+  background: var(--fundo);
+  border: 1px solid var(--ouro-fraco);
+}
+
+.passo__texto { padding-top: .55rem; }
+.passo__texto strong { color: var(--texto-forte); }
+
+.passos__fecho {
+  display: inline-block;
+  margin-top: var(--esp-4);
+  padding: .9rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+  font-size: .98rem;
+}
+
+
+/* === EQUIPE ======================================================= */
+
+.equipe {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--esp-3);
+  margin-top: var(--esp-5);
+}
+
+.pessoa {
+  padding: var(--esp-4);
+  border-radius: var(--card-raio);
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+}
+
+.pessoa__foto {
+  width: 76px;
+  height: 76px;
+  margin-bottom: var(--esp-3);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--ouro-fraco);
+}
+
+.pessoa__papel {
+  margin: var(--esp-1) 0 var(--esp-3);
+  font-size: .8rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ouro-claro);
+}
+
+.pessoa__texto { font-size: .94rem; }
+
+
+/* === DEPOIMENTOS ==================================================
+   Na referencia sao prints do Instagram, levemente girados, como se
+   estivessem jogados na mesa. E o que faz parecer real, nao montado.
+------------------------------------------------------------------- */
+
+.depoimentos { text-align: center; }
+
+.depoimentos__grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: var(--esp-4);
+  margin-top: var(--esp-6);
+  text-align: left;
+}
+
+.depoimento {
+  padding: var(--esp-4);
+  border-radius: var(--card-raio);
+  background: #f4f1ec;
+  color: #1a1a1a;
+  box-shadow: 0 20px 44px -20px rgba(0, 0, 0, .9);
+}
+
+.depoimento:nth-child(odd)  { transform: rotate(-1.1deg); }
+.depoimento:nth-child(even) { transform: rotate(.9deg); }
+
+.depoimento__topo {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  margin-bottom: var(--esp-3);
+}
+
+.depoimento__foto {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.depoimento__quem { font-size: .88rem; font-weight: 700; }
+.depoimento__quando { font-size: .78rem; color: #6d6d6d; }
+
+.depoimento__texto { font-size: .94rem; line-height: 1.6; }
+
+.depoimento__texto em {
+  font-style: normal;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 0, 0, .3);
+}
+
+/* Enquanto nao ha print real, o card fica vazio e marcado. */
+.depoimento--vazio {
+  background: transparent;
+  color: var(--texto-fraco);
+  border: 1px dashed var(--ouro-fraco);
+  box-shadow: none;
+  transform: none;
+  display: grid;
+  place-items: center;
+  min-height: 170px;
+  text-align: center;
+  font-size: .84rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
 }

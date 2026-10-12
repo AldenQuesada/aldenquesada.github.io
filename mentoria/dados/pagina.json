@@ -44,7 +44,9 @@
         "Exclusivo para médicos",
         "Cupos por disponibilidad de agenda",
         "Acompañamiento caso por caso"
-      ]
+      ],
+      "reservar_video": true,
+      "rotulo_video": "Espacio reservado para el video"
     },
     {
       "tipo": "desejos",
@@ -73,6 +75,30 @@
         "Tratar el número baja la glucemia de hoy. Tratar la causa cambia el curso de la enfermedad, y es lo que hace que el paciente siga el tratamiento en vez de abandonarlo en el tercer mes.",
         "El método que el Dr. Quesada reunió en sus libros es ese camino puesto en orden: qué se mira primero, qué viene después y qué no se toca hasta que la base esté de pie."
       ]
+    },
+    {
+      "tipo": "contexto",
+      "ativo": true,
+      "selo": "El escenario",
+      "titulo": "Prepárate para la medicina que viene",
+      "intro": "La diabetes dejó de ser enfermedad de pocos, y el paciente ya llega al consultorio sabiendo que el medicamento solo no resuelve.",
+      "_conferir": "Los números vienen de la Federación Internacional de Diabetes y de la OMS, datos públicos. Confirma antes de publicar y cámbialos por los de tu país si prefieres.",
+      "dados": [
+        {
+          "numero": "1 de cada 10",
+          "texto": "adultos en el mundo vive hoy con diabetes, según la Federación Internacional de Diabetes."
+        },
+        {
+          "numero": "3 de cada 4",
+          "texto": "de esas personas viven en países de renta baja o media, donde está tu paciente."
+        },
+        {
+          "numero": "Casi la mitad",
+          "texto": "no sabe que la tiene, y llega al consultorio por otra queja."
+        }
+      ],
+      "fecho": "El médico que entiende la causa del desequilibrio deja de competir por precio: pasa a ser [[el único que resuelve]] lo que el paciente ya intentó en otros cuatro consultorios.",
+      "fundo": "img/fundo-secao.jpg"
     },
     {
       "tipo": "metodo",
@@ -111,6 +137,22 @@
           "nota": "Es la fase que decide si el paciente vuelve."
         }
       ]
+    },
+    {
+      "tipo": "passos",
+      "ativo": true,
+      "selo": "Cómo funciona",
+      "titulo": "Ves el razonamiento ocurriendo, caso por caso",
+      "intro": "No es teoría presentada en diapositiva. Es tu propio caso, construido delante de ti:",
+      "_conferir": "Ajusta estos cuatro pasos al formato real de tus encuentros.",
+      "itens": [
+        "**Historia clínica** leída entera, antes de mirar cualquier examen",
+        "**Exámenes** leídos dentro de la fisiología, no solo contra el valor de referencia",
+        "**Hipótesis** montada delante de ti, ligando un sistema al otro",
+        "**Conducta** decidida en tiempo real, sobre la causa"
+      ],
+      "fecho": "Al final tú defiendes la conducta, no solo la copias.",
+      "fundo": "img/consultorio.jpg"
     },
     {
       "tipo": "entrega",
@@ -164,6 +206,24 @@
       "titulo": "",
       "intro": "",
       "casos": []
+    },
+    {
+      "tipo": "equipe",
+      "ativo": false,
+      "_pendente": "Depende de él decir quién más participa de la mentoría. Si la conduce solo, esta sección sale.",
+      "selo": "Quién conduce",
+      "titulo": "Quién está contigo en la mentoría",
+      "intro": "",
+      "pessoas": []
+    },
+    {
+      "tipo": "depoimentos",
+      "ativo": true,
+      "titulo": "Lo que dicen los médicos que ya pasaron por la mentoría",
+      "_conferir": "Faltan los prints reales. Hoy la sección reserva tres espacios para que el formato quede a la vista.",
+      "reservar": 3,
+      "itens": [],
+      "fundo": "img/fundo-secao.jpg"
     },
     {
       "tipo": "perfil",

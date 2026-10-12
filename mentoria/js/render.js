@@ -42,10 +42,13 @@
      texto: o JSON nunca injeta marcacao na pagina. */
   function comRealce(tag, classe, texto) {
     const n = el(tag, classe);
-    String(texto).split(/(\[\[[^\]]*\]\])/).forEach(parte => {
+    // [[assim]] sai na cor de acento, **assim** sai em negrito claro.
+    String(texto).split(/(\[\[[^\]]*\]\]|\*\*[^*]+\*\*)/).forEach(parte => {
       if (!parte) return;
       if (parte.startsWith('[[') && parte.endsWith(']]')) {
         n.appendChild(el('span', 'realce', parte.slice(2, -2)));
+      } else if (parte.startsWith('**') && parte.endsWith('**')) {
+        n.appendChild(el('strong', null, parte.slice(2, -2)));
       } else {
         n.appendChild(document.createTextNode(parte));
       }
@@ -134,6 +137,14 @@
         f.allowFullscreen = true;
         caixa.appendChild(f);
         dentro.appendChild(caixa);
+      } else if (d.reservar_video) {
+        // O espaco fica a vista enquanto o video nao existe: assim a
+        // pagina ja mostra onde ele entra, em vez de mudar de altura
+        // no dia em que o video chegar.
+        const caixa = el('div', 'hero__video hero__video--vazio');
+        caixa.appendChild(el('span', 'play', '▶'));
+        caixa.appendChild(el('p', null, d.rotulo_video || 'Espacio reservado para el video'));
+        dentro.appendChild(caixa);
       }
 
       faixaCta(dentro);
@@ -143,6 +154,92 @@
         d.marcas.forEach(t => m.appendChild(el('span', null, t)));
         dentro.appendChild(m);
       }
+      return s;
+    },
+
+    /* Numero grande e texto ao lado. Na referencia e o dado de mercado
+       que justifica a urgencia do tema. */
+    contexto(d) {
+      if (!(d.dados || []).length) return null;
+      const { s, dentro } = secao(null, d.fundo);
+      cabecalho(dentro, d);
+      if (d.intro) dentro.appendChild(comRealce('p', null, d.intro));
+      const grade = el('div', 'contexto__grade');
+      d.dados.forEach(x => {
+        const c = el('div', 'dado');
+        if (x.numero) c.appendChild(el('p', 'dado__numero', x.numero));
+        if (x.texto)  c.appendChild(comRealce('p', 'dado__texto', x.texto));
+        grade.appendChild(c);
+      });
+      dentro.appendChild(grade);
+      if (d.fecho) dentro.appendChild(comRealce('p', 'contexto__fecho', d.fecho));
+      return s;
+    },
+
+    /* Passos ligados por uma linha: mostra que existe ordem, nao lista
+       solta. Cada passo aceita [[destaque]] no texto. */
+    passos(d) {
+      if (!(d.itens || []).length) return null;
+      const { s, dentro } = secao(null, d.fundo);
+      cabecalho(dentro, d);
+      if (d.intro) dentro.appendChild(comRealce('p', null, d.intro));
+      const lista = el('div', 'passos');
+      d.itens.forEach((t, i) => {
+        const p = el('div', 'passo');
+        p.appendChild(el('span', 'passo__num', String(i + 1)));
+        p.appendChild(comRealce('div', 'passo__texto', t));
+        lista.appendChild(p);
+      });
+      dentro.appendChild(lista);
+      if (d.fecho) dentro.appendChild(comRealce('p', 'passos__fecho', d.fecho));
+      faixaCta(dentro);
+      return s;
+    },
+
+    equipe(d) {
+      if (!(d.pessoas || []).length) return null;
+      const { s, dentro } = secao(null, d.fundo);
+      cabecalho(dentro, d);
+      if (d.intro) dentro.appendChild(comRealce('p', null, d.intro));
+      const grade = el('div', 'equipe');
+      d.pessoas.forEach(x => {
+        const c = el('div', 'pessoa');
+        if (x.foto)  c.appendChild(imagem(x.foto, x.nome || '', 'pessoa__foto'));
+        if (x.nome)  c.appendChild(el('h3', null, x.nome));
+        if (x.papel) c.appendChild(el('p', 'pessoa__papel', x.papel));
+        if (x.texto) c.appendChild(comRealce('p', 'pessoa__texto', x.texto));
+        grade.appendChild(c);
+      });
+      dentro.appendChild(grade);
+      return s;
+    },
+
+    /* Prints de rede social. Card claro, levemente girado: e o que faz
+       parecer recorte de verdade e nao depoimento montado. */
+    depoimentos(d) {
+      const itens = d.itens || [];
+      const vazios = Math.max(0, (d.reservar || 0) - itens.length);
+      if (!itens.length && !vazios) return null;
+      const { s, dentro } = secao('depoimentos', d.fundo);
+      cabecalho(dentro, d);
+      const grade = el('div', 'depoimentos__grade');
+      itens.forEach(x => {
+        const c = el('div', 'depoimento');
+        const topo = el('div', 'depoimento__topo');
+        if (x.foto) topo.appendChild(imagem(x.foto, '', 'depoimento__foto'));
+        const quem = el('div');
+        if (x.quem)   quem.appendChild(el('p', 'depoimento__quem', x.quem));
+        if (x.quando) quem.appendChild(el('p', 'depoimento__quando', x.quando));
+        topo.appendChild(quem);
+        c.appendChild(topo);
+        if (x.texto) c.appendChild(comRealce('p', 'depoimento__texto', x.texto));
+        grade.appendChild(c);
+      });
+      for (let i = 0; i < vazios; i++) {
+        grade.appendChild(el('div', 'depoimento depoimento--vazio', 'Espacio para testimonio'));
+      }
+      dentro.appendChild(grade);
+      faixaCta(dentro);
       return s;
     },
 

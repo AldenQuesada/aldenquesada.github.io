@@ -1,0 +1,164 @@
+{
+  "_leia": [
+    "A pagina inteira sai deste arquivo. O HTML e um esqueleto vazio.",
+    "",
+    "secoes = lista ordenada. Cada uma tem 'tipo', que decide como ela e",
+    "         desenhada, e 'ativo'. Secao com ativo:false nao aparece, e",
+    "         secao sem o conteudo que ela precisa tambem nao: assim nada",
+    "         vai ao ar pela metade.",
+    "",
+    "Tipos disponiveis: hero, desejos, historia, metodo, entrega, sobre,",
+    "prova, perfil, aviso, investimento, garantia, faq, contato.",
+    "",
+    "PENDENTE, confirmado com ele em 12/10:",
+    "  - a urgencia e 'consultar disponibilidade de agenda', nao lote.",
+    "  - faltam: video do hero, mentorados reais para a prova, preco e",
+    "    se o preco aparece ou passa pelo time.",
+    "  As secoes que dependem disso estao com ativo:false e marcadas."
+  ],
+  "meta": {
+    "titulo": "Mentoría · Dr. Alden J. Quesada",
+    "descricao": "Acompañamiento directo para médicos que quieren aplicar el método del Dr. Quesada en su consultorio.",
+    "idioma": "es",
+    "og_imagem": "https://aldenquesada.github.io/img/social/og.jpg"
+  },
+  "barra": {
+    "ativo": true,
+    "texto": "Agenda limitada · consulta la disponibilidad antes de postular",
+    "link": "https://wa.me/5544998787673?text=Hola%2C%20soy%20m%C3%A9dico%20y%20me%20gustar%C3%ADa%20consultar%20la%20disponibilidad%20de%20agenda%20para%20la%20mentor%C3%ADa%20del%20Dr.%20Quesada"
+  },
+  "cta": {
+    "texto": "Consultar la disponibilidad de agenda",
+    "link": "https://wa.me/5544998787673?text=Hola%2C%20soy%20m%C3%A9dico%20y%20me%20gustar%C3%ADa%20consultar%20la%20disponibilidad%20de%20agenda%20para%20la%20mentor%C3%ADa%20del%20Dr.%20Quesada"
+  },
+  "secoes": [
+    {
+      "tipo": "hero",
+      "ativo": true,
+      "selo": "Exclusivo para médicos",
+      "sobretitulo": "Mentoría",
+      "titulo": "Lleva a tu consultorio el método que controla la diabetes [[sin medicamentos]]",
+      "subtitulo": "Acompañamiento directo con el Dr. Alden J. Quesada, cardiólogo y naturópata, para que apliques el método caso por caso en tus propios pacientes.",
+      "imagem": "img/hero.jpg",
+      "video": "",
+      "marcas": [
+        "Exclusivo para médicos",
+        "Cupos por disponibilidad",
+        "Online y presencial"
+      ]
+    },
+    {
+      "tipo": "desejos",
+      "ativo": true,
+      "titulo": "Imagina que pudieras:",
+      "itens": [
+        "Salir de la guerra de precios y tener lista de espera en tu consultorio",
+        "Explicar por qué el tratamiento funcionó, caso por caso",
+        "Dejar de depender del convenio para llenar la agenda"
+      ]
+    },
+    {
+      "tipo": "historia",
+      "ativo": true,
+      "selo": "El origen del método",
+      "titulo": "",
+      "imagem": "img/historia.jpg",
+      "paragrafos": []
+    },
+    {
+      "tipo": "metodo",
+      "ativo": true,
+      "selo": "Método",
+      "titulo": "",
+      "intro": "",
+      "fases": []
+    },
+    {
+      "tipo": "entrega",
+      "ativo": true,
+      "selo": "Qué incluye",
+      "titulo": "Lo que recibes en la mentoría",
+      "pilares": []
+    },
+    {
+      "tipo": "sobre",
+      "ativo": true,
+      "selo": "Sobre el mentor",
+      "titulo": "Dr. Alden J. Quesada",
+      "credencial": "Especialista en Cardiología y Naturópata",
+      "imagem": "img/sobre.jpg",
+      "paragrafos": []
+    },
+    {
+      "tipo": "prova",
+      "ativo": false,
+      "_pendente": "Depende de mentorados reales que autoricen nombre y resultado.",
+      "selo": "De la teoría al consultorio",
+      "titulo": "",
+      "intro": "",
+      "casos": []
+    },
+    {
+      "tipo": "perfil",
+      "ativo": true,
+      "selo": "Perfil",
+      "titulo": "Para quién es la mentoría",
+      "para_quem": [
+        "ya atiende y quiere entender el desequilibrio que está por debajo de la queja",
+        "tiene resultado en algunos casos y no logra explicar por qué funcionó",
+        "quiere salir de la dependencia del convenio y de la guerra de precios"
+      ],
+      "nao_e": [
+        "busca protocolo listo para copiar sin entender por qué funciona",
+        "quiere empezar por la hormona sin mirar la base",
+        "espera resultado sin aplicarlo en el consultorio después"
+      ]
+    },
+    {
+      "tipo": "aviso",
+      "ativo": true,
+      "titulo": "Quiero reforzar algo.",
+      "destaque": "Esta mentoría es exigente",
+      "texto": "No es un curso para asistir. Es acompañamiento para aplicar, caso por caso, en tu propio consultorio."
+    },
+    {
+      "tipo": "investimento",
+      "ativo": false,
+      "_pendente": "Depende de él decidir si el precio aparece o pasa por el equipo.",
+      "selo": "Inversión",
+      "titulo": "",
+      "valor": "",
+      "condicoes": [],
+      "observacao": ""
+    },
+    {
+      "tipo": "garantia",
+      "ativo": false,
+      "_pendente": "Solo entra si existe una garantía real que él quiera dar.",
+      "titulo": "",
+      "itens": []
+    },
+    {
+      "tipo": "faq",
+      "ativo": true,
+      "titulo": "Preguntas frecuentes",
+      "perguntas": []
+    },
+    {
+      "tipo": "contato",
+      "ativo": true,
+      "titulo": "¿Tienes dudas?",
+      "texto": "Habla directamente con el equipo del Dr. Quesada antes de postular.",
+      "botao": "Hablar con el equipo",
+      "link": "https://wa.me/5544998787673?text=Hola%2C%20tengo%20dudas%20sobre%20la%20mentor%C3%ADa%20del%20Dr.%20Quesada"
+    }
+  ],
+  "rodape": {
+    "texto": "Dr. Alden J. Quesada · Todos los derechos reservados",
+    "aviso": "Los resultados citados son individuales y dependen de dedicación, contexto y perfil de cada profesional.",
+    "voltar": {
+      "texto": "Volver al inicio",
+      "link": "../"
+    }
+  }
+}

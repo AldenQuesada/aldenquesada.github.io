@@ -254,3 +254,34 @@ e a página ainda mostrava as fotos antigas.
 
 Vale também para a prévia do WhatsApp: ali o cache é do WhatsApp, e a saída é
 mudar o nome do arquivo ou o `?v=` dentro da metatag `og:image`.
+
+## Páginas internas
+
+`/mentoria/` é a primeira. Mesma lógica do link da bio: HTML vazio, CSS em
+tokens, e `dados/pagina.json` com a página inteira.
+
+**O JSON é uma lista de seções.** Cada uma tem `tipo`, que decide como ela é
+desenhada, e `ativo`. Tipos disponíveis: hero, desejos, historia, metodo,
+entrega, sobre, prova, perfil, aviso, investimento, garantia, faq, contato.
+
+**Seção sem o conteúdo que ela precisa não é desenhada**, mesmo com
+`ativo: true`. A de prova sem casos não aparece, a de FAQ sem perguntas não
+aparece. Página pela metade no ar é pior que seção ausente.
+
+Com `?rascunho=1` a página lista quais seções estão fora do ar e por quê.
+
+### O que veio da referência e o que não veio
+
+Da `imersaofmh.avgcollege.com.br/vsl-a` vieram os tokens: fundo `#070707`,
+superfícies `#0d0d0d`, texto `#d6d6d6`, Montserrat nos títulos, DM Sans no
+corpo, botão com raio de 4px e fio de luz branco por dentro.
+
+**Não veio a cor do acento.** Lá o acento é amarelo `#ffcc02` e o botão é azul;
+aqui os dois são o dourado da marca. O que importa não é a cor em si: é que o
+botão tenha uma cor que **não aparece em nenhum outro lugar da página**. É isso
+que faz o olho ir direto nele, não o tamanho.
+
+**Não veio a urgência.** Lá a barra diz que o lote vira em 7 dias, porque é um
+evento com data. Aqui diz que a agenda é limitada e pede para consultar
+disponibilidade, que é verdade o ano inteiro. Urgência inventada estraga a
+página no dia em que o prazo passa e nada acontece.

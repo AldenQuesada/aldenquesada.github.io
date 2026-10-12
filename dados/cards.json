@@ -28,7 +28,13 @@
     "ferramentas/mockups.py a partir dos PNG com alfa. O quadro de pagina",
     "com texto corrido ficou de fora: em 207 pixels de largura ele vira",
     "mancha cinza. So entra pagina com contraste visual, como tabela",
-    "colorida ou foto."
+    "colorida ou foto.",
+    "",
+    "estilo 'canal' = card de rede. A imagem ocupa o card inteiro, o texto",
+    "               pousa por cima com um botao de play ao lado, e some o",
+    "               sobretitulo e a descricao. Campos proprios: selo (a",
+    "               caixinha acima do nome), marca (instagram, youtube,",
+    "               whatsapp, tiktok, facebook, telegram) e marca_cor."
   ],
   "cards": [
     {
@@ -73,8 +79,8 @@
       "ordem": 4,
       "ativo": true,
       "titulo": "Diabetes Mellitus",
-      "sobretitulo": "Libro · Español",
-      "descricao": "El método para controlar la diabetes mellitus [[de forma rápida y segura.]]",
+      "sobretitulo": "El fin de las complicaciones",
+      "descricao": "Descubre el [[único método]] que te enseña a controlar la Diabetes Mellitus.",
       "lado_da_foto": "direita",
       "foto": "img/card/diabetes-es.jpg",
       "cor": "#3a120c",
@@ -90,9 +96,9 @@
       "id": "fin-diabetes-es",
       "ordem": 5,
       "ativo": true,
-      "titulo": "El fin de la Diabetes",
-      "sobretitulo": "Libro · Español",
-      "descricao": "Libre de síntomas, medicamentos y complicaciones [[en menos de 21 días.]]",
+      "titulo": "El fin de la Diabetes Mellitus",
+      "sobretitulo": "100% efectivo y natural · Sin medicamentos",
+      "descricao": "Libre de los síntomas, medicamentos y complicaciones [[en menos de 21 días.]]",
       "lado_da_foto": "esquerda",
       "foto": "img/card/fin-diabetes.jpg",
       "cor": "#0d2138",
@@ -109,8 +115,8 @@
       "ordem": 6,
       "ativo": true,
       "titulo": "Mujer Delgada & Saludable",
-      "sobretitulo": "Libro · Español",
-      "descricao": "De 6 a 14 kg menos y edad biológica revertida en 30 días. [[Sin pasar hambre.]]",
+      "sobretitulo": "Sin pasar hambre · Sin ir al gimnasio",
+      "descricao": "Elimina entre 6 kg y 14 kg y revierte tu edad biológica [[en 30 días.]]",
       "lado_da_foto": "direita",
       "foto": "img/card/mujer-delgada.jpg",
       "cor": "#13251a",
@@ -133,6 +139,20 @@
       "foto": "img/card/contacto.jpg",
       "cor": "#0f2b1d",
       "acento": "#5fd2a0",
+      "link": ""
+    },
+    {
+      "id": "canal-youtube",
+      "ordem": 8,
+      "ativo": true,
+      "estilo": "canal",
+      "selo": "Canal",
+      "titulo": "Dr. Alden J. Quesada",
+      "marca": "youtube",
+      "marca_cor": "#ff0033",
+      "lado_da_foto": "esquerda",
+      "foto": "img/card/canal.jpg",
+      "cor": "#0a0a0c",
       "link": ""
     }
   ]

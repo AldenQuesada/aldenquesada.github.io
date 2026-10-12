@@ -132,3 +132,33 @@ SLIDES = [
 for arquivo, nome, fy, fx, zoom in SLIDES:
     salvar(recorte(abrir(arquivo), 1.15, fy, fx, zoom),
            os.path.join(DEST, f"card/{nome}.jpg"), 560, 487)
+
+
+# ------------------------------------------------------- card do canal
+# Ele dos dois lados, ambiente no meio, tudo em preto e branco. O P&B e
+# o que separa esse card da pilha colorida: antes de ler, ja se percebe
+# que ali e outra coisa. O play e o icone do YouTube sao desenhados em
+# SVG pelo render, nao ficam na imagem.
+print("canal:")
+LC, AC = 1200, 492                      # 2,44:1, a proporcao do card
+canal = Image.new("RGB", (LC, AC), FUNDO)
+
+esq = figura("15.png", 0.80, 0.42, 0.50, 1.00, AC)
+dir = figura("12.png", 0.72, 0.40, 0.50, 1.00, AC)
+
+canal.paste(esq, (-int(esq.width * 0.18), 0), mascara_dissolve(esq.size, "direita"))
+canal.paste(dir, (LC - dir.width + int(dir.width * 0.18), 0), mascara_dissolve(dir.size, "esquerda"))
+
+canal = ImageEnhance.Color(canal).enhance(0.0)      # preto e branco
+canal = ImageEnhance.Brightness(canal).enhance(0.74)
+canal = ImageEnhance.Contrast(canal).enhance(1.12)
+
+# Escurece o meio, onde entram o play e o nome do canal.
+veu = Image.new("L", (LC, AC), 0)
+dv = ImageDraw.Draw(veu)
+for x in range(LC):
+    t = abs(x - LC / 2) / (LC / 2)
+    dv.line([(x, 0), (x, AC)], fill=int(150 * max(0.0, 1 - t * 1.25)))
+canal.paste(Image.new("RGB", (LC, AC), (0, 0, 0)), (0, 0), veu)
+
+salvar(canal, os.path.join(DEST, "card/canal.jpg"), LC, AC, 82)

@@ -199,6 +199,98 @@
 }
 
 
+/* --- CARD DE CANAL -------------------------------------------------
+   Nao divide o card em duas metades: a imagem ocupa tudo e o texto
+   pousa por cima, com o botao de play ao lado. E o unico card em preto
+   e branco, e e esse contraste que avisa, antes de qualquer leitura,
+   que ali e outra coisa.
+------------------------------------------------------------------- */
+
+.card[data-estilo="canal"] .card__img {
+  position: absolute;
+  inset: 0;
+  flex: none;
+  width: 100%;
+}
+
+.card[data-estilo="canal"] .card__img::after { content: none; }
+
+.card[data-estilo="canal"] .card__texto {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-3);
+  text-align: left;
+  padding: var(--esp-2) var(--esp-4);
+}
+
+.card[data-estilo="canal"] .card__titulo {
+  font-family: var(--fonte-nome);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: .005em;
+  line-height: 1.12;
+  -webkit-line-clamp: 2;
+}
+
+/* No card de canal o ponto em cor nao cabe: o nome e um nome. */
+.card[data-estilo="canal"] .card__ponto { display: none; }
+
+.card[data-estilo="canal"] .card__aneis { display: none; }
+
+/* Selo "Canal", caixinha de borda fina acima do nome. */
+.card__selo {
+  display: inline-block;
+  margin: 0 0 5px;
+  padding: .1rem .42rem;
+  font-family: var(--fonte-texto);
+  font-size: .64rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--texto);
+  border: 1px solid rgba(243, 239, 233, .55);
+  border-radius: 3px;
+}
+
+/* Botao de play: triangulo solido, sem circulo, como na referencia. */
+.card__play {
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  color: var(--texto);
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, .8));
+  transition: transform var(--transicao);
+}
+
+.card:hover .card__play { transform: scale(1.08); }
+
+/* Marca da rede, no canto de baixo. */
+.card__marca {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--cor-marca, #ff0033);
+  box-shadow: 0 4px 14px -4px rgba(0, 0, 0, .9);
+}
+
+.card__marca svg { width: 17px; height: 17px; }
+
+@media (max-width: 420px) {
+  .card__play { width: 38px; height: 38px; }
+  .card[data-estilo="canal"] .card__texto { gap: var(--esp-2); padding-inline: var(--esp-3); }
+}
+
+
 /* --- Modo borrador ------------------------------------------------- */
 
 .card--pendente .card__inner { opacity: .72; }

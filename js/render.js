@@ -244,6 +244,29 @@
   }
 
 
+  /* Triangulo de play, solido e sem circulo, como na referencia. */
+  function botaoPlay() {
+    const ns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('class', 'card__play');
+    svg.setAttribute('aria-hidden', 'true');
+    const p = document.createElementNS(ns, 'path');
+    p.setAttribute('fill', 'currentColor');
+    p.setAttribute('d', 'M6 3.5v17l15-8.5z');
+    svg.appendChild(p);
+    return svg;
+  }
+
+  function marcaDaRede(nome, cor) {
+    const caixa = el('div', 'card__marca');
+    if (cor) caixa.style.setProperty('--cor-marca', cor);
+    const icone = svgIcone(nome);
+    if (icone) caixa.appendChild(icone);
+    return icone ? caixa : null;
+  }
+
+
   function aneisDecorativos() {
     const ns = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(ns, 'svg');
@@ -271,6 +294,7 @@
     const a = el('a', 'card');
     a.dataset.lado = card.lado_da_foto || 'esquerda';
     a.dataset.id   = card.id || '';
+    if (card.estilo) a.dataset.estilo = card.estilo;
 
     a.style.setProperty('--cor-card', card.cor || '#1c1208');
     if (card.acento) a.style.setProperty('--acento', card.acento);
@@ -288,11 +312,28 @@
     inner.appendChild(montarImagem(card));
 
     const texto = el('div', 'card__texto');
-    if (card.titulo)      texto.appendChild(tituloComPonto(card.titulo));
-    if (card.sobretitulo) texto.appendChild(el('p', 'card__sobretitulo', card.sobretitulo));
-    if (card.descricao)   texto.appendChild(descricaoComRealce(card.descricao));
-    texto.appendChild(aneisDecorativos());
+
+    if (card.estilo === 'canal') {
+      // Play a esquerda, nome a direita: o card de canal nao tem
+      // sobretitulo nem descricao, so o convite.
+      texto.appendChild(botaoPlay());
+      const bloco = el('div');
+      if (card.selo)   bloco.appendChild(el('span', 'card__selo', card.selo));
+      if (card.titulo) bloco.appendChild(tituloComPonto(card.titulo));
+      texto.appendChild(bloco);
+    } else {
+      if (card.titulo)      texto.appendChild(tituloComPonto(card.titulo));
+      if (card.sobretitulo) texto.appendChild(el('p', 'card__sobretitulo', card.sobretitulo));
+      if (card.descricao)   texto.appendChild(descricaoComRealce(card.descricao));
+      texto.appendChild(aneisDecorativos());
+    }
+
     inner.appendChild(texto);
+
+    if (card.marca) {
+      const m = marcaDaRede(card.marca, card.marca_cor);
+      if (m) inner.appendChild(m);
+    }
 
     a.appendChild(inner);
     return a;

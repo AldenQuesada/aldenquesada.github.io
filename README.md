@@ -169,3 +169,37 @@ um retângulo claro em volta, que destoa do card escuro.
 
 **Qual página vira quadro:** capa, livro aberto com foto, tabela colorida. Página
 de texto corrido não, porque em 207 pixels de largura vira mancha cinza.
+
+## Card de canal
+
+Um card com `"estilo": "canal"` não divide o espaço em duas metades: a imagem
+ocupa o card inteiro, o texto pousa por cima com um botão de play ao lado, e
+somem o sobretítulo, a descrição e os anéis.
+
+```json
+{
+  "estilo": "canal",
+  "selo": "Canal",
+  "titulo": "Dr. Alden J. Quesada",
+  "marca": "youtube",
+  "marca_cor": "#ff0033",
+  "foto": "img/card/canal.jpg"
+}
+```
+
+A imagem é preto e branco de propósito: é o contraste com a pilha colorida que
+avisa, antes de qualquer leitura, que ali é outra coisa.
+
+`marca` aceita instagram, youtube, whatsapp, tiktok, facebook e telegram. O play
+e o ícone são SVG desenhados pelo render, não estão na imagem, então ficam
+nítidos em qualquer tela.
+
+## A copy dos cards de livro segue a capa
+
+Regra, não gosto pessoal:
+
+- `titulo` é o título **exato** da capa, inteiro. Não encurtar.
+- `sobretitulo` é o **subtítulo do livro**, o que vem logo abaixo do título na
+  capa, ou a faixa de promessa. Não serve para dizer o idioma: a página inteira
+  é em espanhol.
+- `descricao` usa as palavras da própria capa, não uma reescrita.

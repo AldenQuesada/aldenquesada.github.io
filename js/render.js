@@ -341,6 +341,7 @@
     const a = el('a', 'card');
     a.dataset.lado = card.lado_da_foto || 'esquerda';
     a.dataset.id   = card.id || '';
+    a.dataset.bloco = card.id || '';
     if (card.estilo) a.dataset.estilo = card.estilo;
 
     a.style.setProperty('--cor-card', card.cor || '#1c1208');
@@ -408,6 +409,12 @@
     visiveis.forEach(c => alvos.vitrine.appendChild(montarCard(c)));
   }
 
+  /* Avisa quem estiver esperando que o conteudo ja esta na pagina.
+     O rastreio usa isso para comecar a observar os blocos. */
+  function avisarPronta() {
+    document.dispatchEvent(new CustomEvent('pagina:pronta'));
+  }
+
 
   /* --- rodape --- */
 
@@ -443,6 +450,7 @@
       montarPerfil(perfil.perfil);
       montarVitrine(conteudo.cards);
       montarPie(perfil.pie);
+      avisarPronta();
     })
     .catch(err => {
       console.error(err);

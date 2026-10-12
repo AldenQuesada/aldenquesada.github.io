@@ -36,7 +36,11 @@
 
 <footer class="rodape" id="rodape"></footer>
 
-<script src="../js/utm.js?v=19"></script>
-<script src="js/render.js?v=5"></script>
+<script src="../js/medicao-config.js?v=20"></script>
+<script src="../js/utm.js?v=20"></script>
+<script src="../js/rastreio.js?v=20"></script>
+<script src="js/render.js?v=6"></script>
+<script>Rastreio.iniciar({ url: MEDICAO.url, anon: MEDICAO.anon, quizId: MEDICAO.quizId,
+                           prefixo: 'mnt_', site: 'mentoria' });</script>
 </body>
 </html>

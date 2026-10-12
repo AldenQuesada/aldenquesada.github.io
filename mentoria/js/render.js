@@ -64,8 +64,9 @@
     });
   }
 
-  function secao(classeExtra, fundo) {
+  function secao(classeExtra, fundo, nome) {
     const s = el('section', 'secao' + (classeExtra ? ' ' + classeExtra : ''));
+    if (nome) s.setAttribute('data-bloco', nome);
     if (fundo) {
       s.classList.add('secao--foto');
       s.appendChild(imagem(fundo, '', 'secao__fundo'));
@@ -117,7 +118,7 @@
 
     hero(d) {
       if (!d.titulo) return null;
-      const { s, dentro } = secao('hero');
+      const { s, dentro } = secao('hero', null, d.tipo);
       s.classList.remove('secao');
       s.className = 'hero';
 
@@ -161,7 +162,7 @@
        que justifica a urgencia do tema. */
     contexto(d) {
       if (!(d.dados || []).length) return null;
-      const { s, dentro } = secao(null, d.fundo);
+      const { s, dentro } = secao(null, d.fundo, d.tipo);
       cabecalho(dentro, d);
       if (d.intro) dentro.appendChild(comRealce('p', null, d.intro));
       const grade = el('div', 'contexto__grade');
@@ -180,7 +181,7 @@
        solta. Cada passo aceita [[destaque]] no texto. */
     passos(d) {
       if (!(d.itens || []).length) return null;
-      const { s, dentro } = secao(null, d.fundo);
+      const { s, dentro } = secao(null, d.fundo, d.tipo);
       cabecalho(dentro, d);
       if (d.intro) dentro.appendChild(comRealce('p', null, d.intro));
       const lista = el('div', 'passos');
@@ -198,7 +199,7 @@
 
     equipe(d) {
       if (!(d.pessoas || []).length) return null;
-      const { s, dentro } = secao(null, d.fundo);
+      const { s, dentro } = secao(null, d.fundo, d.tipo);
       cabecalho(dentro, d);
       if (d.intro) dentro.appendChild(comRealce('p', null, d.intro));
       const grade = el('div', 'equipe');
@@ -220,7 +221,7 @@
       const itens = d.itens || [];
       const vazios = Math.max(0, (d.reservar || 0) - itens.length);
       if (!itens.length && !vazios) return null;
-      const { s, dentro } = secao('depoimentos', d.fundo);
+      const { s, dentro } = secao('depoimentos', d.fundo, d.tipo);
       cabecalho(dentro, d);
       const grade = el('div', 'depoimentos__grade');
       itens.forEach(x => {
@@ -245,7 +246,7 @@
 
     desejos(d) {
       if (!(d.itens || []).length) return null;
-      const { s, dentro } = secao('desejos', d.fundo);
+      const { s, dentro } = secao('desejos', d.fundo, d.tipo);
       cabecalho(dentro, d);
       const lista = el('div', 'desejos__lista');
       d.itens.forEach(t => {
@@ -274,7 +275,7 @@
 
     metodo(d) {
       if (!(d.fases || []).length) return null;
-      const { s, dentro } = secao('metodo', d.fundo);
+      const { s, dentro } = secao('metodo', d.fundo, d.tipo);
       cabecalho(dentro, d);
       if (d.intro) dentro.appendChild(comRealce('p', 'metodo__intro', d.intro));
       const grade = el('div', 'fases');
@@ -293,7 +294,7 @@
 
     entrega(d) {
       if (!(d.pilares || []).length) return null;
-      const { s, dentro } = secao(null, d.fundo);
+      const { s, dentro } = secao(null, d.fundo, d.tipo);
       cabecalho(dentro, d);
       const grade = el('div', 'pilares');
       d.pilares.forEach((p, i) => {
@@ -348,7 +349,7 @@
 
     perfil(d) {
       if (!(d.para_quem || []).length && !(d.nao_e || []).length) return null;
-      const { s, dentro } = secao(null, d.fundo);
+      const { s, dentro } = secao(null, d.fundo, d.tipo);
       cabecalho(dentro, d);
       const grade = el('div', 'perfil-colunas');
       [['sim', 'Es para ti que:', d.para_quem], ['nao', 'No es para ti que:', d.nao_e]]
@@ -367,7 +368,7 @@
 
     aviso(d) {
       if (!d.titulo && !d.destaque) return null;
-      const { s, dentro } = secao(null, d.fundo);
+      const { s, dentro } = secao(null, d.fundo, d.tipo);
       const h = el('h2', 'aviso__titulo');
       h.appendChild(document.createTextNode(d.titulo || ''));
       if (d.destaque) h.appendChild(el('span', 'aviso__destaque', d.destaque));
@@ -378,7 +379,7 @@
 
     investimento(d) {
       if (!d.valor) return null;
-      const { s, dentro } = secao('investimento');
+      const { s, dentro } = secao('investimento', null, d.tipo);
       cabecalho(dentro, d);
       const caixa = el('div', 'investimento__caixa');
       caixa.appendChild(el('p', 'investimento__valor', d.valor));
@@ -410,7 +411,7 @@
 
     faq(d) {
       if (!(d.perguntas || []).length) return null;
-      const { s, dentro } = secao('faq');
+      const { s, dentro } = secao('faq', null, d.tipo);
       cabecalho(dentro, d);
       const lista = el('div', 'faq__lista');
       d.perguntas.forEach(p => {
@@ -505,6 +506,7 @@
     });
 
     montarRodape(dados.rodape);
+    document.dispatchEvent(new CustomEvent('pagina:pronta'));
 
     if (rascunho) {
       const texto = pendentes.length

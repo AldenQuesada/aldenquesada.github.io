@@ -12,6 +12,18 @@
   /* Tempo que cada slide do carrossel fica na tela. */
   const CARROSSEL_MS = 3400;
 
+  /* Versao das imagens. Trocar o conteudo de um arquivo sem trocar o
+     nome faz o navegador continuar servindo a imagem velha do cache:
+     quem ja visitou nao ve a troca. Este numero entra como parametro em
+     toda imagem e resolve isso.
+     AO TROCAR QUALQUER IMAGEM EM img/, SUBA ESTE NUMERO. */
+  const VERSAO_IMAGENS = 2;
+
+  function versionar(src) {
+    if (!src || /^(https?:|data:)/i.test(src)) return src;
+    return src + (src.includes('?') ? '&' : '?') + 'a=' + VERSAO_IMAGENS;
+  }
+
   const alvos = {
     perfil:  document.getElementById('perfil'),
     vitrine: document.getElementById('vitrine'),
@@ -98,7 +110,7 @@
     img.addEventListener('error', function () {
       if (img.dataset.reserva) return;
       img.dataset.reserva = '1';
-      img.src = 'img/dr/reserva.svg';
+      img.src = versionar('img/dr/reserva.svg');
     });
   }
 
@@ -129,7 +141,7 @@
 
     if (p.avatar) {
       const img = el('img', 'perfil__avatar');
-      img.src = p.avatar;
+      img.src = versionar(p.avatar);
       img.alt = p.nome || '';
       img.fetchPriority = 'high';
       reserva(img);
@@ -192,7 +204,7 @@
 
     (varias ? fotos : fotos.slice(0, 1)).forEach((src, i) => {
       const img = el('img');
-      img.src = src;
+      img.src = versionar(src);
       img.alt = '';
       img.setAttribute('aria-hidden', 'true');
       img.loading = i === 0 ? 'lazy' : 'lazy';

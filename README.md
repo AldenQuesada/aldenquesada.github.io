@@ -239,3 +239,18 @@ vista a olho. Foi o que aconteceu em 12/10 com o `fin-diabetes`.
 
 Por isso, conferir mockup é **abrir a imagem**, não checar o JSON nem o código
 HTTP. Os dois passam mesmo com o conteúdo errado.
+
+## Cache das imagens
+
+`js/render.js` tem no topo a constante `VERSAO_IMAGENS`. Ela entra como `?a=N`
+em toda imagem da página.
+
+**Ao trocar qualquer arquivo dentro de `img/`, suba esse número.**
+
+Sem isso, quem já visitou a página continua vendo a imagem velha: o arquivo
+mudou de conteúdo mas manteve o nome, e o navegador serve o que tem em cache.
+Foi o que aconteceu em 12/10, quando os mockups já estavam corretos no servidor
+e a página ainda mostrava as fotos antigas.
+
+Vale também para a prévia do WhatsApp: ali o cache é do WhatsApp, e a saída é
+mudar o nome do arquivo ou o `?v=` dentro da metatag `og:image`.

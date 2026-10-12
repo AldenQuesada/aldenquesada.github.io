@@ -44,16 +44,18 @@ hero = recorte(abrir("13.png"), 1.9, 0.44, 0.52, 1.00)
 hero = ImageEnhance.Brightness(hero).enhance(0.80)
 salvar(hero, "hero.jpg", 1800, 947)
 
-# Historia: autografando. A capa fica fora do quadro, cortada pela
-# esquerda, porque nessa foto os livros sairam com o texto corrompido.
-hist = recorte(abrir("11.png"), 0.84, 0.40, 0.52, 0.86)
+# Historia: o consultorio, ele atendendo. Escolhido por ele: a mentoria
+# se sustenta nas fotos de palestra e de consultorio, que mostram o
+# trabalho acontecendo, nao o retrato posado.
+hist = recorte(abrir("14.png"), 0.84, 0.46, 0.54, 0.96)
 salvar(hist, "historia.jpg", 900, 1071)
 
-# Sobre: retrato de poltrona, o mais proximo de "mentor sentado".
-sobre = recorte(abrir("15.png"), 0.84, 0.44, 0.50, 0.94)
+# Sobre: o palco. A foto e horizontal, entao o corte vertical fecha
+# nele e perde a plateia, que ali nao faz falta.
+sobre = recorte(abrir("13.png"), 0.84, 0.46, 0.60, 1.00)
 salvar(sobre, "sobre.jpg", 900, 1071)
 
-# Consultorio: ele atendendo, para a secao do que o mentorado recebe.
+# Consultorio em faixa larga, para o fundo da secao de entrega.
 cons = recorte(abrir("14.png"), 1.9, 0.46, 0.52, 0.96)
 cons = ImageEnhance.Brightness(cons).enhance(0.62)
 salvar(cons, "consultorio.jpg", 1800, 947)
@@ -63,3 +65,10 @@ fundo = recorte(abrir("13.png"), 1.9, 0.44, 0.50, 1.00)
 fundo = fundo.filter(ImageFilter.GaussianBlur(18))
 fundo = ImageEnhance.Brightness(fundo).enhance(0.42)
 salvar(fundo, "fundo-secao.jpg", 1600, 842, 74)
+
+
+# Fundo do aviso: consultorio desfocado, para variar do palco.
+av = recorte(abrir("14.png"), 1.9, 0.46, 0.52, 0.96)
+av = av.filter(ImageFilter.GaussianBlur(18))
+av = ImageEnhance.Brightness(av).enhance(0.42)
+salvar(av, "fundo-aviso.jpg", 1600, 842, 74)

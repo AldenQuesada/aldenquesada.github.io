@@ -12,6 +12,11 @@
 
   const rascunho = new URLSearchParams(location.search).get('rascunho') === '1';
 
+  /* Versao das imagens: entra como ?a=N em toda foto da pagina.
+     AO TROCAR QUALQUER ARQUIVO EM img/, SUBA ESTE NUMERO. Sem isso quem
+     ja visitou continua vendo a foto antiga. */
+  const VERSAO_IMAGENS = 2;
+
   const palco  = document.getElementById('palco');
   const topo   = document.getElementById('barra');
   const rodape = document.getElementById('rodape');
@@ -94,7 +99,7 @@
 
   function imagem(src, alt, classe) {
     const img = el('img', classe);
-    img.src = src;
+    img.src = src + (src.includes('?') ? '&' : '?') + 'a=' + VERSAO_IMAGENS;
     img.alt = alt || '';
     img.loading = 'lazy';
     img.decoding = 'async';

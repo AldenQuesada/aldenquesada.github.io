@@ -80,17 +80,12 @@
       "ativo": true,
       "titulo": "Diabetes Mellitus",
       "sobretitulo": "El fin de las complicaciones",
-      "descricao": "Descubre el [[único método]] que te enseña a controlar la Diabetes Mellitus.",
+      "descricao": "Controla la Diabetes Mellitus [[en menos de 6 horas]], sin salir de tu casa.",
       "lado_da_foto": "direita",
       "foto": "img/card/diabetes-es.jpg",
-      "cor": "#3a120c",
+      "cor": "#241812",
       "acento": "#e07a42",
-      "link": "",
-      "fotos": [
-        "img/card/diabetes-es.jpg",
-        "img/card/diabetes-es-2.jpg",
-        "img/card/diabetes-es-3.jpg"
-      ]
+      "link": ""
     },
     {
       "id": "fin-diabetes-es",

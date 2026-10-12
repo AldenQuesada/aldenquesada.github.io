@@ -104,14 +104,13 @@ salvar(recorte(abrir("12.png"), 1.0, 0.27, 0.50, 0.42),
 # mockup aprovado nao volta a ser foto: se o nome aparecer nas duas
 # listas, rodar este script apaga o mockup em silencio, o arquivo
 # continua respondendo 200 e a regressao so e vista a olho.
-# Hoje sao do mockups.py: fin-diabetes*, mujer-delgada*.
+# Hoje sao do mockups.py: fin-diabetes*, mujer-delgada*, diabetes-es*.
 print("cards:")
 CARDS = [
     # arquivo,   nome,             fy,    fx,    zoom
     ("14.png", "consulta",       0.46,  0.52,  0.94),  # jaleco, paciente
     ("15.png", "mentoria",       0.46,  0.50,  0.90),  # poltrona
     ("13.png", "conferencia",    0.46,  0.58,  0.92),  # palco
-    ("10.jpg", "diabetes-es",    0.50,  0.52,  0.86),  # capa ES na mao
     ("12.png", "contacto",       0.44,  0.50,  0.88),  # retrato que convida
 ]
 for arquivo, nome, fy, fx, zoom in CARDS:
@@ -127,8 +126,6 @@ print("slides:")
 SLIDES = [
     # So capa em espanhol pode aparecer: os livros em ingles e portugues
     # sairam da pagina, e mostra-los num slide desmente a propria vitrine.
-    ("10.jpg", "diabetes-es-2",    0.615, 0.565, 0.40),  # capa branca ES
-    ("3.jpg",  "diabetes-es-3",    0.600, 0.520, 0.44),  # as duas capas ES
 ]
 for arquivo, nome, fy, fx, zoom in SLIDES:
     salvar(recorte(abrir(arquivo), 1.15, fy, fx, zoom),

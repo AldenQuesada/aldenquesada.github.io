@@ -73,3 +73,13 @@ print("El fin de la Diabetes Mellitus:")
 encaixar(f"{ORIG2}/mockup elfindelaDM_07.png", f"{DEST}/card/fin-diabetes.jpg",   COR2, 0.92)
 encaixar(f"{ORIG2}/mockup elfindelaDM_02.png", f"{DEST}/card/fin-diabetes-2.jpg", COR2, 0.80)
 encaixar(f"{ORIG2}/mockup elfindelaDM_03.png", f"{DEST}/card/fin-diabetes-3.jpg", COR2, 0.80)
+
+
+ORIG3 = "/private/tmp/claude-501/-Users-drquesada/1aea2121-26b4-45a4-9936-e8a2d1834c55/scratchpad/mockups-dm"
+COR3 = "#241812"          # marrom profundo, para a capa clara saltar
+
+print("Diabetes Mellitus: El fin de las complicaciones:")
+# Por enquanto so a capa. Os demais mockups vem na proxima rodada: ate
+# la o card fica com um quadro so, em vez de misturar mockup limpo com
+# foto de celular no mesmo carrossel.
+encaixar(f"{ORIG3}/capa.png", f"{DEST}/card/diabetes-es.jpg", COR3, 0.94)

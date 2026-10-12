@@ -271,6 +271,40 @@
     return svg;
   }
 
+  /* Logotipo da plataforma: o simbolo mais a palavra, como a marca se
+     apresenta. Desenhado em SVG para ficar nitido em qualquer tela e
+     acompanhar a cor do card. */
+  const LOGOS = {
+    youtube: function () {
+      const ns = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', '0 0 138 28');
+      svg.setAttribute('class', 'card__logo');
+      svg.setAttribute('role', 'img');
+      svg.setAttribute('aria-label', 'YouTube');
+
+      const caixa = document.createElementNS(ns, 'path');
+      caixa.setAttribute('fill', '#ff0033');
+      caixa.setAttribute('d', 'M38.6 4.4a5 5 0 0 0-3.5-3.5C32 0 20 0 20 0S8 0 4.9.9A5 5 0 0 0 1.4 4.4 52 52 0 0 0 .5 14c0 3.3.3 6.5.9 9.6a5 5 0 0 0 3.5 3.5C8 28 20 28 20 28s12 0 15.1-.9a5 5 0 0 0 3.5-3.5c.6-3.1.9-6.3.9-9.6s-.3-6.5-.9-9.6z');
+      const play = document.createElementNS(ns, 'path');
+      play.setAttribute('fill', '#fff');
+      play.setAttribute('d', 'M16 20V8l10 6z');
+
+      const palavra = document.createElementNS(ns, 'text');
+      palavra.setAttribute('x', '46');
+      palavra.setAttribute('y', '21');
+      palavra.setAttribute('fill', 'currentColor');
+      palavra.setAttribute('font-family', "'Inter', system-ui, sans-serif");
+      palavra.setAttribute('font-size', '21');
+      palavra.setAttribute('font-weight', '800');
+      palavra.setAttribute('letter-spacing', '-1.1');
+      palavra.textContent = 'YouTube';
+
+      svg.append(caixa, play, palavra);
+      return svg;
+    }
+  };
+
   function marcaDaRede(nome, cor) {
     const caixa = el('div', 'card__marca');
     if (cor) caixa.style.setProperty('--cor-marca', cor);
@@ -331,7 +365,8 @@
       // sobretitulo nem descricao, so o convite.
       texto.appendChild(botaoPlay());
       const bloco = el('div');
-      if (card.selo)   bloco.appendChild(el('span', 'card__selo', card.selo));
+      if (card.logo && LOGOS[card.logo]) bloco.appendChild(LOGOS[card.logo]());
+      else if (card.selo)                bloco.appendChild(el('span', 'card__selo', card.selo));
       if (card.titulo) bloco.appendChild(tituloComPonto(card.titulo));
       texto.appendChild(bloco);
     } else {

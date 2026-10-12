@@ -34,7 +34,9 @@
     "               pousa por cima com um botao de play ao lado, e some o",
     "               sobretitulo e a descricao. Campos proprios: selo (a",
     "               caixinha acima do nome), marca (instagram, youtube,",
-    "               whatsapp, tiktok, facebook, telegram) e marca_cor."
+    "               whatsapp, tiktok, facebook, telegram) e marca_cor.",
+    "logo        = desenha o logotipo oficial da plataforma (hoje: youtube)",
+    "              acima do titulo, no card de canal."
   ],
   "cards": [
     {
@@ -80,7 +82,7 @@
       "ativo": true,
       "titulo": "Diabetes Mellitus",
       "sobretitulo": "El fin de las complicaciones",
-      "descricao": "Controla la Diabetes Mellitus [[en menos de 6 horas]], sin salir de tu casa.",
+      "descricao": "Controla la diabetes mellitus de forma natural, [[sin tomar medicamentos ni salir de tu casa.]]",
       "lado_da_foto": "direita",
       "foto": "img/card/diabetes-es.jpg",
       "cor": "#241812",
@@ -98,7 +100,7 @@
       "ativo": true,
       "titulo": "El fin de la Diabetes Mellitus",
       "sobretitulo": "100% efectivo y natural · Sin medicamentos",
-      "descricao": "Libre de los síntomas, medicamentos y complicaciones [[en menos de 21 días.]]",
+      "descricao": "[[Sé libre]] de los síntomas, los medicamentos y las complicaciones.",
       "lado_da_foto": "esquerda",
       "foto": "img/card/fin-diabetes.jpg",
       "cor": "#0d2138",
@@ -132,7 +134,7 @@
       "id": "contacto",
       "ordem": 7,
       "ativo": true,
-      "titulo": "Habla con el equipo",
+      "titulo": "Habla con mi equipo",
       "sobretitulo": "WhatsApp",
       "descricao": "Dudas sobre libros, cursos y agenda. [[Respondemos por WhatsApp.]]",
       "lado_da_foto": "esquerda",
@@ -153,7 +155,8 @@
       "lado_da_foto": "esquerda",
       "foto": "img/card/canal.jpg",
       "cor": "#0a0a0c",
-      "link": ""
+      "link": "",
+      "logo": "youtube"
     }
   ]
 }

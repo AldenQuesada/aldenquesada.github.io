@@ -284,6 +284,26 @@
   border-radius: 3px;
 }
 
+/* Logotipo da plataforma, acima do nome do canal. */
+.card__logo {
+  display: block;
+  width: 112px;
+  height: auto;
+  margin-bottom: 6px;
+  color: var(--texto);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .7));
+}
+
+.card[data-estilo="canal"] .card__logo + .card__titulo {
+  font-size: 1.02rem;
+  opacity: .92;
+}
+
+@media (max-width: 420px) {
+  .card__logo { width: 88px; }
+  .card[data-estilo="canal"] .card__logo + .card__titulo { font-size: .92rem; }
+}
+
 /* Botao de play: triangulo solido, sem circulo, como na referencia. */
 .card__play {
   flex: 0 0 auto;

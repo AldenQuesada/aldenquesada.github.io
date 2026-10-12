@@ -150,3 +150,22 @@ parado para quem tem `prefers-reduced-motion` ligado no sistema.
 livro, lombada e pilha se leem bem nesse espaço. Página interna de livro, com
 texto corrido, não: vira mancha cinza. Para mostrar o miolo, o lugar é a página
 de vendas, não o card.
+
+## Mockups de livro
+
+`ferramentas/mockups.py` encaixa os PNG de mockup nos quadros do card: corta a
+margem transparente pelo conteúdo real, redimensiona na proporção do card,
+centraliza sobre a cor daquele card e desenha uma sombra suave por baixo.
+
+```bash
+python3 ferramentas/mockups.py img
+```
+
+O caminho dos arquivos de origem está no fim do script. Para um livro novo,
+acrescente uma linha `encaixar(...)` apontando para o PNG e para o destino.
+
+**Prefira PNG com transparência.** Com fundo branco chapado o mockup fica com
+um retângulo claro em volta, que destoa do card escuro.
+
+**Qual página vira quadro:** capa, livro aberto com foto, tabela colorida. Página
+de texto corrido não, porque em 207 pixels de largura vira mancha cinza.

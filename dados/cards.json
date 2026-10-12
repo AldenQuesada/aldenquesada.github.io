@@ -18,12 +18,17 @@
     "Diabetes Mellitus, Detox Foods Anti-Diabetes) e em portugues (O fim",
     "da Diabetes Mellitus, De invisivel a autoridade em 90 dias).",
     "",
-    "Hoje ele usa o gesto de autografar, com a capa fora do quadro.",
     "fotos        = lista opcional. Com mais de uma, a metade da imagem vira",
     "               carrossel: os quadros se alternam sozinhos por fade.",
     "               Sem seta e sem arrastar, porque o card inteiro e um link.",
     "               Os quadros atuais dos livros sao PROVISORIOS: saem das",
-    "               mesmas fotos e so existem ate os mockups chegarem."
+    "               mesmas fotos e so existem ate os mockups chegarem.",
+    "",
+    "O card Mujer Delgada usa MOCKUP de verdade, montado por",
+    "ferramentas/mockups.py a partir dos PNG com alfa. O quadro de pagina",
+    "com texto corrido ficou de fora: em 207 pixels de largura ele vira",
+    "mancha cinza. So entra pagina com contraste visual, como tabela",
+    "colorida ou foto."
   ],
   "cards": [
     {
@@ -99,20 +104,21 @@
       ]
     },
     {
-      "id": "mujer-fitness",
+      "id": "mujer-delgada",
       "ordem": 6,
       "ativo": true,
-      "titulo": "Mujer Fitness y Saludable",
+      "titulo": "Mujer Delgada & Saludable",
       "sobretitulo": "Libro · Español",
-      "descricao": "El método del Dr. Quesada para [[perder peso con salud]], sin dietas imposibles.",
+      "descricao": "De 6 a 14 kg menos y edad biológica revertida en 30 días. [[Sin pasar hambre.]]",
       "lado_da_foto": "direita",
-      "foto": "img/card/mujer-fitness.jpg",
-      "cor": "#241427",
-      "acento": "#c89af0",
+      "foto": "img/card/mujer-delgada.jpg",
+      "cor": "#13251a",
+      "acento": "#e9ce76",
       "link": "",
       "fotos": [
-        "img/card/mujer-fitness.jpg",
-        "img/card/mujer-fitness-2.jpg"
+        "img/card/mujer-delgada.jpg",
+        "img/card/mujer-delgada-2.jpg",
+        "img/card/mujer-delgada-3.jpg"
       ]
     },
     {

@@ -1,65 +1,59 @@
 # Prompts para gerar as imagens no Nano Banana
 
-As imagens que estão no ar hoje foram recortadas das fotos de celular enviadas em
-11/10/2026. Seguram a página de pé, mas são todas da mesma sessão: você sentado
-na mesma cadeira, no mesmo escritório. Estes prompts geram as definitivas.
+Desde 11/10/2026 a página usa a sessão de fotos profissionais (11 a 15).
+O que ainda pode melhorar com geração:
 
-A página precisa de três tipos de imagem:
+| O que | Arquivo | Estado |
+|---|---|---|
+| Fundo da página | `img/fondo/cenario-ancho.jpg` | composto aqui, funciona |
+| Capa do livro de adelgazamiento | `img/card/adelgazamiento.jpg` | **provisório**, sem a capa |
+| Mockups dos livros | ainda não existem | aguardando as capas |
 
-| Tipo | Arquivo | Formato | Onde aparece |
-|---|---|---|---|
-| Cenário | `img/fondo/cenario.jpg` e `cenario-ancho.jpg` | 3:4 e 16:10 | fundo fixo de tudo |
-| Avatar | `img/dr/avatar.jpg` | 1:1 | círculo do topo |
-| Imagem do card | `img/card/<id>.jpg` | 1,15:1 | metade de cada card |
+## O problema da foto do autógrafo (11.png)
 
-Os nomes importam: são eles que estão escritos nos JSON. Gerou a imagem nova,
-salva com o mesmo nome, troca o arquivo e pronto, sem mexer em código.
+Ampliei as capas nela e estão corrompidas: **"ALDEN J. QUESSADA"** com dois S,
+"De invisivel" sem acento, o subtítulo virou letra sem sentido e a pilha da
+esquerda está com o texto espelhado ("DNII ERDES" é "DANI MENDES" ao contrário).
 
----
+Por isso ela entra na página só no card de adelgazamiento, **cortada no gesto de
+autografar, com a capa fora do quadro**. Se um dia você quiser usá-la inteira,
+as capas precisam ser refeitas.
 
-## 1. Cenário de fundo
-
-É a peça que mais muda o nível da página. Na referência, o cenário é um salão
-clássico escuro, com o médico aparecendo duas vezes, sentado à esquerda e em pé
-à direita, e a coluna de cards passando no meio por cima.
-
-**Importante:** a coluna ocupa os 500 pixels do centro. Tudo que estiver no meio
-da imagem fica tapado. As figuras precisam ficar nas laterais.
-
-### `cenario-ancho.jpg` (desktop, 1920x1200)
+Para regerar essa foto com as capas certas:
 
 ```
-Monte um cenário cinematográfico horizontal com o Dr. Quesada aparecendo duas vezes na mesma cena.
-À esquerda, ele sentado em uma poltrona de couro escuro, de terno escuro, pernas cruzadas, olhando para a câmera.
-À direita, ele em pé ao lado de uma janela alta, de terno escuro, mãos à frente do corpo, olhando para a câmera.
-O centro do quadro fica vazio e escuro: só o ambiente, sem pessoa e sem objeto, porque o site escreve por cima dessa faixa.
-Ambiente: biblioteca ou consultório clássico, madeira escura, estante de livros, luz quente e baixa vindo de abajures, atmosfera noturna.
-Mantenha o rosto, a barba e o tom de pele exatamente como nas fotos originais.
-Imagem escura e de baixo contraste geral, como um cenário de fundo, não como um retrato.
-Formato 16:10, 1920x1200 pixels. Nada de texto, logotipo ou marca d'água.
+Use a foto do Dr. Quesada autografando o livro.
+Mantenha tudo igual: a pose, o terno azul de três peças, a mesa de mármore, a estante iluminada ao fundo.
+Substitua as capas dos livros pelas capas reais que estou anexando, sem alterar o texto delas.
+Nenhuma letra pode aparecer espelhada, trocada ou ilegível.
+O nome do autor é ALDEN J. QUESADA, com um S só.
+Formato vertical, 1120x1400 pixels.
 ```
 
-### `cenario.jpg` (celular, 1200x1600)
+## Capa e mockup do livro de adelgazamiento
+
+Quando a capa estiver em mãos, o card fica assim:
 
 ```
-O mesmo cenário acima, recomposto em formato vertical 3:4, 1200x1600 pixels.
-No celular quase só se vê a faixa do meio, então deixe o centro vazio e escuro e as duas figuras bem nas bordas, parcialmente cortadas.
-Imagem escura, atmosférica, sem foco de leitura.
+Use a foto do Dr. Quesada de jaleco branco.
+Ele segurando o livro de capa <descrever a capa> junto ao peito, capa voltada para a câmera e totalmente legível.
+Fundo de consultório desfocado em tom escuro.
+Formato quase quadrado, 1120x974 pixels (proporção 1,15:1).
+Enquadramento de meio-corpo, figura centralizada e com folga nas bordas.
+Mantenha o rosto, a barba, os óculos e o tom de pele exatamente como na foto original.
 ```
 
----
+## Fundo alternativo, se quiser trocar o composto
 
-## 2. Avatar
+Hoje o fundo é você sentado à esquerda e em pé à direita, com o meio escuro. Se
+preferir o caminho da gabifarias, que usa uma pintura clássica:
 
 ```
-Use a foto do Dr. Quesada de terno cinza.
-Recorte quadrado 1:1, 640x640 pixels, fechado no rosto e nos ombros, rosto centralizado, olhando para a câmera.
-Fundo desfocado em tom quente e escuro.
-Iluminação suave e limpa, nível de retrato profissional.
-Mantenha o rosto, a barba e o tom de pele exatamente como na foto original, sem retoque de feição.
+Pintura a óleo clássica, estilo século XIX, de um estudo anatômico do coração humano sobre mesa de madeira escura, com instrumentos e um caderno de anotações.
+Tons escuros e quentes, luz dramática lateral, pinceladas visíveis.
+O centro do quadro fica vazio e escuro: é por ali que a coluna de cards desce.
+Formato 16:10, 1920x1200 pixels. Nada de texto, assinatura ou marca d'água.
 ```
-
-Nome do arquivo: `avatar.jpg`.
 
 ---
 

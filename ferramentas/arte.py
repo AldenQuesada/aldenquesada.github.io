@@ -113,3 +113,22 @@ CARDS = [
 for arquivo, nome, fy, fx, zoom in CARDS:
     salvar(recorte(abrir(arquivo), 1.15, fy, fx, zoom),
            os.path.join(DEST, f"card/{nome}.jpg"), 560, 487)
+
+
+# ----------------------------------------------------- slides do carrossel
+# Segundo e terceiro quadro dos cards de livro. Enquanto os mockups nao
+# chegam, saem das mesmas fotos, mas enquadrados no LIVRO, nao no rosto:
+# o carrossel existe para mostrar o produto, nao para repetir a pessoa.
+print("slides:")
+SLIDES = [
+    # So capa em espanhol pode aparecer: os livros em ingles e portugues
+    # sairam da pagina, e mostra-los num slide desmente a propria vitrine.
+    ("10.jpg", "diabetes-es-2",    0.615, 0.565, 0.40),  # capa branca ES
+    ("3.jpg",  "diabetes-es-3",    0.600, 0.520, 0.44),  # as duas capas ES
+    ("5.jpg",  "fin-diabetes-2",   0.620, 0.430, 0.42),  # capa azul ES
+    ("6.jpg",  "fin-diabetes-3",   0.610, 0.520, 0.44),  # capa azul na mao
+    ("11.png", "adelgazamiento-2", 0.560, 0.520, 0.42),  # caneta e assinatura
+]
+for arquivo, nome, fy, fx, zoom in SLIDES:
+    salvar(recorte(abrir(arquivo), 1.15, fy, fx, zoom),
+           os.path.join(DEST, f"card/{nome}.jpg"), 560, 487)

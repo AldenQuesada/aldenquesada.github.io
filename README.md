@@ -125,3 +125,28 @@ caminho relativo: com `img/social/og.jpg` a prévia sai em branco.
 
 Depois de trocar a imagem, o WhatsApp guarda a antiga em cache por um tempo.
 Para forçar, mude o nome do arquivo ou acrescente `?v=2` na URL da metatag.
+
+## Carrossel no card
+
+Um card com o campo `fotos` (lista) troca os quadros sozinho, por fade, a cada
+3,4 segundos. Com `foto` só, fica estático.
+
+```json
+"fotos": [
+  "img/card/diabetes-es.jpg",
+  "img/card/diabetes-es-2.jpg",
+  "img/card/diabetes-es-3.jpg"
+]
+```
+
+**Sem seta e sem arrastar, de propósito.** O card inteiro é um link: qualquer
+gesto dentro dele competiria com o toque que leva ao checkout, e no celular o
+arrasto lateral ainda brigaria com a rolagem da página.
+
+O carrossel só gira quando o card está na tela e a aba está visível, e fica
+parado para quem tem `prefers-reduced-motion` ligado no sistema.
+
+**Limite de tamanho:** a imagem do card tem 207 por 180 pixels na tela. Capa de
+livro, lombada e pilha se leem bem nesse espaço. Página interna de livro, com
+texto corrido, não: vira mancha cinza. Para mostrar o miolo, o lugar é a página
+de vendas, não o card.

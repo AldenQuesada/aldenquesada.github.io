@@ -9,6 +9,9 @@
 
   const rascunho = new URLSearchParams(location.search).get('rascunho') === '1';
 
+  /* Tempo que cada slide do carrossel fica na tela. */
+  const CARROSSEL_MS = 3400;
+
   const alvos = {
     perfil:  document.getElementById('perfil'),
     vitrine: document.getElementById('vitrine'),
@@ -173,6 +176,74 @@
     return p;
   }
 
+  /* Metade da imagem do card. Com uma foto so, e uma <img>. Com varias,
+     vira carrossel: os slides se alternam sozinhos, por fade.
+
+     Ele so roda quando o card esta na tela e a aba esta visivel. Carrossel
+     girando fora de vista gasta bateria e nao e visto por ninguem. */
+  function montarImagem(card) {
+    const fotos = (card.fotos && card.fotos.length ? card.fotos : [card.foto]).filter(Boolean);
+    const caixa = el('div', 'card__img');
+    if (!fotos.length) return caixa;
+
+    const parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const varias = fotos.length > 1 && !parado;
+
+    (varias ? fotos : fotos.slice(0, 1)).forEach((src, i) => {
+      const img = el('img');
+      img.src = src;
+      img.alt = '';
+      img.setAttribute('aria-hidden', 'true');
+      img.loading = i === 0 ? 'lazy' : 'lazy';
+      img.decoding = 'async';
+      if (varias && i === 0) img.classList.add('ativo');
+      reserva(img);
+      caixa.appendChild(img);
+    });
+
+    if (!varias) return caixa;
+
+    caixa.classList.add('card__img--carrossel');
+
+    const pontos = el('div', 'card__pontos');
+    fotos.forEach((_, i) => {
+      const p = el('span', 'card__ponto-slide');
+      if (i === 0) p.classList.add('ativo');
+      pontos.appendChild(p);
+    });
+    caixa.appendChild(pontos);
+
+    const slides = caixa.querySelectorAll('img');
+    const marcas = pontos.children;
+    let atual = 0, relogio = null;
+
+    function avancar() {
+      slides[atual].classList.remove('ativo');
+      marcas[atual].classList.remove('ativo');
+      atual = (atual + 1) % slides.length;
+      slides[atual].classList.add('ativo');
+      marcas[atual].classList.add('ativo');
+    }
+
+    const ligar  = () => { if (!relogio) relogio = setInterval(avancar, CARROSSEL_MS); };
+    const parar  = () => { clearInterval(relogio); relogio = null; };
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(entradas => {
+        entradas[0].isIntersecting && !document.hidden ? ligar() : parar();
+      }, { threshold: 0.35 }).observe(caixa);
+    } else {
+      ligar();
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      document.hidden ? parar() : null;
+    });
+
+    return caixa;
+  }
+
+
   function aneisDecorativos() {
     const ns = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(ns, 'svg');
@@ -214,19 +285,7 @@
     }
 
     const inner = el('div', 'card__inner');
-
-    const caixaImg = el('div', 'card__img');
-    if (card.foto) {
-      const img = el('img');
-      img.src = card.foto;
-      img.alt = '';
-      img.setAttribute('aria-hidden', 'true');
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      reserva(img);
-      caixaImg.appendChild(img);
-    }
-    inner.appendChild(caixaImg);
+    inner.appendChild(montarImagem(card));
 
     const texto = el('div', 'card__texto');
     if (card.titulo)      texto.appendChild(tituloComPonto(card.titulo));

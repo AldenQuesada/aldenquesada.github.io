@@ -63,6 +63,50 @@
   object-position: center 22%;
 }
 
+/* --- Carrossel: slides empilhados, troca por fade ------------------
+   Sem seta e sem arrastar. O card inteiro e um link: qualquer gesto
+   dentro dele competiria com o toque que leva ao checkout, e no celular
+   o arrasto lateral ainda brigaria com a rolagem da pagina.
+------------------------------------------------------------------- */
+
+.card__img--carrossel { display: grid; }
+
+.card__img--carrossel img {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transition: opacity .9s ease-in-out;
+}
+
+.card__img--carrossel img.ativo { opacity: 1; }
+
+/* Tracinhos de posicao, discretos, so para avisar que ha mais de uma. */
+.card__pontos {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 7px;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.card__ponto-slide {
+  width: 11px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, .34);
+  transition: background var(--transicao);
+}
+
+.card__ponto-slide.ativo { background: var(--acento); }
+
+/* Quem pediu menos movimento ve so o primeiro slide, parado. */
+@media (prefers-reduced-motion: reduce) {
+  .card__img--carrossel img { transition: none; }
+}
+
 /* Fio de luz na emenda das duas metades. */
 .card__img::after {
   content: "";

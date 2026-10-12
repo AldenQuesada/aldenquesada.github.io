@@ -18,12 +18,14 @@
     "Diabetes Mellitus, Detox Foods Anti-Diabetes) e em portugues (O fim",
     "da Diabetes Mellitus, De invisivel a autoridade em 90 dias).",
     "",
-    "PENDENTE no card 'adelgazamiento': o titulo exato do livro e a foto.",
-    "Hoje ele usa o gesto de autografar, com a capa fora do quadro."
+    "Hoje ele usa o gesto de autografar, com a capa fora do quadro.",
+    "fotos        = lista opcional. Com mais de uma, a metade da imagem vira",
+    "               carrossel: os quadros se alternam sozinhos por fade.",
+    "               Sem seta e sem arrastar, porque o card inteiro e um link.",
+    "               Os quadros atuais dos livros sao PROVISORIOS: saem das",
+    "               mesmas fotos e so existem ate os mockups chegarem."
   ],
-
   "cards": [
-
     {
       "id": "consulta",
       "ordem": 1,
@@ -37,7 +39,6 @@
       "acento": "#5fd2a0",
       "link": ""
     },
-
     {
       "id": "mentoria",
       "ordem": 2,
@@ -50,7 +51,6 @@
       "cor": "#141f33",
       "link": ""
     },
-
     {
       "id": "conferencias",
       "ordem": 3,
@@ -63,7 +63,6 @@
       "cor": "#2a1710",
       "link": ""
     },
-
     {
       "id": "diabetes-es",
       "ordem": 4,
@@ -75,9 +74,13 @@
       "foto": "img/card/diabetes-es.jpg",
       "cor": "#3a120c",
       "acento": "#e07a42",
-      "link": ""
+      "link": "",
+      "fotos": [
+        "img/card/diabetes-es.jpg",
+        "img/card/diabetes-es-2.jpg",
+        "img/card/diabetes-es-3.jpg"
+      ]
     },
-
     {
       "id": "fin-diabetes-es",
       "ordem": 5,
@@ -88,23 +91,30 @@
       "lado_da_foto": "esquerda",
       "foto": "img/card/fin-diabetes.jpg",
       "cor": "#0f2340",
-      "link": ""
+      "link": "",
+      "fotos": [
+        "img/card/fin-diabetes.jpg",
+        "img/card/fin-diabetes-2.jpg",
+        "img/card/fin-diabetes-3.jpg"
+      ]
     },
-
     {
-      "id": "adelgazamiento",
+      "id": "mujer-fitness",
       "ordem": 6,
       "ativo": true,
-      "titulo": "Adelgazamiento",
+      "titulo": "Mujer Fitness y Saludable",
       "sobretitulo": "Libro · Español",
-      "descricao": "El método del Dr. Quesada para perder peso [[sin dietas imposibles.]]",
+      "descricao": "El método del Dr. Quesada para [[perder peso con salud]], sin dietas imposibles.",
       "lado_da_foto": "direita",
-      "foto": "img/card/adelgazamiento.jpg",
+      "foto": "img/card/mujer-fitness.jpg",
       "cor": "#241427",
       "acento": "#c89af0",
-      "link": ""
+      "link": "",
+      "fotos": [
+        "img/card/mujer-fitness.jpg",
+        "img/card/mujer-fitness-2.jpg"
+      ]
     },
-
     {
       "id": "contacto",
       "ordem": 7,
@@ -118,6 +128,5 @@
       "acento": "#5fd2a0",
       "link": ""
     }
-
   ]
 }

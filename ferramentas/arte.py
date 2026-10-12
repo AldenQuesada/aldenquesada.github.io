@@ -99,6 +99,12 @@ salvar(recorte(abrir("12.png"), 1.0, 0.27, 0.50, 0.42),
 
 # ----------------------------------------------------------------- cards
 # A imagem do card e quase quadrada: 47% da largura por toda a altura.
+# ATENCAO, LIMITE DE DOMINIO
+# Este arquivo NAO pode gerar nada que o mockups.py gere. Card com
+# mockup aprovado nao volta a ser foto: se o nome aparecer nas duas
+# listas, rodar este script apaga o mockup em silencio, o arquivo
+# continua respondendo 200 e a regressao so e vista a olho.
+# Hoje sao do mockups.py: fin-diabetes*, mujer-delgada*.
 print("cards:")
 CARDS = [
     # arquivo,   nome,             fy,    fx,    zoom
@@ -106,8 +112,6 @@ CARDS = [
     ("15.png", "mentoria",       0.46,  0.50,  0.90),  # poltrona
     ("13.png", "conferencia",    0.46,  0.58,  0.92),  # palco
     ("10.jpg", "diabetes-es",    0.50,  0.52,  0.86),  # capa ES na mao
-    ("5.jpg",  "fin-diabetes",   0.525, 0.455, 0.80),  # capa azul na mao
-    ("11.png", "adelgazamiento", 0.62,  0.46,  0.56),  # gesto de autografar
     ("12.png", "contacto",       0.44,  0.50,  0.88),  # retrato que convida
 ]
 for arquivo, nome, fy, fx, zoom in CARDS:
@@ -125,9 +129,6 @@ SLIDES = [
     # sairam da pagina, e mostra-los num slide desmente a propria vitrine.
     ("10.jpg", "diabetes-es-2",    0.615, 0.565, 0.40),  # capa branca ES
     ("3.jpg",  "diabetes-es-3",    0.600, 0.520, 0.44),  # as duas capas ES
-    ("5.jpg",  "fin-diabetes-2",   0.620, 0.430, 0.42),  # capa azul ES
-    ("6.jpg",  "fin-diabetes-3",   0.610, 0.520, 0.44),  # capa azul na mao
-    ("11.png", "adelgazamiento-2", 0.560, 0.520, 0.42),  # caneta e assinatura
 ]
 for arquivo, nome, fy, fx, zoom in SLIDES:
     salvar(recorte(abrir(arquivo), 1.15, fy, fx, zoom),

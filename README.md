@@ -223,3 +223,19 @@ placa ao card sem nenhum enfeite.
 A técnica é a borda em degradê: o fundo pinta a moldura inteira e duas máscaras
 recortam o miolo, deixando só a espessura do padding. Para mudar a intensidade,
 mexa no primeiro valor do `linear-gradient`.
+
+## Quem é dono de qual arquivo
+
+Dois scripts escrevem em `img/card/`, e **não podem gerar o mesmo nome**:
+
+| Script | Gera |
+|---|---|
+| `ferramentas/arte.py` | cards com foto: consulta, mentoria, conferencia, diabetes-es*, contacto, canal |
+| `ferramentas/mockups.py` | cards com mockup: fin-diabetes*, mujer-delgada* |
+
+Se um nome aparecer nas duas listas, rodar o `arte.py` **apaga o mockup em
+silêncio**: o arquivo continua existindo e respondendo 200, e a regressão só é
+vista a olho. Foi o que aconteceu em 12/10 com o `fin-diabetes`.
+
+Por isso, conferir mockup é **abrir a imagem**, não checar o JSON nem o código
+HTTP. Os dois passam mesmo com o conteúdo errado.

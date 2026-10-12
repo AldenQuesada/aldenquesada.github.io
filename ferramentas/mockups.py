@@ -60,3 +60,16 @@ print("Mujer Delgada & Saludable:")
 encaixar(f"{ORIG}/01.png", f"{DEST}/card/mujer-delgada.jpg",   COR, 0.92)
 encaixar(f"{ORIG}/02.png", f"{DEST}/card/mujer-delgada-2.jpg", COR, 0.80)
 encaixar(f"{ORIG}/04.png", f"{DEST}/card/mujer-delgada-3.jpg", COR, 0.80)
+
+
+ORIG2 = "/private/tmp/claude-501/-Users-drquesada/1aea2121-26b4-45a4-9936-e8a2d1834c55/scratchpad/mockups-findm"
+COR2 = "#0d2138"          # azul profundo, puxado da capa
+
+print("El fin de la Diabetes Mellitus:")
+# Dos oito, entram tres. Fora ficaram:
+#   08  capa em perspectiva: em 207 pixels a lombada vira borrao
+#   01, 06  paginas de texto corrido, viram mancha
+#   04, 05  aberturas boas, mas 02 ja cumpre o papel
+encaixar(f"{ORIG2}/mockup elfindelaDM_07.png", f"{DEST}/card/fin-diabetes.jpg",   COR2, 0.92)
+encaixar(f"{ORIG2}/mockup elfindelaDM_02.png", f"{DEST}/card/fin-diabetes-2.jpg", COR2, 0.80)
+encaixar(f"{ORIG2}/mockup elfindelaDM_03.png", f"{DEST}/card/fin-diabetes-3.jpg", COR2, 0.80)

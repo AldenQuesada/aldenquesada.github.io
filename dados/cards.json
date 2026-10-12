@@ -95,13 +95,14 @@
       "descricao": "Libre de síntomas, medicamentos y complicaciones [[en menos de 21 días.]]",
       "lado_da_foto": "esquerda",
       "foto": "img/card/fin-diabetes.jpg",
-      "cor": "#0f2340",
+      "cor": "#0d2138",
       "link": "",
       "fotos": [
         "img/card/fin-diabetes.jpg",
         "img/card/fin-diabetes-2.jpg",
         "img/card/fin-diabetes-3.jpg"
-      ]
+      ],
+      "acento": "#e9ce76"
     },
     {
       "id": "mujer-delgada",

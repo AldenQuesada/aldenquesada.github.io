@@ -155,31 +155,36 @@ a { color: inherit; text-decoration: none; }
   text-align: center;
 }
 
+/* Medidas lidas da referencia: caixa 44, gap 12, borda dourada a 35%,
+   fundo do proprio site a 72% e icone de 20 em dourado claro. */
 .pie__redes {
   display: flex;
   justify-content: center;
-  gap: var(--esp-2);
+  gap: 12px;
   margin-bottom: var(--esp-3);
 }
 
 .pie__rede {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  color: var(--texto-suave);
-  border: 1px solid var(--ouro-fraco);
-  transition: color var(--transicao), border-color var(--transicao), transform var(--transicao);
+  color: var(--ouro-claro);
+  background: rgba(14, 11, 8, .72);
+  border: 1px solid rgba(233, 206, 118, .35);
+  transition: color var(--transicao), border-color var(--transicao),
+              background var(--transicao), transform var(--transicao);
 }
 
 .pie__rede:hover {
-  color: var(--ouro-claro);
+  color: var(--texto);
   border-color: var(--ouro);
+  background: rgba(233, 206, 118, .12);
   transform: translateY(-2px);
 }
 
-.pie__rede svg { width: 19px; height: 19px; }
+.pie__rede svg { width: 20px; height: 20px; }
 
 .pie__texto {
   margin: 0;

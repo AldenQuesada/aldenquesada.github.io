@@ -24,7 +24,7 @@
       {
         "id": "instagram",
         "nome": "Instagram",
-        "link": ""
+        "link": "https://www.instagram.com/aldenquesada.dr/"
       },
       {
         "id": "youtube",
@@ -32,9 +32,9 @@
         "link": "https://www.youtube.com/@Dr.quesada"
       },
       {
-        "id": "whatsapp",
-        "nome": "WhatsApp",
-        "link": "https://wa.me/5544998787673?text=Hola%2C%20me%20gustar%C3%ADa%20hablar%20con%20el%20equipo%20del%20Dr.%20Quesada"
+        "id": "tiktok",
+        "nome": "TikTok",
+        "link": "https://www.tiktok.com/@aldenquesada.dr"
       }
     ]
   }

@@ -203,3 +203,23 @@ Regra, não gosto pessoal:
   capa, ou a faixa de promessa. Não serve para dizer o idioma: a página inteira
   é em espanhol.
 - `descricao` usa as palavras da própria capa, não uma reescrita.
+
+## A assinatura do topo
+
+Três peças, todas em `dados/perfil.json`:
+
+- `assinatura` é o nome em fonte manuscrita, atrás do avatar.
+- `assinatura_titulo` é o **"Dr." pequeno**, que entra acima e à esquerda da
+  primeira inicial, como em assinatura de próprio punho.
+- A inicial de cada palavra sai a 1,9 vez o tamanho do resto, com a haste
+  descendo. É o que faz a assinatura virar monograma em vez de palavra escrita.
+
+## O fio de luz na borda do card
+
+`.card__inner::before` desenha uma borda de 1 pixel em degradê, forte no alto e
+sumindo para baixo, como se a luz da sala viesse do teto. É o que dá relevo de
+placa ao card sem nenhum enfeite.
+
+A técnica é a borda em degradê: o fundo pinta a moldura inteira e duas máscaras
+recortam o miolo, deixando só a espessura do padding. Para mudar a intensidade,
+mexa no primeiro valor do `linear-gradient`.

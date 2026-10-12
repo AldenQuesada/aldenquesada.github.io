@@ -38,7 +38,7 @@
 
   --t-nome:           1.75rem;
   --t-credencial:     .8rem;
-  --t-assinatura:     5.4rem;
+  --t-assinatura:     4.4rem;
 
   /* Medidas do card, lidas da referencia */
   --t-card-titulo:    1.375rem;   /* 22px */
@@ -73,7 +73,7 @@
 @media (max-width: 480px) {
   :root {
     --t-nome:         1.5rem;
-    --t-assinatura:   4.2rem;
+    --t-assinatura:   3.3rem;
     --t-card-titulo:  1.2rem;
     --t-card-desc:    .72rem;
     --avatar:         86px;

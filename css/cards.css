@@ -44,6 +44,35 @@
 
 .card:hover .card__inner { box-shadow: var(--card-sombra-at); }
 
+/* Fio de luz na borda, mais forte em cima e sumindo para baixo, como se
+   a luz da sala viesse do alto. E o que da relevo de placa ao card, sem
+   nenhum enfeite: o brilho e so 1 pixel.
+   O truque da borda em degrade: o fundo pinta a moldura inteira e a
+   mascara recorta o miolo, deixando so a espessura do padding. */
+.card__inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    170deg,
+    rgba(255, 255, 255, .50) 0%,
+    rgba(255, 255, 255, .16) 26%,
+    rgba(255, 255, 255, .04) 58%,
+    rgba(255, 255, 255, 0) 88%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  transition: opacity var(--transicao);
+}
+
+.card:hover .card__inner::before { opacity: .72; }
+
 /* Imagem a esquerda por padrao; o JSON inverte com data-lado. */
 .card[data-lado="direita"] .card__inner { flex-direction: row-reverse; }
 

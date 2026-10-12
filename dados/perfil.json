@@ -1,29 +1,41 @@
 {
   "_leia": [
     "Topo e rodape da pagina. Os produtos ficam em cards.json.",
-    "assinatura = texto escrito em fonte manuscrita, por tras do avatar.",
+    "assinatura         = nome escrito em fonte manuscrita, por tras do avatar.",
+    "assinatura_titulo  = o 'Dr.' pequeno, acima e a esquerda da inicial.",
     "verificado = true desenha o selo azul ao lado do nome. So ligue se a",
     "             conta for mesmo verificada: o selo imita o do Instagram.",
     "redes      = icone sai do campo 'id'. Disponiveis: instagram, youtube,",
     "             whatsapp, tiktok, facebook, telegram."
   ],
-
   "perfil": {
     "mostrar": true,
     "assinatura": "Alden Quesada",
     "nome": "Dr. Alden J. Quesada",
     "verificado": false,
     "credencial": "Especialista en Cardiología y Naturópata",
-    "avatar": "img/dr/avatar.jpg"
+    "avatar": "img/dr/avatar.jpg",
+    "assinatura_titulo": "Dr."
   },
-
   "pie": {
     "mostrar": true,
     "texto": "Dr. Alden J. Quesada · Todos los derechos reservados",
     "redes": [
-      { "id": "instagram", "nome": "Instagram", "link": "" },
-      { "id": "youtube",   "nome": "YouTube",   "link": "" },
-      { "id": "whatsapp",  "nome": "WhatsApp",  "link": "" }
+      {
+        "id": "instagram",
+        "nome": "Instagram",
+        "link": ""
+      },
+      {
+        "id": "youtube",
+        "nome": "YouTube",
+        "link": ""
+      },
+      {
+        "id": "whatsapp",
+        "nome": "WhatsApp",
+        "link": ""
+      }
     ]
   }
 }

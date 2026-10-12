@@ -91,10 +91,20 @@ a { color: inherit; text-decoration: none; }
   user-select: none;
 }
 
-/* A e Q maiores: o jogo de fontes que faz a assinatura virar monograma. */
+/* A e Q bem maiores, com a haste descendo: o jogo de fontes que faz a
+   assinatura virar monograma em vez de palavra escrita. */
 .perfil__inicial {
-  font-size: 1.5em;
+  font-size: 1.9em;
   line-height: 0;
+}
+
+/* O "Dr." vem pequeno, acima e a esquerda da inicial, como em assinatura
+   de proprio punho: o titulo e menor que o nome, nao do mesmo tamanho. */
+.perfil__dr {
+  font-size: .3em;
+  vertical-align: .95em;
+  margin-right: -.18em;
+  letter-spacing: .01em;
 }
 
 .perfil__avatar {

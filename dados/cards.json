@@ -85,7 +85,12 @@
       "foto": "img/card/diabetes-es.jpg",
       "cor": "#241812",
       "acento": "#e07a42",
-      "link": ""
+      "link": "",
+      "fotos": [
+        "img/card/diabetes-es.jpg",
+        "img/card/diabetes-es-2.jpg",
+        "img/card/diabetes-es-3.jpg"
+      ]
     },
     {
       "id": "fin-diabetes-es",

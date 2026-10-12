@@ -82,4 +82,13 @@ print("Diabetes Mellitus: El fin de las complicaciones:")
 # Por enquanto so a capa. Os demais mockups vem na proxima rodada: ate
 # la o card fica com um quadro so, em vez de misturar mockup limpo com
 # foto de celular no mesmo carrossel.
-encaixar(f"{ORIG3}/capa.png", f"{DEST}/card/diabetes-es.jpg", COR3, 0.94)
+# Dos quatro miolos entraram dois. O criterio e sempre o mesmo: o que
+# se le com 207 pixels de largura.
+#   18 Licuado    foto grande do suco verde, cor forte, le na hora
+#   19 Tabla de Control  a grade dourada vira padrao listrado, e le
+#   20 Diagnostico       as setas aparecem, mas cercadas de texto cinza
+#   21 Procedimiento     texto corrido, vira mancha
+# Escolhido olhando os quatro renderizados a 207x180, o tamanho de tela.
+encaixar(f"{ORIG3}/capa.png", f"{DEST}/card/diabetes-es.jpg",   COR3, 0.94)
+encaixar(f"{ORIG3}/18.png",   f"{DEST}/card/diabetes-es-2.jpg", COR3, 0.80)
+encaixar(f"{ORIG3}/19.png",   f"{DEST}/card/diabetes-es-3.jpg", COR3, 0.80)

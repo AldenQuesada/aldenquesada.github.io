@@ -50,7 +50,7 @@
       "foto": "img/card/consulta.jpg",
       "cor": "#10261c",
       "acento": "#5fd2a0",
-      "link": ""
+      "link": "https://wa.me/5544998787673?text=Hola%2C%20me%20gustar%C3%ADa%20marcar%20una%20consulta%20con%20el%20Dr.%20Quesada"
     },
     {
       "id": "mentoria",
@@ -141,7 +141,7 @@
       "foto": "img/card/contacto.jpg",
       "cor": "#0f2b1d",
       "acento": "#5fd2a0",
-      "link": ""
+      "link": "https://wa.me/5544998787673?text=Hola%2C%20me%20gustar%C3%ADa%20informaci%C3%B3n%20sobre%20los%20libros%20y%20cursos%20del%20Dr.%20Quesada"
     },
     {
       "id": "canal-youtube",
@@ -155,7 +155,7 @@
       "lado_da_foto": "esquerda",
       "foto": "img/card/canal.jpg",
       "cor": "#0a0a0c",
-      "link": "",
+      "link": "https://www.youtube.com/@Dr.quesada",
       "logo": "youtube"
     }
   ]

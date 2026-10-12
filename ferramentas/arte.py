@@ -1,15 +1,24 @@
 #!/usr/bin/env python3
-"""Gera a arte da pagina no modelo Dr. Alexandre Duarte.
+"""Gera toda a arte da pagina a partir das fotos do Dr. Quesada.
 
- - cenario de fundo: foto do escritorio desfocada e escurecida
- - bustos 3:4 para a faixa de cada card
- - avatar quadrado para o circulo do topo
+As fotos da sessao profissional (11 a 15) substituem as de celular onde
+ele nao aparece com livro na mao. Onde aparece, a de celular fica: e ela
+que mostra a capa.
+
+Nao usar 11.png com a capa legivel: nela os livros sairam com o texto
+corrompido ("QUESSADA" com dois S, "De invisivel" sem acento, pilha da
+esquerda espelhada). So o gesto de autografar se aproveita.
 """
 import sys, os
-from PIL import Image, ImageFilter, ImageEnhance
+from PIL import Image, ImageFilter, ImageEnhance, ImageDraw
 
 ORIG = "/private/tmp/claude-501/-Users-drquesada/1aea2121-26b4-45a4-9936-e8a2d1834c55/images"
 DEST = sys.argv[1]
+FUNDO = (14, 11, 8)
+
+
+def abrir(nome):
+    return Image.open(os.path.join(ORIG, nome)).convert("RGB")
 
 
 def recorte(im, razao, fy, fx, zoom=1.0):
@@ -24,63 +33,83 @@ def recorte(im, razao, fy, fx, zoom=1.0):
     return im.crop((cx, cy, cx + cw, cy + ch))
 
 
-def salvar(im, caminho, larg, alt, q=84):
+def salvar(im, caminho, larg, alt, q=86):
     os.makedirs(os.path.dirname(caminho), exist_ok=True)
     im.resize((larg, alt), Image.LANCZOS).save(
         caminho, "JPEG", quality=q, optimize=True, progressive=True)
-    print(f"  {os.path.relpath(caminho, DEST):28s} {larg}x{alt}  {os.path.getsize(caminho)//1024} KB")
+    print(f"  {os.path.relpath(caminho, DEST):30s} {larg}x{alt}  {os.path.getsize(caminho)//1024} KB")
+
+
+def figura(nome, razao, fy, fx, zoom, alt_px):
+    im = recorte(abrir(nome), razao, fy, fx, zoom)
+    return im.resize((int(im.width * alt_px / im.height), alt_px), Image.LANCZOS)
+
+
+def mascara_dissolve(tam, borda):
+    """Apaga a borda indicada, para a figura nascer da escuridao."""
+    m = Image.new("L", tam, 255)
+    d = ImageDraw.Draw(m)
+    faixa = int(tam[0] * 0.5)
+    for x in range(faixa):
+        v = int(255 * (x / faixa) ** 1.4)
+        col = x if borda == "esquerda" else tam[0] - 1 - x
+        d.line([(col, 0), (col, tam[1])], fill=v)
+    return m
 
 
 # ---------------------------------------------------------------- cenario
-# A foto do escritorio vira ambiente: desfocada, escura, sem leitura de
-# detalhe. Ela existe para dar profundidade atras da coluna, nada mais.
+# No modelo da referencia: ele sentado de um lado, em pe do outro, e o
+# meio escuro e vazio, porque e por ali que a coluna de cards desce.
 print("cenario:")
-base = Image.open(os.path.join(ORIG, "3.jpg")).convert("RGB")
-cen = recorte(base, 0.75, 0.42, 0.50)                       # 3:4, vertical
-cen = cen.filter(ImageFilter.GaussianBlur(radius=28))
-cen = ImageEnhance.Brightness(cen).enhance(0.34)
-cen = ImageEnhance.Color(cen).enhance(0.62)
-salvar(cen, os.path.join(DEST, "fondo/cenario.jpg"), 1200, 1600, 72)
+W, H = 1920, 1200
+cen = Image.new("RGB", (W, H), FUNDO)
 
-# Versao larga, para desktop.
-cenw = recorte(base, 1.6, 0.40, 0.50)
-cenw = cenw.filter(ImageFilter.GaussianBlur(radius=30))
-cenw = ImageEnhance.Brightness(cenw).enhance(0.32)
-cenw = ImageEnhance.Color(cenw).enhance(0.62)
-salvar(cenw, os.path.join(DEST, "fondo/cenario-ancho.jpg"), 1920, 1200, 72)
+sentado = figura("15.png", 0.74, 0.46, 0.50, 1.00, H)
+empe    = figura("12.png", 0.68, 0.42, 0.50, 1.00, H)
+
+# A borda que encosta no centro e a que dissolve.
+cen.paste(sentado, (-int(sentado.width * 0.12), 0), mascara_dissolve(sentado.size, "direita"))
+cen.paste(empe, (W - empe.width + int(empe.width * 0.12), 0), mascara_dissolve(empe.size, "esquerda"))
+
+cen = ImageEnhance.Brightness(cen).enhance(0.50)
+cen = ImageEnhance.Color(cen).enhance(0.74)
+
+# Fecha o centro: e ali que a coluna de cards passa por cima.
+veu = Image.new("L", (W, H), 0)
+dv = ImageDraw.Draw(veu)
+for x in range(W):
+    t = abs(x - W / 2) / (W / 2)      # 0 no centro, 1 nas bordas
+    dv.line([(x, 0), (x, H)], fill=int(232 * max(0.0, 1 - t * 1.75)))
+cen.paste(Image.new("RGB", (W, H), FUNDO), (0, 0), veu)
+salvar(cen, os.path.join(DEST, "fondo/cenario-ancho.jpg"), W, H, 76)
+
+# No celular quase so se ve a faixa central: basta textura escura.
+cenm = recorte(abrir("15.png"), 0.75, 0.44, 0.50)
+cenm = cenm.filter(ImageFilter.GaussianBlur(30))
+cenm = ImageEnhance.Brightness(cenm).enhance(0.30)
+cenm = ImageEnhance.Color(cenm).enhance(0.66)
+salvar(cenm, os.path.join(DEST, "fondo/cenario.jpg"), 1200, 1600, 74)
 
 
 # ---------------------------------------------------------------- avatar
 print("avatar:")
-av = Image.open(os.path.join(ORIG, "1.jpg")).convert("RGB")
-salvar(recorte(av, 1.0, 0.31, 0.575, 0.46), os.path.join(DEST, "dr/avatar.jpg"), 320, 320, 88)
+salvar(recorte(abrir("12.png"), 1.0, 0.27, 0.50, 0.42),
+       os.path.join(DEST, "dr/avatar.jpg"), 400, 400, 90)
 
 
-# ---------------------------------------------------------------- bustos
-# A imagem do card ocupa 47% da largura por toda a altura: fica quase
-# quadrada (207x180 = 1.15). Enquadramento de meio-corpo.
-print("bustos dos cards:")
-BUSTOS = [
-    # arquivo, nome, fy, fx, zoom
-    #
-    # 6.jpg ficou de fora: nela ele esta de olhos baixos, lendo. Em card
-    # de venda o olhar precisa estar na camera.
-    #
-    # 3, 4, 5 e 10 sao quase a mesma foto (sentado, segurando livros), e
-    # 8 e 9 tambem (mao no queixo). Onde elas se repetem, quem separa os
-    # cards e o enquadramento: um fecha no rosto, o outro abre e pega a
-    # mesa. Por isso 1.jpg aparece duas vezes, com planos diferentes.
-    ("9.jpg",  "consulta",      0.42, 0.50, 0.70),  # fechado, atencioso
-    ("4.jpg",  "mentoria",      0.47, 0.50, 0.86),
-    ("1.jpg",  "conferencia",   0.46, 0.52, 1.00),  # plano aberto, em pe
-    ("10.jpg", "diabetes-es",   0.50, 0.52, 0.86),  # capa ES legivel
-    ("5.jpg",  "fin-diabetes",  0.525, 0.455, 0.80),  # puxa para a capa azul
-    ("3.jpg",  "detox",         0.47, 0.50, 0.86),
-    ("7.jpg",  "diabetes-en",   0.47, 0.50, 0.86),  # de perfil, quebra a serie
-    ("8.jpg",  "diabetes-pt",   0.52, 0.52, 0.98),  # aberto, pega a mesa
-    ("2.jpg",  "autoridade90",  0.40, 0.56, 0.86),
-    ("1.jpg",  "contacto",      0.33, 0.57, 0.62),  # fechado no rosto
+# ----------------------------------------------------------------- cards
+# A imagem do card e quase quadrada: 47% da largura por toda a altura.
+print("cards:")
+CARDS = [
+    # arquivo,   nome,             fy,    fx,    zoom
+    ("14.png", "consulta",       0.46,  0.52,  0.94),  # jaleco, paciente
+    ("15.png", "mentoria",       0.46,  0.50,  0.90),  # poltrona
+    ("13.png", "conferencia",    0.46,  0.58,  0.92),  # palco
+    ("10.jpg", "diabetes-es",    0.50,  0.52,  0.86),  # capa ES na mao
+    ("5.jpg",  "fin-diabetes",   0.525, 0.455, 0.80),  # capa azul na mao
+    ("11.png", "adelgazamiento", 0.62,  0.46,  0.56),  # gesto de autografar
+    ("12.png", "contacto",       0.44,  0.50,  0.88),  # retrato que convida
 ]
-for arquivo, nome, fy, fx, zoom in BUSTOS:
-    im = Image.open(os.path.join(ORIG, arquivo)).convert("RGB")
-    salvar(recorte(im, 1.15, fy, fx, zoom), os.path.join(DEST, f"card/{nome}.jpg"), 560, 487)
+for arquivo, nome, fy, fx, zoom in CARDS:
+    salvar(recorte(abrir(arquivo), 1.15, fy, fx, zoom),
+           os.path.join(DEST, f"card/{nome}.jpg"), 560, 487)

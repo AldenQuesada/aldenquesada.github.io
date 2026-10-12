@@ -37,15 +37,15 @@ W, H = 1200, 630
 og = Image.new("RGB", (W, H), FUNDO)
 
 # Ambiente ao fundo, desfocado, para a arte nao ficar chapada.
-amb = Image.open(os.path.join(ORIG, "3.jpg")).convert("RGB")
+amb = Image.open(os.path.join(ORIG, "15.png")).convert("RGB")
 amb = recorte(amb, W / H, 0.42, 0.50).resize((W, H), Image.LANCZOS)
 amb = amb.filter(ImageFilter.GaussianBlur(26))
 amb = ImageEnhance.Brightness(amb).enhance(0.30)
 og.paste(amb, (0, 0))
 
 # Ele de corpo, nitido, a direita.
-fig = Image.open(os.path.join(ORIG, "1.jpg")).convert("RGB")
-fig = recorte(fig, 0.72, 0.44, 0.56, 1.00)
+fig = Image.open(os.path.join(ORIG, "12.png")).convert("RGB")
+fig = recorte(fig, 0.72, 0.42, 0.50, 1.00)
 fh = H
 fw = int(fig.width * fh / fig.height)
 fig = fig.resize((fw, fh), Image.LANCZOS)

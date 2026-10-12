@@ -91,6 +91,12 @@ a { color: inherit; text-decoration: none; }
   user-select: none;
 }
 
+/* A e Q maiores: o jogo de fontes que faz a assinatura virar monograma. */
+.perfil__inicial {
+  font-size: 1.5em;
+  line-height: 0;
+}
+
 .perfil__avatar {
   width: var(--avatar);
   height: var(--avatar);

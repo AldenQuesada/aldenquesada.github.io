@@ -6,7 +6,7 @@
     "link         = destino. Vazio: o card nao aparece na pagina publica.",
     "titulo       = vai em caixa alta. O ponto final entra sozinho, na cor",
     "               do acento: nao escreva o ponto.",
-    "sobretitulo  = linha minuscula sob o titulo. Marca, autor, idioma.",
+    "sobretitulo  = linha minuscula sob o titulo. Marca, autor, formato.",
     "descricao    = ate 4 linhas. O que estiver entre [[colchetes duplos]]",
     "               sai realcado na cor do acento.",
     "foto         = imagem do card, quase quadrada, em img/card/ (560x487).",
@@ -14,12 +14,16 @@
     "cor          = fundo solido do card.",
     "acento       = cor do ponto e do realce. Sem o campo, usa o dourado.",
     "",
-    "A ordem e comercial: o que vende caro em cima, livros no meio,",
-    "contato no fim. As descricoes sao rascunho: conferir antes de ligar",
-    "os links. O que esta entre aspas nas descricoes dos livros foi lido",
-    "nas capas das fotos enviadas em 11/10/2026."
+    "PAGINA 100% EM ESPANHOL. Sairam os livros em ingles (The End of",
+    "Diabetes Mellitus, Detox Foods Anti-Diabetes) e em portugues (O fim",
+    "da Diabetes Mellitus, De invisivel a autoridade em 90 dias).",
+    "",
+    "PENDENTE no card 'adelgazamiento': o titulo exato do livro e a foto.",
+    "Hoje ele usa o gesto de autografar, com a capa fora do quadro."
   ],
+
   "cards": [
+
     {
       "id": "consulta",
       "ordem": 1,
@@ -33,6 +37,7 @@
       "acento": "#5fd2a0",
       "link": ""
     },
+
     {
       "id": "mentoria",
       "ordem": 2,
@@ -45,18 +50,20 @@
       "cor": "#141f33",
       "link": ""
     },
+
     {
       "id": "conferencias",
       "ordem": 3,
       "ativo": true,
       "titulo": "Conferencias",
       "sobretitulo": "Congresos y eventos",
-      "descricao": "Charlas sobre diabetes, corazón y salud natural. [[Agenda disponible]] para congresos y eventos.",
+      "descricao": "Charlas sobre diabetes, corazón y salud natural. [[Agenda disponible]] para congresos.",
       "lado_da_foto": "esquerda",
       "foto": "img/card/conferencia.jpg",
       "cor": "#2a1710",
       "link": ""
     },
+
     {
       "id": "diabetes-es",
       "ordem": 4,
@@ -70,6 +77,7 @@
       "acento": "#e07a42",
       "link": ""
     },
+
     {
       "id": "fin-diabetes-es",
       "ordem": 5,
@@ -82,69 +90,34 @@
       "cor": "#0f2340",
       "link": ""
     },
+
     {
-      "id": "detox-anti-diabetes",
+      "id": "adelgazamiento",
       "ordem": 6,
       "ativo": true,
-      "titulo": "Detox Foods Anti-Diabetes",
-      "sobretitulo": "Guía · English",
-      "descricao": "Los alimentos que ayudan a controlar la glucosa, en [[una guía práctica.]]",
+      "titulo": "Adelgazamiento",
+      "sobretitulo": "Libro · Español",
+      "descricao": "El método del Dr. Quesada para perder peso [[sin dietas imposibles.]]",
       "lado_da_foto": "direita",
-      "foto": "img/card/detox.jpg",
-      "cor": "#14301d",
-      "acento": "#5fd2a0",
-      "link": ""
-    },
-    {
-      "id": "diabetes-en",
-      "ordem": 7,
-      "ativo": true,
-      "titulo": "The End of Diabetes",
-      "sobretitulo": "Book · English",
-      "descricao": "Free from diabetes symptoms and complications, [[without medications.]]",
-      "lado_da_foto": "esquerda",
-      "foto": "img/card/diabetes-en.jpg",
-      "cor": "#2d1a10",
-      "acento": "#e8a04a",
-      "link": ""
-    },
-    {
-      "id": "diabetes-pt",
-      "ordem": 8,
-      "ativo": true,
-      "titulo": "O fim da Diabetes",
-      "sobretitulo": "Livro · Português",
-      "descricao": "Livre dos sintomas e das complicações da diabetes, [[sem precisar de remédios.]]",
-      "lado_da_foto": "direita",
-      "foto": "img/card/diabetes-pt.jpg",
+      "foto": "img/card/adelgazamiento.jpg",
       "cor": "#241427",
       "acento": "#c89af0",
       "link": ""
     },
-    {
-      "id": "autoridade-90",
-      "ordem": 9,
-      "ativo": true,
-      "titulo": "De invisível a autoridade",
-      "sobretitulo": "Livro · com Dani Mendes",
-      "descricao": "Programa de 90 dias para profissionais da saúde [[se tornarem referência.]]",
-      "lado_da_foto": "esquerda",
-      "foto": "img/card/autoridade90.jpg",
-      "cor": "#13232b",
-      "link": ""
-    },
+
     {
       "id": "contacto",
-      "ordem": 10,
+      "ordem": 7,
       "ativo": true,
       "titulo": "Habla con el equipo",
       "sobretitulo": "WhatsApp",
       "descricao": "Dudas sobre libros, cursos y agenda. [[Respondemos por WhatsApp.]]",
-      "lado_da_foto": "direita",
+      "lado_da_foto": "esquerda",
       "foto": "img/card/contacto.jpg",
       "cor": "#0f2b1d",
       "acento": "#5fd2a0",
       "link": ""
     }
+
   ]
 }

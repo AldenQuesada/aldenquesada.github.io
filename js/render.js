@@ -102,11 +102,26 @@
 
   /* --- perfil --- */
 
+  /* A inicial de cada palavra da assinatura sai maior que o resto, como
+     em assinatura escrita a mao: o A e o Q comandam, o resto acompanha. */
+  function assinaturaComIniciais(texto) {
+    const p = el('p', 'perfil__assinatura');
+    texto.split(/(\s+)/).forEach(parte => {
+      if (!parte.trim()) {
+        p.appendChild(document.createTextNode(parte));
+        return;
+      }
+      p.appendChild(el('span', 'perfil__inicial', parte.charAt(0)));
+      if (parte.length > 1) p.appendChild(document.createTextNode(parte.slice(1)));
+    });
+    return p;
+  }
+
   function montarPerfil(p) {
     if (!p || p.mostrar === false) return;
     const alvo = alvos.perfil;
 
-    if (p.assinatura) alvo.appendChild(el('p', 'perfil__assinatura', p.assinatura));
+    if (p.assinatura) alvo.appendChild(assinaturaComIniciais(p.assinatura));
 
     if (p.avatar) {
       const img = el('img', 'perfil__avatar');

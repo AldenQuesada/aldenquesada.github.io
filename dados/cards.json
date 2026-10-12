@@ -62,7 +62,8 @@
       "lado_da_foto": "direita",
       "foto": "img/card/mentoria.jpg",
       "cor": "#141f33",
-      "link": ""
+      "link": "https://aldenquesada.github.io/mentoria/",
+      "nova_aba": false
     },
     {
       "id": "conferencias",

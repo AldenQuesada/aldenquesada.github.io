@@ -2,25 +2,24 @@
   "_leia": [
     "A pagina inteira sai deste arquivo. O HTML e um esqueleto vazio.",
     "",
-    "secoes = lista ordenada. Cada uma tem 'tipo', que decide como ela e",
-    "         desenhada, e 'ativo'. Secao com ativo:false nao aparece, e",
-    "         secao sem o conteudo que ela precisa tambem nao: assim nada",
-    "         vai ao ar pela metade.",
+    "TODA A COPY ABAIXO E RASCUNHO, escrita a partir do que ja existe:",
+    "as capas e os miolos dos livros dele, a biografia conhecida e a",
+    "logica da pagina de referencia. Ele pediu para criar tudo e corrigir",
+    "depois, entao nada aqui esta esperando material.",
     "",
-    "Tipos disponiveis: hero, desejos, historia, metodo, entrega, sobre,",
-    "prova, perfil, aviso, investimento, garantia, faq, contato.",
+    "O QUE PRECISA DE CONFERENCIA DELE esta marcado com _conferir.",
+    "Numero inventado nenhum: onde faltava dado, a frase foi escrita sem",
+    "numero em vez de chutar um.",
     "",
-    "PENDENTE, confirmado com ele em 12/10:",
-    "  - a urgencia e 'consultar disponibilidade de agenda', nao lote.",
-    "  - faltam: video do hero, mentorados reais para a prova, preco e",
-    "    se o preco aparece ou passa pelo time.",
-    "  As secoes que dependem disso estao com ativo:false e marcadas."
+    "secoes = lista ordenada. 'tipo' decide o desenho, 'ativo' liga e",
+    "desliga. Secao sem o conteudo que precisa nao vai ao ar.",
+    "Tipos: hero, desejos, historia, metodo, entrega, sobre, prova,",
+    "perfil, aviso, investimento, garantia, faq, contato."
   ],
   "meta": {
     "titulo": "Mentoría · Dr. Alden J. Quesada",
     "descricao": "Acompañamiento directo para médicos que quieren aplicar el método del Dr. Quesada en su consultorio.",
-    "idioma": "es",
-    "og_imagem": "https://aldenquesada.github.io/img/social/og.jpg"
+    "idioma": "es"
   },
   "barra": {
     "ativo": true,
@@ -43,8 +42,8 @@
       "video": "",
       "marcas": [
         "Exclusivo para médicos",
-        "Cupos por disponibilidad",
-        "Online y presencial"
+        "Cupos por disponibilidad de agenda",
+        "Acompañamiento caso por caso"
       ]
     },
     {
@@ -52,33 +51,96 @@
       "ativo": true,
       "titulo": "Imagina que pudieras:",
       "itens": [
+        "Explicar a tu paciente [[por qué]] el tratamiento funcionó, caso por caso",
+        "Tratar la causa del desequilibrio, no solo el número del examen",
         "Salir de la guerra de precios y tener lista de espera en tu consultorio",
-        "Explicar por qué el tratamiento funcionó, caso por caso",
         "Dejar de depender del convenio para llenar la agenda"
-      ]
+      ],
+      "fundo": "img/fundo-secao.jpg"
     },
     {
       "tipo": "historia",
       "ativo": true,
       "selo": "El origen del método",
-      "titulo": "",
+      "titulo": "El método nació en el consultorio, no en el aula",
       "imagem": "img/historia.jpg",
-      "paragrafos": []
+      "_conferir": "La historia personal es la sección más fuerte de la referencia. Esta versión es genérica a propósito: cuéntame qué te llevó al método y la reescribo con tu historia real.",
+      "paragrafos": [
+        "El paciente con diabetes llega con el examen en la mano y una pregunta que nadie le respondió: por qué su cuerpo llegó hasta ahí.",
+        {
+          "golpe": "La glucemia es el resultado, no la causa."
+        },
+        "Tratar el número baja la glucemia de hoy. Tratar la causa cambia el curso de la enfermedad, y es lo que hace que el paciente siga el tratamiento en vez de abandonarlo en el tercer mes.",
+        "El método que el Dr. Quesada reunió en sus libros es ese camino puesto en orden: qué se mira primero, qué viene después y qué no se toca hasta que la base esté de pie."
+      ]
     },
     {
       "tipo": "metodo",
       "ativo": true,
       "selo": "Método",
-      "titulo": "",
-      "intro": "",
-      "fases": []
+      "titulo": "El orden que decide si el paciente sigue o abandona",
+      "intro": "Las cuatro fases del método, las mismas que estructuran el libro [[El fin de las complicaciones]] y que vas a aplicar en tus propios casos durante la mentoría.",
+      "_conferir": "Las fases salieron de los capítulos de tus libros (conceptos, pre-evento, post-evento, recetas y procedimientos). Confirma los nombres.",
+      "fases": [
+        {
+          "etapa": "Fase 01",
+          "nome": "Base",
+          "titulo": "Conceptos y diagnóstico",
+          "texto": "Leer el examen dentro de la fisiología, no solo contra el valor de referencia. HbA1c, glucemia en ayunas y TOTG dicen cosas distintas, y la conducta cambia según cuál esté alterado.",
+          "nota": "Es donde la mayoría se detiene."
+        },
+        {
+          "etapa": "Fase 02",
+          "nome": "Pre",
+          "titulo": "Fase pre-evento",
+          "texto": "Qué hace el paciente en las horas antes de una comida o de un evento que suele descompensarlo. Medición, té, licuado y control, en orden y con hora marcada.",
+          "nota": "Protocolo con reloj, no recomendación vaga."
+        },
+        {
+          "etapa": "Fase 03",
+          "nome": "Post",
+          "titulo": "Fase post-evento",
+          "texto": "Control de glucemia cada hora, registrado en tabla, hasta que baje del umbral. El paciente deja de adivinar y pasa a ver su propia evolución en el papel.",
+          "nota": "Nunca acostarse por encima de 180 mg/dl."
+        },
+        {
+          "etapa": "Fase 04",
+          "nome": "Rutina",
+          "titulo": "Recetas y procedimientos",
+          "texto": "Lo que sostiene el resultado cuando el consultorio queda atrás: lista de compras, licuados, indicaciones de la mañana y de la noche.",
+          "nota": "Es la fase que decide si el paciente vuelve."
+        }
+      ]
     },
     {
       "tipo": "entrega",
       "ativo": true,
       "selo": "Qué incluye",
       "titulo": "Lo que recibes en la mentoría",
-      "pilares": []
+      "_conferir": "Formato, frecuencia y duración son los campos que más necesito de ti. Están escritos sin número a propósito.",
+      "pilares": [
+        {
+          "rotulo": "Pilar 01",
+          "titulo": "El método aplicado a tus propios casos",
+          "texto": "Traes el caso real, con examen y historia, y lo construimos juntos: qué mirar primero, qué hipótesis sostiene, qué conducta entra y en qué orden."
+        },
+        {
+          "rotulo": "Pilar 02",
+          "titulo": "Los protocolos listos para el consultorio",
+          "texto": "Las tablas de control, las fases pre y post evento y las recetas que ya están publicadas en los libros, entregadas para que las uses con tu paciente desde la primera consulta."
+        },
+        {
+          "rotulo": "Pilar 03",
+          "titulo": "Cómo explicarle esto al paciente",
+          "texto": "El método solo funciona si el paciente lo entiende y lo sigue. Cómo decirlo en la consulta, qué mostrar y qué dejar por escrito para que no abandone en el tercer mes."
+        },
+        {
+          "rotulo": "Pilar 04",
+          "titulo": "Posicionamiento como el médico que resuelve",
+          "texto": "Cuando el tratamiento sostiene el resultado, el paciente trae a la familia. Cómo sostener esa demanda, cobrar por lo que entregas y salir de la guerra de precios."
+        }
+      ],
+      "fundo": "img/consultorio.jpg"
     },
     {
       "tipo": "sobre",
@@ -87,12 +149,17 @@
       "titulo": "Dr. Alden J. Quesada",
       "credencial": "Especialista en Cardiología y Naturópata",
       "imagem": "img/sobre.jpg",
-      "paragrafos": []
+      "_conferir": "Faltan los números reales: años de consultorio, pacientes atendidos, médicos ya formados. La referencia usa exactamente eso y es lo que más pesa.",
+      "paragrafos": [
+        "Cardiólogo y naturópata, autor de los libros Diabetes Mellitus: El fin de las complicaciones, El fin de la Diabetes Mellitus y Mujer Delgada & Saludable, publicados en español, inglés y portugués.",
+        "El trabajo nació en el consultorio: tratar el corazón sin tratar el metabolismo que lo enferma no sostiene el resultado. De esa unión salió el método que hoy está en los libros y que se transfiere en la mentoría.",
+        "La mentoría es esa transferencia. No es un curso para asistir: es acompañamiento para que apliques el método en tus propios pacientes, caso por caso."
+      ]
     },
     {
       "tipo": "prova",
       "ativo": false,
-      "_pendente": "Depende de mentorados reales que autoricen nombre y resultado.",
+      "_pendente": "Necesita médicos reales que autoricen nombre y resultado. Inventar caso clínico o cifra de facturación en página de salud es el tipo de cosa que destruye autoridad de una vez.",
       "selo": "De la teoría al consultorio",
       "titulo": "",
       "intro": "",
@@ -106,12 +173,14 @@
       "para_quem": [
         "ya atiende y quiere entender el desequilibrio que está por debajo de la queja",
         "tiene resultado en algunos casos y no logra explicar por qué funcionó",
+        "trata diabetes, obesidad o riesgo cardiovascular y quiere ir a la causa",
         "quiere salir de la dependencia del convenio y de la guerra de precios"
       ],
       "nao_e": [
         "busca protocolo listo para copiar sin entender por qué funciona",
-        "quiere empezar por la hormona sin mirar la base",
-        "espera resultado sin aplicarlo en el consultorio después"
+        "quiere empezar por el medicamento sin mirar la base",
+        "espera resultado sin aplicarlo en el consultorio después",
+        "no atiende pacientes y quiere la mentoría solo como contenido"
       ]
     },
     {
@@ -119,12 +188,13 @@
       "ativo": true,
       "titulo": "Quiero reforzar algo.",
       "destaque": "Esta mentoría es exigente",
-      "texto": "No es un curso para asistir. Es acompañamiento para aplicar, caso por caso, en tu propio consultorio."
+      "texto": "No es un curso para asistir. Vas a traer tus propios casos, defender tu hipótesis y aplicar la conducta en tu consultorio entre un encuentro y el otro. Quien no atiende, no aprovecha.",
+      "fundo": "img/fundo-secao.jpg"
     },
     {
       "tipo": "investimento",
       "ativo": false,
-      "_pendente": "Depende de él decidir si el precio aparece o pasa por el equipo.",
+      "_pendente": "Falta decidir si el precio aparece en la página o si la persona habla con el equipo antes. Hoy el CTA lleva al WhatsApp, que es la segunda opción.",
       "selo": "Inversión",
       "titulo": "",
       "valor": "",
@@ -134,7 +204,7 @@
     {
       "tipo": "garantia",
       "ativo": false,
-      "_pendente": "Solo entra si existe una garantía real que él quiera dar.",
+      "_pendente": "Solo entra si él quiere dar una garantía real y decide el plazo.",
       "titulo": "",
       "itens": []
     },
@@ -142,7 +212,33 @@
       "tipo": "faq",
       "ativo": true,
       "titulo": "Preguntas frecuentes",
-      "perguntas": []
+      "_conferir": "Respuestas escritas con lo que se sabe hoy. Las de formato y duración cambian cuando me pases los datos.",
+      "perguntas": [
+        {
+          "pergunta": "¿Es solo para médicos?",
+          "resposta": "Sí. La mentoría trabaja con casos clínicos reales, examen e indicación de conducta, y eso exige a alguien que atiende."
+        },
+        {
+          "pergunta": "¿Necesito ser cardiólogo?",
+          "resposta": "No. El método parte de la fisiología del metabolismo, y sirve a cualquier especialidad que atienda paciente con diabetes, obesidad o riesgo cardiovascular."
+        },
+        {
+          "pergunta": "¿Cómo son los encuentros?",
+          "resposta": "Acompañamiento directo con el Dr. Quesada, con discusión de tus propios casos entre un encuentro y el otro. Consulta la disponibilidad de agenda para conocer el formato del grupo que está abriendo."
+        },
+        {
+          "pergunta": "¿Por qué los cupos son limitados?",
+          "resposta": "Porque la mentoría discute caso por caso. El número de participantes está limitado por la agenda del Dr. Quesada, que sigue atendiendo en consultorio."
+        },
+        {
+          "pergunta": "¿Recibo los protocolos de los libros?",
+          "resposta": "Sí. Las tablas de control, las fases pre y post evento y las recetas que están en los libros se entregan listas para usar con tu paciente."
+        },
+        {
+          "pergunta": "¿En qué idioma es la mentoría?",
+          "resposta": "En español."
+        }
+      ]
     },
     {
       "tipo": "contato",
@@ -155,7 +251,7 @@
   ],
   "rodape": {
     "texto": "Dr. Alden J. Quesada · Todos los derechos reservados",
-    "aviso": "Los resultados citados son individuales y dependen de dedicación, contexto y perfil de cada profesional.",
+    "aviso": "El contenido de esta página tiene carácter informativo y educativo, y no sustituye la orientación médica individualizada. Los resultados dependen de dedicación, contexto y perfil de cada profesional.",
     "voltar": {
       "texto": "Volver al inicio",
       "link": "../"

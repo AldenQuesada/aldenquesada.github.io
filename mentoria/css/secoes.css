@@ -88,6 +88,32 @@
 }
 
 
+/* === FOTO DE FUNDO DE SECAO =======================================
+   A referencia quase nao tem secao sobre preto puro: tem foto por tras,
+   escurecida, em quase todas. E isso que da peso a pagina.
+------------------------------------------------------------------- */
+
+.secao--foto { position: relative; overflow: hidden; }
+
+.secao__fundo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .22;
+}
+
+.secao--foto::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, var(--fundo) 0%, rgba(7,7,7,.55) 34%, rgba(7,7,7,.55) 66%, var(--fundo) 100%);
+}
+
+
 /* === DESEJOS ====================================================== */
 
 .desejos { text-align: center; }

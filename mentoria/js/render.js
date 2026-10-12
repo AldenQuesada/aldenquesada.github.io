@@ -56,8 +56,12 @@
     });
   }
 
-  function secao(classeExtra) {
+  function secao(classeExtra, fundo) {
     const s = el('section', 'secao' + (classeExtra ? ' ' + classeExtra : ''));
+    if (fundo) {
+      s.classList.add('secao--foto');
+      s.appendChild(imagem(fundo, '', 'secao__fundo'));
+    }
     const dentro = el('div', 'palco');
     s.appendChild(dentro);
     return { s, dentro };
@@ -139,7 +143,7 @@
 
     desejos(d) {
       if (!(d.itens || []).length) return null;
-      const { s, dentro } = secao('desejos');
+      const { s, dentro } = secao('desejos', d.fundo);
       cabecalho(dentro, d);
       const lista = el('div', 'desejos__lista');
       d.itens.forEach(t => {
@@ -168,7 +172,7 @@
 
     metodo(d) {
       if (!(d.fases || []).length) return null;
-      const { s, dentro } = secao('metodo');
+      const { s, dentro } = secao('metodo', d.fundo);
       cabecalho(dentro, d);
       if (d.intro) dentro.appendChild(comRealce('p', 'metodo__intro', d.intro));
       const grade = el('div', 'fases');
@@ -187,7 +191,7 @@
 
     entrega(d) {
       if (!(d.pilares || []).length) return null;
-      const { s, dentro } = secao();
+      const { s, dentro } = secao(null, d.fundo);
       cabecalho(dentro, d);
       const grade = el('div', 'pilares');
       d.pilares.forEach((p, i) => {
@@ -242,7 +246,7 @@
 
     perfil(d) {
       if (!(d.para_quem || []).length && !(d.nao_e || []).length) return null;
-      const { s, dentro } = secao();
+      const { s, dentro } = secao(null, d.fundo);
       cabecalho(dentro, d);
       const grade = el('div', 'perfil-colunas');
       [['sim', 'Es para ti que:', d.para_quem], ['nao', 'No es para ti que:', d.nao_e]]
@@ -261,7 +265,7 @@
 
     aviso(d) {
       if (!d.titulo && !d.destaque) return null;
-      const { s, dentro } = secao();
+      const { s, dentro } = secao(null, d.fundo);
       const h = el('h2', 'aviso__titulo');
       h.appendChild(document.createTextNode(d.titulo || ''));
       if (d.destaque) h.appendChild(el('span', 'aviso__destaque', d.destaque));

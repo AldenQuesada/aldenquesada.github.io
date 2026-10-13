@@ -414,6 +414,47 @@
      O rastreio usa isso para comecar a observar os blocos. */
   function avisarPronta() {
     document.dispatchEvent(new CustomEvent('pagina:pronta'));
+    acenderNoCelular();
+  }
+
+  /* No telefone nao existe hover, entao a luz da borda corre quando o
+     card entra na tela. Uma volta por card, a primeira vez que ele
+     aparece: repetir a cada rolagem viraria ruido.
+     No computador nao faz nada, porque la o hover ja cuida disso. */
+  function acenderNoCelular() {
+    if (!window.matchMedia('(hover: none)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    /* Um card de cada vez. Varios conic-gradient girando juntos fazem
+       o navegador repintar a moldura de todos a cada quadro, e em
+       aparelho simples isso trava a rolagem. A fila resolve: quem
+       entra espera a vez. */
+    let ocupado = false;
+    const fila = [];
+
+    function proximo() {
+      if (ocupado || !fila.length) return;
+      const card = fila.shift();
+      ocupado = true;
+      card.classList.add('card--brilha');
+      setTimeout(() => {
+        card.classList.remove('card--brilha');
+        ocupado = false;
+        proximo();
+      }, 2100);
+    }
+
+    const io = new IntersectionObserver(entradas => {
+      entradas.forEach(e => {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        fila.push(e.target);
+        proximo();
+      });
+    }, { rootMargin: '0px 0px -22% 0px', threshold: 0.4 });
+
+    document.querySelectorAll('a.card').forEach(c => io.observe(c));
   }
 
 

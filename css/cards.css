@@ -46,7 +46,7 @@
   overflow: hidden;
   border-radius: var(--card-raio);
   background: var(--cor-card);
-  box-shadow: inset 3px 0 0 var(--acento), var(--card-sombra);
+  box-shadow: var(--card-sombra);
   transition: box-shadow var(--transicao);
 
   --entalhe: 9px;
@@ -64,13 +64,27 @@
   .card__inner { --entalhe: 7px; }
 }
 
-.card:hover .card__inner { box-shadow: inset 3px 0 0 var(--acento), var(--card-sombra-at); }
+.card:hover .card__inner { box-shadow: var(--card-sombra-at); }
 
-/* Fio de luz na borda, mais forte em cima e sumindo para baixo, como se
-   a luz da sala viesse do alto. E o que da relevo de placa ao card, sem
-   nenhum enfeite: o brilho e so 1 pixel.
-   O truque da borda em degrade: o fundo pinta a moldura inteira e a
-   mascara recorta o miolo, deixando so a espessura do padding. */
+/* A LINHA QUE CORRE A BORDA ----------------------------------------
+   Um arco de luz gira ao redor do card e acompanha os cantos
+   arredondados e os entalhes, porque e a mesma moldura de 1 pixel que
+   ja desenhava a borda.
+
+   O giro e um conic-gradient cujo angulo e uma propriedade animavel
+   registrada com @property. Sem esse registro o navegador nao sabe
+   interpolar angulo e a animacao nao acontece, so pula.
+
+   Parado, o card mantem um fio discreto. No hover e no toque, a luz
+   comeca a correr.
+------------------------------------------------------------------- */
+
+@property --giro {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .card__inner::before {
   content: "";
   position: absolute;
@@ -78,22 +92,56 @@
   z-index: 3;
   padding: 1px;
   border-radius: inherit;
-  background: linear-gradient(
-    170deg,
-    rgba(255, 255, 255, .50) 0%,
-    rgba(255, 255, 255, .16) 26%,
-    rgba(255, 255, 255, .04) 58%,
-    rgba(255, 255, 255, 0) 88%
-  );
+  background:
+    conic-gradient(from var(--giro),
+      transparent 0%,
+      transparent 62%,
+      color-mix(in srgb, var(--acento) 55%, transparent) 76%,
+      var(--acento) 86%,
+      color-mix(in srgb, var(--acento) 55%, transparent) 94%,
+      transparent 100%),
+    linear-gradient(170deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,.05) 50%, transparent 85%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
           mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
   pointer-events: none;
+  opacity: .55;
   transition: opacity var(--transicao);
 }
 
-.card:hover .card__inner::before { opacity: .72; }
+/* O aviso de will-change entra so quando a luz vai correr, e sai
+   depois. Deixado ligado o tempo todo em nove cards, ele reserva
+   memoria de video a toa e deixa a pagina pesada em aparelho simples. */
+.card:hover .card__inner::before,
+.card--brilha .card__inner::before { will-change: --giro; }
+
+.card:hover .card__inner::before,
+.card:active .card__inner::before,
+.card:focus-visible .card__inner::before {
+  opacity: 1;
+  animation: correr-borda 1.9s linear infinite;
+}
+
+@keyframes correr-borda {
+  to { --giro: 360deg; }
+}
+
+/* NO TELEFONE NAO EXISTE HOVER.
+   Ali a luz corre uma vez quando o card entra na tela, acionada por
+   uma classe que o render poe e tira. Uma volta so: linha correndo o
+   tempo todo em nove cards cansa a vista e gasta bateria. */
+.card--brilha .card__inner::before {
+  opacity: 1;
+  animation: correr-borda 1.9s linear 1;
+}
+
+/* Quem pediu menos movimento ve a borda acesa, parada. */
+@media (prefers-reduced-motion: reduce) {
+  .card:hover .card__inner::before,
+  .card:active .card__inner::before,
+  .card--brilha .card__inner::before { animation: none; }
+}
 
 /* Imagem a esquerda por padrao; o JSON inverte com data-lado. */
 .card[data-lado="direita"] .card__inner { flex-direction: row-reverse; }
@@ -256,10 +304,6 @@
    e branco, e e esse contraste que avisa, antes de qualquer leitura,
    que ali e outra coisa.
 ------------------------------------------------------------------- */
-
-.card[data-estilo="canal"] .card__inner {
-  box-shadow: var(--card-sombra);
-}
 
 .card[data-estilo="canal"] .card__img {
   position: absolute;

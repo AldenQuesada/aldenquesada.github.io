@@ -35,7 +35,6 @@ Não é preciso abrir CSS nem JavaScript.
 
 - `ordem` menor fica em cima. A ordem é comercial: o que vende caro no topo.
 - `ativo: false` tira o card do ar sem apagar nada.
-- `link` vazio: o card **não aparece** na página pública.
 - `titulo` sai em caixa alta. **Não escreva o ponto final**: ele entra sozinho,
   na cor do acento. É a assinatura do formato.
 - `descricao` aceita `[[colchetes duplos]]` para realçar um trecho na cor do
@@ -55,11 +54,6 @@ Instagram: só ligue se a conta for mesmo verificada, senão a página afirma
 visualmente uma coisa que não é verdade.
 
 
-## Modo borrador
-
-Abra a página com `?rascunho=1` no fim da URL. Os blocos sem link aparecem
-marcados com o selo PENDIENTE e um aviso dizendo quantos faltam.
-Sem esse parâmetro, a página pública segue limpa.
 
 ## As imagens
 
@@ -315,3 +309,11 @@ competiria com o logotipo.
 Um card pode ter `foto_movil` além de `foto`. Abaixo de 640px, o render usa a
 primeira. Serve para o card de canal, onde as figuras ficam nas bordas, que é
 justo o que o corte come primeiro na tela estreita.
+
+## Não há modo rascunho
+
+O link da bio não tem modo de visualização separado. A página é sempre a mesma,
+com ou sem parâmetro na URL, porque esse é o endereço que está no Instagram e
+qualquer coisa que apareça ali aparece para quem chega do anúncio.
+
+Para ver o que falta, olhe `dados/cards.json`: card sem `link` está escrito lá.

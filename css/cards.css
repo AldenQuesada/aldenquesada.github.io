@@ -366,25 +366,6 @@
 }
 
 
-/* --- Modo borrador ------------------------------------------------- */
-
-.card--pendente .card__inner { opacity: .72; }
-
-/* O selo fica embaixo: em cima ele tapava o titulo. */
-.card--pendente .card__inner::after {
-  content: "PENDIENTE";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
-  padding: .2rem .45rem;
-  font-size: .54rem;
-  font-weight: 800;
-  letter-spacing: .12em;
-  color: #2b0b0b;
-  background: #ffb020;
-  border-top-left-radius: 8px;
-}
 
 
 /* --- Celular estreito ---------------------------------------------- */

@@ -12,8 +12,10 @@ window.UTM = (function () {
 
   const CHAVE = 'linkbio_utm';
 
-  // Parametros que sao da pagina, nao da campanha. Nunca saem daqui.
-  const INTERNOS = ['rascunho'];
+  // Parametros que sao da pagina, nao da campanha. Nunca saem daqui:
+  // propagar 'interno' para o checkout marcaria uma venda real como
+  // visita de teste.
+  const INTERNOS = ['interno'];
 
   function capturar() {
     const entrada = new URLSearchParams(location.search);

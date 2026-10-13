@@ -194,9 +194,12 @@ a { color: inherit; text-decoration: none; }
 }
 
 
-/* --- Aviso do modo borrador ---------------------------------------- */
+/* --- Aviso de erro ------------------------------------------------
+   So aparece se o conteudo nao carregar. Nao ha modo rascunho nesta
+   pagina: ela e sempre a mesma, com ou sem parametro na URL.
+------------------------------------------------------------------- */
 
-.rascunho-aviso {
+.aviso-erro {
   margin: 0 0 var(--esp-3);
   padding: var(--esp-2) var(--esp-3);
   font-size: .74rem;

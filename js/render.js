@@ -7,7 +7,6 @@
 
 (function () {
 
-  const rascunho = new URLSearchParams(location.search).get('rascunho') === '1';
 
   /* Tempo que cada slide do carrossel fica na tela. */
   const CARROSSEL_MS = 3400;
@@ -408,14 +407,6 @@
        Sem link, o card nao e clicavel, mas continua sendo vitrine. */
     const visiveis = lista;
 
-    if (rascunho) {
-      const faltam = lista.filter(c => !temLink(c)).length;
-      alvos.vitrine.appendChild(el('p', 'rascunho-aviso',
-        faltam
-          ? 'MODO BORRADOR · ' + faltam + ' tarjeta(s) sin enlace. No aparecen en la página pública.'
-          : 'MODO BORRADOR · todas las tarjetas tienen enlace.'));
-    }
-
     visiveis.forEach(c => alvos.vitrine.appendChild(montarCard(c)));
   }
 
@@ -464,7 +455,7 @@
     })
     .catch(err => {
       console.error(err);
-      alvos.vitrine.appendChild(el('p', 'rascunho-aviso', 'Error al cargar el contenido: ' + err.message));
+      alvos.vitrine.appendChild(el('p', 'aviso-erro', 'Error al cargar el contenido: ' + err.message));
     });
 
 })();

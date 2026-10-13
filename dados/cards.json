@@ -125,7 +125,7 @@
       "foto": "img/card/mujer-delgada.jpg",
       "cor": "#13251a",
       "acento": "#e9ce76",
-      "link": "https://wa.me/5544998787673?text=Hola%2C%20quiero%20comprar%20el%20libro%20Mujer%20Delgada%20%26%20Saludable",
+      "link": "https://wa.me/5544998787673?text=Hola%2C%20me%20gustar%C3%ADa%20eliminar%20entre%206kg%20y%2014kg%20con%20su%20m%C3%A9todo%20Mujer%20Delgada",
       "fotos": [
         "img/card/mujer-delgada.jpg",
         "img/card/mujer-delgada-2.jpg",
@@ -172,7 +172,8 @@
       "foto": "img/card/canal.jpg",
       "cor": "#0a0a0c",
       "link": "https://www.youtube.com/@Dr.quesada",
-      "logo": "youtube"
+      "logo": "youtube",
+      "foto_movil": "img/card/canal-movil.jpg"
     }
   ]
 }

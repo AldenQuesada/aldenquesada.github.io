@@ -295,3 +295,23 @@ Isso mudou em 12/10. Antes, card sem link não era desenhado, e essa regra era
 decisão minha, não dele. Ela acabou escondendo os três livros, que já tinham
 mockup, copy e cor prontos, só porque faltava o endereço do checkout. Produto
 pronto fica na vitrine; quem decide o que sai da vitrine é ele.
+
+## O entalhe de ingresso
+
+`.card__inner` tem dois semicírculos recortados no meio das laterais, feitos com
+máscara radial, e uma barra colorida na esquerda feita com `inset` shadow.
+
+A barra é `box-shadow: inset`, não `border`, de propósito: assim a máscara corta
+os dois juntos, e é a **barra interrompida pelo entalhe** que faz a peça parecer
+um ingresso picotado. Com `border`, o entalhe cortaria o fundo mas não a barra, e
+o efeito se perde.
+
+Copiado da gabifarias.com.br, onde a classe do card se chama `ticket` justamente
+por isso. No card de canal a barra sai: ali a foto ocupa tudo e a barra
+competiria com o logotipo.
+
+## Foto própria para celular
+
+Um card pode ter `foto_movil` além de `foto`. Abaixo de 640px, o render usa a
+primeira. Serve para o card de canal, onde as figuras ficam nas bordas, que é
+justo o que o corte come primeiro na tela estreita.

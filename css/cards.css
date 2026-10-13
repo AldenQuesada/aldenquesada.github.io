@@ -29,7 +29,15 @@
   border-radius: var(--card-raio);
 }
 
-/* O miolo e quem tem cor, raio e recorte. O <a> por fora so move. */
+/* O miolo e quem tem cor, raio e recorte. O <a> por fora so move.
+   -------------------------------------------------------------------
+   O entalhe de ingresso: dois semicirculos mordem as laterais, no meio
+   da altura, como num bilhete picotado. Feito com mascara, nao com
+   imagem, entao acompanha qualquer cor de card.
+   A barra colorida da lateral esquerda e um inset shadow, e nao um
+   border, justamente para a mascara cortar os dois juntos: e a barra
+   interrompida pelo entalhe que faz a peca parecer um ingresso.
+------------------------------------------------------------------- */
 .card__inner {
   position: relative;
   display: flex;
@@ -38,11 +46,25 @@
   overflow: hidden;
   border-radius: var(--card-raio);
   background: var(--cor-card);
-  box-shadow: var(--card-sombra);
+  box-shadow: inset 3px 0 0 var(--acento), var(--card-sombra);
   transition: box-shadow var(--transicao);
+
+  --entalhe: 9px;
+  -webkit-mask:
+    radial-gradient(circle var(--entalhe) at 0 50%,    transparent 98%, #000 100%),
+    radial-gradient(circle var(--entalhe) at 100% 50%, transparent 98%, #000 100%);
+          mask:
+    radial-gradient(circle var(--entalhe) at 0 50%,    transparent 98%, #000 100%),
+    radial-gradient(circle var(--entalhe) at 100% 50%, transparent 98%, #000 100%);
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
 }
 
-.card:hover .card__inner { box-shadow: var(--card-sombra-at); }
+@media (max-width: 420px) {
+  .card__inner { --entalhe: 7px; }
+}
+
+.card:hover .card__inner { box-shadow: inset 3px 0 0 var(--acento), var(--card-sombra-at); }
 
 /* Fio de luz na borda, mais forte em cima e sumindo para baixo, como se
    a luz da sala viesse do alto. E o que da relevo de placa ao card, sem
@@ -234,6 +256,10 @@
    e branco, e e esse contraste que avisa, antes de qualquer leitura,
    que ali e outra coisa.
 ------------------------------------------------------------------- */
+
+.card[data-estilo="canal"] .card__inner {
+  box-shadow: var(--card-sombra);
+}
 
 .card[data-estilo="canal"] .card__img {
   position: absolute;

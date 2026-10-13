@@ -17,7 +17,7 @@
      quem ja visitou nao ve a troca. Este numero entra como parametro em
      toda imagem e resolve isso.
      AO TROCAR QUALQUER IMAGEM EM img/, SUBA ESTE NUMERO. */
-  const VERSAO_IMAGENS = 4;
+  const VERSAO_IMAGENS = 5;
 
   function versionar(src) {
     if (!src || /^(https?:|data:)/i.test(src)) return src;
@@ -195,7 +195,12 @@
      Ele so roda quando o card esta na tela e a aba esta visivel. Carrossel
      girando fora de vista gasta bateria e nao e visto por ninguem. */
   function montarImagem(card) {
-    const fotos = (card.fotos && card.fotos.length ? card.fotos : [card.foto]).filter(Boolean);
+    /* Alguns cards tem recorte proprio para celular: no card de canal
+       as figuras ficam nas bordas, que e justo o que o corte come
+       primeiro na tela estreita. */
+    const estreito = window.matchMedia('(max-width: 640px)').matches;
+    const principal = (estreito && card.foto_movil) ? card.foto_movil : card.foto;
+    const fotos = (card.fotos && card.fotos.length ? card.fotos : [principal]).filter(Boolean);
     const caixa = el('div', 'card__img');
     if (!fotos.length) return caixa;
 

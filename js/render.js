@@ -414,47 +414,30 @@
      O rastreio usa isso para comecar a observar os blocos. */
   function avisarPronta() {
     document.dispatchEvent(new CustomEvent('pagina:pronta'));
-    acenderNoCelular();
+    acenderNoToque();
   }
 
-  /* No telefone nao existe hover, entao a luz da borda corre quando o
-     card entra na tela. Uma volta por card, a primeira vez que ele
-     aparece: repetir a cada rolagem viraria ruido.
-     No computador nao faz nada, porque la o hover ja cuida disso. */
-  function acenderNoCelular() {
-    if (!window.matchMedia('(hover: none)').matches) return;
-    if (!('IntersectionObserver' in window)) return;
+  /* No telefone nao existe hover: o gatilho e o TOQUE.
+     A luz corre uma volta ao tocar o card, do mesmo jeito que corre ao
+     passar o mouse no computador.
+
+     Por que uma classe e nao so o :active do CSS: o :active vale
+     enquanto o dedo esta encostado, e o dedo sai antes da volta
+     terminar, cortando a animacao no meio. A classe garante a volta
+     inteira, mesmo que a pagina ja esteja navegando. */
+  function acenderNoToque() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    /* Registrado sempre, nao so em aparelho sem mouse: notebook com
+       tela sensivel tem os dois, e quem toca ali espera o mesmo
+       retorno de quem toca no celular. Em quem so tem mouse, este
+       ouvinte simplesmente nunca dispara. */
 
-    /* Um card de cada vez. Varios conic-gradient girando juntos fazem
-       o navegador repintar a moldura de todos a cada quadro, e em
-       aparelho simples isso trava a rolagem. A fila resolve: quem
-       entra espera a vez. */
-    let ocupado = false;
-    const fila = [];
-
-    function proximo() {
-      if (ocupado || !fila.length) return;
-      const card = fila.shift();
-      ocupado = true;
+    document.addEventListener('touchstart', ev => {
+      const card = ev.target.closest && ev.target.closest('a.card');
+      if (!card || card.classList.contains('card--brilha')) return;
       card.classList.add('card--brilha');
-      setTimeout(() => {
-        card.classList.remove('card--brilha');
-        ocupado = false;
-        proximo();
-      }, 2100);
-    }
-
-    const io = new IntersectionObserver(entradas => {
-      entradas.forEach(e => {
-        if (!e.isIntersecting) return;
-        io.unobserve(e.target);
-        fila.push(e.target);
-        proximo();
-      });
-    }, { rootMargin: '0px 0px -22% 0px', threshold: 0.4 });
-
-    document.querySelectorAll('a.card').forEach(c => io.observe(c));
+      setTimeout(() => card.classList.remove('card--brilha'), 2100);
+    }, { passive: true });
   }
 
 

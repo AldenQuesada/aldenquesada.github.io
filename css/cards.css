@@ -127,10 +127,10 @@
   to { --giro: 360deg; }
 }
 
-/* NO TELEFONE NAO EXISTE HOVER.
-   Ali a luz corre uma vez quando o card entra na tela, acionada por
-   uma classe que o render poe e tira. Uma volta so: linha correndo o
-   tempo todo em nove cards cansa a vista e gasta bateria. */
+/* NO TELEFONE NAO EXISTE HOVER: o gatilho e o toque.
+   A classe e posta pelo render no touchstart e tirada ao fim da volta.
+   O :active sozinho nao serve: ele vale enquanto o dedo esta
+   encostado, e o dedo sai antes da volta terminar. */
 .card--brilha .card__inner::before {
   opacity: 1;
   animation: correr-borda 1.9s linear 1;

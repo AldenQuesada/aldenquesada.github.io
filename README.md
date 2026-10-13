@@ -327,13 +327,17 @@ borda: o que gira é o ângulo de um `conic-gradient`.
 O ângulo é registrado com `@property`. Sem esse registro o navegador não sabe
 interpolar ângulo, e a animação pula em vez de correr.
 
-**No telefone não existe hover.** Lá a luz corre uma vez quando o card entra na
-tela, acionada pela classe `card--brilha` que o render põe e tira.
+**No telefone o gatilho é o toque**, igual ao mouse no computador: a luz corre
+uma volta ao tocar o card. O render põe a classe `card--brilha` no `touchstart` e
+a tira ao fim da volta.
 
-**Um card de cada vez, em fila.** Vários `conic-gradient` girando juntos fazem o
-navegador repintar a moldura de todos a cada quadro, e isso trava a rolagem em
-aparelho simples. Chegou a travar aqui durante o desenvolvimento. O `will-change`
-também entra só enquanto a luz corre, nunca o tempo todo.
+Por que não basta o `:active` do CSS: ele vale enquanto o dedo está encostado, e
+o dedo sai antes da volta terminar, cortando a animação no meio.
+
+**Um card de cada vez**, porque só o card tocado acende. Vários `conic-gradient`
+girando juntos fazem o navegador repintar a moldura de todos a cada quadro, e
+isso trava a rolagem em aparelho simples. Chegou a travar aqui durante o
+desenvolvimento. O `will-change` também entra só enquanto a luz corre.
 
 Quem tem redução de movimento ligada vê a borda acesa, parada.
 

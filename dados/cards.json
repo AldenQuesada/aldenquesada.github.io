@@ -75,7 +75,8 @@
       "lado_da_foto": "esquerda",
       "foto": "img/card/conferencia.jpg",
       "cor": "#2a1710",
-      "link": ""
+      "link": "https://aldenquesada.github.io/conferencias/",
+      "nova_aba": false
     },
     {
       "id": "diabetes-es",

@@ -1,0 +1,216 @@
+/* ------------------------------------------------------------------
+   BASE
+   Reset, ritmo vertical, tipografia, barra de topo, botao e rodape.
+   As secoes ficam em secoes.css.
+------------------------------------------------------------------ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte-texto);
+  font-size: var(--t-corpo);
+  line-height: var(--lh-corpo);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+a   { color: inherit; text-decoration: none; }
+
+h1, h2, h3 {
+  font-family: var(--fonte-titulo);
+  color: var(--texto-forte);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--t-h1); line-height: var(--lh-h1); letter-spacing: var(--ls-h1); font-weight: 700; }
+h2 { font-size: var(--t-h2); line-height: var(--lh-h2); letter-spacing: var(--ls-h2); font-weight: 500; text-transform: uppercase; }
+h3 { font-size: var(--t-h3); line-height: 1.32; font-weight: 700; letter-spacing: -.01em; }
+
+p { margin: 0 0 var(--esp-3); }
+p:last-child { margin-bottom: 0; }
+
+
+/* --- Palco: a coluna onde tudo acontece --- */
+
+.palco {
+  width: 100%;
+  max-width: calc(var(--palco) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.secao {
+  padding-block: var(--sec-y);
+  border-top: 1px solid var(--linha);
+}
+
+.secao:first-of-type { border-top: 0; }
+
+
+/* --- Selo: a etiqueta pequena acima do titulo --- */
+
+.selo {
+  display: inline-block;
+  margin-bottom: var(--esp-3);
+  padding: .34rem .8rem;
+  font-family: var(--fonte-titulo);
+  font-size: var(--t-selo);
+  font-weight: 500;
+  letter-spacing: var(--ls-selo);
+  text-transform: uppercase;
+  color: var(--ouro-claro);
+  border: 1px solid var(--ouro-fraco);
+  border-radius: 999px;
+}
+
+/* Palavra em destaque dentro do titulo, escrita [[assim]] no JSON. */
+.realce { color: var(--ouro-claro); }
+
+
+/* --- BARRA DE TOPO ------------------------------------------------
+   Fixa, como na referencia. La ela anuncia que o lote vira em 7 dias;
+   aqui anuncia disponibilidade de agenda, que e verdade o ano inteiro.
+   Urgencia inventada estraga a pagina no dia em que o prazo passa e
+   nada acontece.
+------------------------------------------------------------------- */
+
+.barra {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  padding: .62rem var(--gutter);
+  font-family: var(--fonte-titulo);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--texto-escuro);
+  background: linear-gradient(90deg, var(--ouro) 0%, var(--ouro-claro) 50%, var(--ouro) 100%);
+}
+
+body.com-barra { padding-top: 40px; }
+
+
+/* --- BOTAO --------------------------------------------------------
+   Unica peca dourada cheia da pagina. Na referencia esse papel e do
+   azul, que nao aparece em nenhum outro lugar: e a cor exclusiva do
+   botao que faz o olho ir direto nele, nao o tamanho.
+------------------------------------------------------------------- */
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  padding: 1.28rem 2.4rem;
+  font-family: var(--fonte-titulo);
+  font-size: var(--t-botao);
+  font-weight: 600;
+  letter-spacing: var(--ls-botao);
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--texto-escuro);
+  background: linear-gradient(138deg, var(--ouro) 0%, var(--ouro-claro) 100%);
+  border-radius: var(--botao-raio);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .17),
+              0 18px 42px -18px rgba(201, 162, 39, .75);
+  transition: filter var(--transicao), transform var(--transicao);
+}
+
+.botao:hover  { filter: brightness(1.07); transform: translateY(-1px); }
+.botao:active { transform: translateY(0); }
+
+.botao:focus-visible {
+  outline: 2px solid var(--ouro-claro);
+  outline-offset: 4px;
+}
+
+.botao::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.botao--vazio {
+  color: var(--ouro-claro);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--ouro-fraco);
+}
+
+/* Faixa de CTA, repetida ao longo da pagina. */
+.cta-faixa {
+  display: flex;
+  justify-content: center;
+  padding-block: var(--esp-5);
+}
+
+@media (max-width: 520px) {
+  .botao { width: 100%; padding-inline: 1.2rem; }
+}
+
+
+/* --- RODAPE -------------------------------------------------------- */
+
+.rodape {
+  padding-block: var(--sec-y) var(--esp-6);
+  border-top: 1px solid var(--linha);
+  text-align: center;
+}
+
+.rodape__voltar {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: var(--esp-4);
+  border-radius: 50%;
+  color: var(--ouro-claro);
+  border: 1px solid var(--ouro-fraco);
+  transition: background var(--transicao), transform var(--transicao);
+}
+
+.rodape__voltar:hover { background: rgba(233, 206, 118, .1); transform: translateY(-2px); }
+
+.rodape__texto { font-size: .86rem; color: var(--texto-fraco); }
+
+.rodape__aviso {
+  max-width: 54ch;
+  margin: var(--esp-2) auto 0;
+  font-size: .76rem;
+  line-height: 1.6;
+  color: var(--texto-fraco);
+  opacity: .72;
+}
+
+
+/* --- Aviso de rascunho --------------------------------------------- */
+
+.rascunho-aviso {
+  margin: 0 auto var(--esp-4);
+  padding: var(--esp-2) var(--esp-3);
+  max-width: var(--palco);
+  font-size: .8rem;
+  font-weight: 700;
+  text-align: center;
+  color: #2b0b0b;
+  background: #ffb020;
+  border-radius: 8px;
+}

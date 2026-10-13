@@ -1,0 +1,788 @@
+/* ------------------------------------------------------------------
+   SECOES
+   Um bloco por tipo de secao. A ordem aqui segue a ordem da pagina.
+   Nenhum estilo conhece o conteudo: tudo vem do JSON.
+------------------------------------------------------------------ */
+
+/* === HERO ========================================================= */
+
+.hero {
+  position: relative;
+  padding-block: calc(var(--sec-y) + 20px) var(--sec-y);
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero__fundo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  opacity: .34;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(70% 55% at 50% 10%, rgba(201, 162, 39, .10) 0%, transparent 62%),
+    linear-gradient(180deg, rgba(7,7,7,.72) 0%, rgba(7,7,7,.86) 52%, var(--fundo) 100%);
+}
+
+.hero__sobretitulo {
+  margin: 0 0 var(--esp-2);
+  font-family: var(--fonte-titulo);
+  font-size: var(--t-selo);
+  font-weight: 600;
+  letter-spacing: var(--ls-selo);
+  text-transform: uppercase;
+  color: var(--ouro-claro);
+}
+
+.hero h1 { max-width: 20ch; margin-inline: auto; }
+
+.hero__sub {
+  max-width: 54ch;
+  margin: var(--esp-4) auto 0;
+  color: var(--texto);
+}
+
+.hero__video {
+  max-width: 760px;
+  margin: var(--esp-6) auto 0;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--card-raio);
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+  overflow: hidden;
+}
+
+.hero__video iframe { width: 100%; height: 100%; border: 0; }
+
+/* Espaco reservado do video. Fica visivel enquanto o video nao existe,
+   em vez de sumir: assim a pagina ja mostra onde ele vai entrar. */
+.hero__video--vazio {
+  display: grid;
+  place-items: center;
+  gap: var(--esp-3);
+  border-style: dashed;
+  border-color: var(--ouro-fraco);
+  color: var(--texto-fraco);
+}
+
+.hero__video--vazio .play {
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  color: var(--ouro-claro);
+  border: 1px solid var(--ouro-fraco);
+  font-size: 1.3rem;
+  padding-left: 5px;
+}
+
+.hero__video--vazio p {
+  font-size: .82rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+/* Marcas de confianca sob o botao: exclusividade, cupos, formato. */
+.hero__marcas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--esp-2) var(--esp-4);
+  margin-top: var(--esp-4);
+  font-size: .82rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--texto-fraco);
+}
+
+.hero__marcas span { display: inline-flex; align-items: center; gap: .5rem; }
+
+.hero__marcas span::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ouro);
+}
+
+
+/* === FOTO DE FUNDO DE SECAO =======================================
+   A referencia quase nao tem secao sobre preto puro: tem foto por tras,
+   escurecida, em quase todas. E isso que da peso a pagina.
+------------------------------------------------------------------- */
+
+.secao--foto { position: relative; overflow: hidden; }
+
+.secao__fundo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .22;
+}
+
+.secao--foto::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, var(--fundo) 0%, rgba(7,7,7,.55) 34%, rgba(7,7,7,.55) 66%, var(--fundo) 100%);
+}
+
+
+/* === DESEJOS ====================================================== */
+
+.desejos { text-align: center; }
+
+.desejos__lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
+  max-width: 820px;
+  margin: var(--esp-5) auto 0;
+}
+
+.desejo {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  padding: 1.1rem 1.4rem;
+  text-align: left;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(201,162,39,.16) 0%, rgba(201,162,39,.03) 70%, transparent 100%);
+  border: 1px solid var(--ouro-fraco);
+}
+
+.desejo__marca {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  color: var(--texto-escuro);
+  background: var(--ouro-claro);
+  font-size: .8rem;
+  font-weight: 800;
+}
+
+
+/* === HISTORIA e SOBRE: foto de um lado, texto do outro ============= */
+
+.duplo {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: var(--esp-6);
+  align-items: center;
+}
+
+.duplo--invertido { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); }
+.duplo--invertido .duplo__foto { order: 2; }
+
+.duplo__foto {
+  border-radius: var(--card-raio);
+  border: 1px solid var(--linha);
+  overflow: hidden;
+  background: var(--superficie);
+}
+
+.duplo__foto img { width: 100%; height: 100%; object-fit: cover; }
+
+.duplo__credencial {
+  margin: 0 0 var(--esp-3);
+  font-size: .9rem;
+  color: var(--texto-fraco);
+}
+
+/* Frase solta, em dourado, no meio do texto da historia. */
+.duplo__golpe {
+  font-family: var(--fonte-titulo);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ouro-claro);
+}
+
+@media (max-width: 860px) {
+  .duplo, .duplo--invertido { grid-template-columns: 1fr; gap: var(--esp-4); }
+  .duplo--invertido .duplo__foto { order: 0; }
+}
+
+
+/* === METODO: fases em cards ======================================= */
+
+.metodo { text-align: center; }
+
+.metodo__intro {
+  max-width: var(--texto-largo);
+  margin: var(--esp-3) auto 0;
+}
+
+.fases {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+  gap: var(--esp-3);
+  margin-top: var(--esp-6);
+  text-align: left;
+}
+
+.fase {
+  padding: var(--esp-4);
+  border-radius: var(--card-raio);
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+}
+
+.fase__num {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--texto-fraco);
+}
+
+.fase__nome {
+  margin: var(--esp-2) 0 var(--esp-3);
+  font-family: var(--fonte-titulo);
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ouro-claro);
+}
+
+.fase__titulo { margin-bottom: var(--esp-2); }
+
+.fase__texto { font-size: .96rem; }
+
+.fase__nota {
+  margin-top: var(--esp-3);
+  padding-top: var(--esp-3);
+  border-top: 1px solid var(--linha);
+  font-size: .88rem;
+  color: var(--texto-fraco);
+}
+
+
+/* === ENTREGA: pilares numerados =================================== */
+
+.pilares {
+  display: grid;
+  gap: var(--esp-3);
+  margin-top: var(--esp-5);
+}
+
+.pilar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--esp-4);
+  align-items: start;
+  padding: var(--esp-4);
+  border-radius: var(--card-raio);
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+}
+
+.pilar__num {
+  font-family: var(--fonte-titulo);
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ouro-claro);
+  padding-top: .25rem;
+}
+
+.pilar__texto { margin-top: var(--esp-2); font-size: .98rem; }
+
+@media (max-width: 520px) {
+  .pilar { grid-template-columns: 1fr; gap: var(--esp-2); }
+}
+
+
+/* === PROVA: casos com antes e depois ============================== */
+
+.casos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--esp-3);
+  margin-top: var(--esp-5);
+}
+
+.caso {
+  padding: var(--esp-4);
+  text-align: center;
+  border-radius: var(--card-raio);
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+}
+
+.caso__foto {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto var(--esp-3);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--ouro-fraco);
+}
+
+.caso__nome { font-size: 1.02rem; }
+
+.caso__registro { font-size: .8rem; color: var(--texto-fraco); }
+
+.caso__antes {
+  margin: var(--esp-3) 0 var(--esp-1);
+  padding-top: var(--esp-3);
+  border-top: 1px solid var(--linha);
+  font-size: .88rem;
+  color: var(--texto-fraco);
+}
+
+.caso__rotulo {
+  font-size: .72rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--texto-fraco);
+}
+
+.caso__depois {
+  font-family: var(--fonte-titulo);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--ouro-claro);
+}
+
+
+/* === PERFIL: duas colunas, para quem e e para quem nao e ========== */
+
+.perfil-colunas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--esp-3);
+  margin-top: var(--esp-5);
+}
+
+.coluna {
+  padding: var(--esp-5);
+  border-radius: var(--card-raio);
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+}
+
+.coluna__titulo {
+  margin-bottom: var(--esp-4);
+  font-family: var(--fonte-titulo);
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.coluna--sim .coluna__titulo { color: var(--verde-claro); }
+.coluna--nao .coluna__titulo { color: var(--vermelho); }
+
+.coluna ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--esp-3); }
+
+.coluna li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--esp-2);
+  font-size: .98rem;
+  line-height: 1.6;
+}
+
+.coluna li::before { font-weight: 800; }
+.coluna--sim li::before { content: "✓"; color: var(--verde-claro); }
+.coluna--nao li::before { content: "✕"; color: var(--vermelho); }
+.coluna--nao li { color: var(--texto-fraco); }
+
+
+/* === AVISO ======================================================== */
+
+.aviso__titulo {
+  font-family: var(--fonte-titulo);
+  font-size: var(--t-h2);
+  line-height: 1.18;
+  font-weight: 700;
+  color: var(--texto-forte);
+}
+
+.aviso__destaque { display: block; color: var(--ouro-claro); }
+
+.aviso__texto { max-width: var(--texto-largo); margin-top: var(--esp-4); }
+
+
+/* === INVESTIMENTO ================================================= */
+
+.investimento { text-align: center; }
+
+.investimento__caixa {
+  max-width: 560px;
+  margin: var(--esp-5) auto 0;
+  padding: var(--esp-6) var(--esp-5);
+  border-radius: var(--card-raio);
+  border: 1px solid var(--ouro-fraco);
+  background: var(--superficie);
+}
+
+.investimento__valor {
+  font-family: var(--fonte-titulo);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ouro-claro);
+}
+
+.investimento__condicoes {
+  list-style: none;
+  margin: var(--esp-4) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--esp-2);
+  font-size: .96rem;
+}
+
+.investimento__obs {
+  margin-top: var(--esp-4);
+  font-size: .84rem;
+  color: var(--texto-fraco);
+}
+
+
+/* === GARANTIA ===================================================== */
+
+.garantia {
+  padding: var(--esp-6);
+  border-radius: var(--card-raio);
+  border: 1px solid var(--ouro-fraco);
+  background: var(--superficie);
+}
+
+.garantia ul { list-style: none; margin: var(--esp-4) 0 0; padding: 0; display: grid; gap: var(--esp-3); }
+
+.garantia li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--esp-3);
+  font-size: .98rem;
+}
+
+.garantia li::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  margin-top: .42rem;
+  border-radius: 50%;
+  border: 1px solid var(--ouro);
+}
+
+
+/* === FAQ ========================================================== */
+
+.faq { text-align: center; }
+
+.faq__lista {
+  display: grid;
+  gap: var(--esp-2);
+  max-width: 860px;
+  margin: var(--esp-5) auto 0;
+  text-align: left;
+}
+
+.faq details {
+  border-radius: var(--card-raio);
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+  overflow: hidden;
+}
+
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  padding: 1.15rem var(--esp-4);
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--fonte-titulo);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ouro-claro);
+}
+
+.faq summary::-webkit-details-marker { display: none; }
+
+.faq summary::after {
+  content: "+";
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  font-size: 1.05rem;
+  border-radius: 50%;
+  border: 1px solid var(--ouro-fraco);
+  transition: transform var(--transicao);
+}
+
+.faq details[open] summary::after { content: "−"; transform: rotate(180deg); }
+
+.faq__resposta {
+  padding: 0 var(--esp-4) var(--esp-4);
+  font-size: .98rem;
+  color: var(--texto);
+}
+
+
+/* === CONTATO ====================================================== */
+
+.contato {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--esp-4);
+  padding: var(--esp-5);
+  border-radius: var(--card-raio);
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+}
+
+.contato__icone {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  color: var(--ouro-claro);
+  border: 1px solid var(--ouro-fraco);
+}
+
+.contato__icone svg { width: 25px; height: 25px; }
+
+.contato__texto { flex: 1 1 260px; }
+
+.contato__titulo {
+  font-family: var(--fonte-titulo);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--ouro-claro);
+}
+
+
+/* === CONTEXTO: numero grande e texto ao lado =======================
+   Na referencia e "Prepare-se para a medicina do futuro", com dado de
+   mercado. O numero grande e o que segura a secao.
+------------------------------------------------------------------- */
+
+.contexto__grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: var(--esp-3);
+  margin-top: var(--esp-5);
+}
+
+.dado {
+  padding: var(--esp-5) var(--esp-4);
+  border-radius: var(--card-raio);
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+}
+
+.dado__numero {
+  font-family: var(--fonte-titulo);
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ouro-claro);
+}
+
+.dado__texto { margin-top: var(--esp-3); font-size: .96rem; }
+
+.contexto__fecho {
+  max-width: var(--texto-largo);
+  margin-top: var(--esp-5);
+  font-family: var(--fonte-titulo);
+  font-size: 1.32rem;
+  line-height: 1.42;
+  color: var(--texto-forte);
+}
+
+
+/* === PASSOS: lista numerada vertical ===============================
+   Na referencia e "Voce ve o raciocinio ao vivo", com 4 passos ligados
+   por uma linha. A linha e o que mostra que ha ordem, nao lista solta.
+------------------------------------------------------------------- */
+
+.passos {
+  display: grid;
+  gap: 0;
+  max-width: 760px;
+  margin-top: var(--esp-5);
+}
+
+.passo {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--esp-4);
+  padding-bottom: var(--esp-5);
+}
+
+.passo:last-child { padding-bottom: 0; }
+
+/* A linha que liga um passo ao proximo. */
+.passo:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 21px;
+  top: 44px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--ouro-fraco), transparent);
+}
+
+.passo__num {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  font-family: var(--fonte-titulo);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ouro-claro);
+  background: var(--fundo);
+  border: 1px solid var(--ouro-fraco);
+}
+
+.passo__texto { padding-top: .55rem; }
+.passo__texto strong { color: var(--texto-forte); }
+
+.passos__fecho {
+  display: inline-block;
+  margin-top: var(--esp-4);
+  padding: .9rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+  font-size: .98rem;
+}
+
+
+/* === EQUIPE ======================================================= */
+
+.equipe {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--esp-3);
+  margin-top: var(--esp-5);
+}
+
+.pessoa {
+  padding: var(--esp-4);
+  border-radius: var(--card-raio);
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+}
+
+.pessoa__foto {
+  width: 76px;
+  height: 76px;
+  margin-bottom: var(--esp-3);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--ouro-fraco);
+}
+
+.pessoa__papel {
+  margin: var(--esp-1) 0 var(--esp-3);
+  font-size: .8rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ouro-claro);
+}
+
+.pessoa__texto { font-size: .94rem; }
+
+
+/* === DEPOIMENTOS ==================================================
+   Na referencia sao prints do Instagram, levemente girados, como se
+   estivessem jogados na mesa. E o que faz parecer real, nao montado.
+------------------------------------------------------------------- */
+
+.depoimentos { text-align: center; }
+
+.depoimentos__grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: var(--esp-4);
+  margin-top: var(--esp-6);
+  text-align: left;
+}
+
+.depoimento {
+  padding: var(--esp-4);
+  border-radius: var(--card-raio);
+  background: #f4f1ec;
+  color: #1a1a1a;
+  box-shadow: 0 20px 44px -20px rgba(0, 0, 0, .9);
+}
+
+.depoimento:nth-child(odd)  { transform: rotate(-1.1deg); }
+.depoimento:nth-child(even) { transform: rotate(.9deg); }
+
+.depoimento__topo {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  margin-bottom: var(--esp-3);
+}
+
+.depoimento__foto {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.depoimento__quem { font-size: .88rem; font-weight: 700; }
+.depoimento__quando { font-size: .78rem; color: #6d6d6d; }
+
+.depoimento__texto { font-size: .94rem; line-height: 1.6; }
+
+.depoimento__texto em {
+  font-style: normal;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 0, 0, .3);
+}
+
+/* Enquanto nao ha print real, o card fica vazio e marcado. */
+.depoimento--vazio {
+  background: transparent;
+  color: var(--texto-fraco);
+  border: 1px dashed var(--ouro-fraco);
+  box-shadow: none;
+  transform: none;
+  display: grid;
+  place-items: center;
+  min-height: 170px;
+  text-align: center;
+  font-size: .84rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}

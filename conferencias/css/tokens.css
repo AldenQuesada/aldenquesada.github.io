@@ -1,0 +1,93 @@
+/* ------------------------------------------------------------------
+   TOKENS DA PAGINA DE MENTORIA
+   Valores de fundo, superficie, tipografia e medida vieram do CSS da
+   referencia (imersaofmh.avgcollege.com.br/vsl-a). O que mudou de
+   proposito esta anotado na linha.
+------------------------------------------------------------------ */
+
+:root {
+
+  /* --- Fundo e superficies: iguais a referencia --- */
+  --fundo:            #070707;
+  --superficie:       #0d0d0d;
+  --superficie-alta:  #111111;
+  --linha:            rgba(255, 255, 255, .08);
+
+  /* --- Texto: iguais a referencia --- */
+  --texto:            #d6d6d6;
+  --texto-forte:      #ffffff;
+  --texto-fraco:      #8d8d8d;
+  --texto-escuro:     #0b0b0b;
+
+  /* --- Marca: aqui NAO copiamos a referencia -------------------------
+     La o acento e amarelo #ffcc02 e o botao e azul. Aqui os dois sao o
+     dourado da marca dele, que no link da bio ja e a cor que nao
+     aparece em mais nada. O botao continua sendo a unica peca dourada
+     cheia da pagina, que e o que faz o olho ir direto nele.
+  ------------------------------------------------------------------ */
+  --ouro:             #c9a227;
+  --ouro-claro:       #e9ce76;
+  --ouro-fraco:       rgba(233, 206, 118, .22);
+  --verde-claro:      #5fd2a0;
+  --vermelho:         #d4604a;
+
+  /* --- Tipografia: iguais a referencia --- */
+  --fonte-titulo:     'Montserrat', system-ui, sans-serif;
+  --fonte-texto:      'DM Sans', system-ui, sans-serif;
+
+  --t-h1:             2.9rem;    /* 46,4px */
+  --lh-h1:            1.14;
+  --ls-h1:            -.022em;
+
+  --t-h2:             2.3rem;    /* 36,8px */
+  --lh-h2:            1.22;
+  --ls-h2:            .012em;
+
+  --t-h3:             1.24rem;
+  --t-corpo:          1.0625rem; /* 17px */
+  --lh-corpo:         1.72;
+  --t-selo:           .78rem;
+  --ls-selo:          .18em;
+  --t-botao:          1.03rem;   /* 16,5px */
+  --ls-botao:         .14em;     /* 2,31px */
+
+  /* --- Medidas --- */
+  --palco:            1160px;    /* a referencia usa 1350 em tela de 1761 */
+  --texto-largo:      62ch;
+  --gutter:           22px;
+  --botao-raio:       4px;       /* igual a referencia: quase reto */
+  --card-raio:        14px;
+
+  /* --- Ritmo vertical --- */
+  --sec-y:            108px;     /* respiro entre secoes */
+  --esp-1:  .4rem;
+  --esp-2:  .8rem;
+  --esp-3:  1.2rem;
+  --esp-4:  1.8rem;
+  --esp-5:  2.6rem;
+  --esp-6:  3.6rem;
+
+  --transicao:        .26s cubic-bezier(.22, .61, .36, 1);
+}
+
+@media (max-width: 860px) {
+  :root {
+    --t-h1:    2.05rem;
+    --t-h2:    1.68rem;
+    --t-corpo: 1rem;
+    --sec-y:   68px;
+    --gutter:  18px;
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --t-h1:  1.76rem;
+    --t-h2:  1.48rem;
+    --t-botao: .92rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --transicao: 0s; }
+}

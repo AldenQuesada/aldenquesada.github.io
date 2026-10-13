@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Conferencias · Dr. Alden J. Quesada</title>
+<meta name="description" content="Charlas y conferencias sobre diabetes, corazón y salud natural para congresos y eventos médicos.">
+<meta name="theme-color" content="#070707">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aldenquesada.github.io/conferencias/">
+<meta property="og:title" content="Conferencias · Dr. Alden J. Quesada">
+<meta property="og:description" content="Conferencias en español para congresos, empresas y universidades.">
+<meta property="og:image" content="https://aldenquesada.github.io/img/social/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../img/social/favicon.png" sizes="64x64">
+<link rel="apple-touch-icon" href="../img/social/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+
+<!-- O ?v= quebra o cache do navegador. Ao mexer em CSS ou JS, suba o numero. -->
+<link rel="stylesheet" href="css/tokens.css?v=5">
+<link rel="stylesheet" href="css/base.css?v=5">
+<link rel="stylesheet" href="css/secoes.css?v=5">
+</head>
+<body>
+
+<!-- Tudo abaixo e montado por js/render.js a partir de dados/pagina.json. -->
+<!-- Nao escreva texto aqui dentro: a copy mora no JSON. -->
+
+<div id="barra" hidden></div>
+
+<main id="palco"></main>
+
+<footer class="rodape" id="rodape"></footer>
+
+<script src="../js/medicao-config.js?v=20"></script>
+<script src="../js/utm.js?v=20"></script>
+<script src="../js/rastreio.js?v=20"></script>
+<script src="js/render.js?v=1"></script>
+<script>Rastreio.iniciar({ url: MEDICAO.url, anon: MEDICAO.anon, quizId: MEDICAO.quizId,
+                           prefixo: 'cnf_', site: 'conferencias' });</script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+{
+  "_leia": [
+    "A pagina inteira sai deste arquivo. O HTML e um esqueleto vazio.",
+    "",
+    "ESTA PAGINA NAO VENDE, CONTRATA. Quem le e organizador de congresso,",
+    "nao paciente nem medico aluno. Por isso nao tem preco, nao tem",
+    "garantia de 7 dias e nao tem FAQ de certificado: tem tema, formato,",
+    "publico ja atendido e um caminho curto para pedir proposta.",
+    "",
+    "A copy e rascunho, escrita a partir do que ja se sabe dele. O que",
+    "precisa de conferencia esta marcado com _conferir. Numero inventado",
+    "nenhum: onde faltava dado, a frase foi escrita sem numero.",
+    "",
+    "secoes = lista ordenada. 'tipo' decide o desenho, 'ativo' liga e",
+    "desliga. Secao sem o conteudo que precisa nao vai ao ar."
+  ],
+  "meta": {
+    "titulo": "Conferencias · Dr. Alden J. Quesada",
+    "descricao": "Charlas y conferencias sobre diabetes, corazón y salud natural para congresos y eventos médicos.",
+    "idioma": "es"
+  },
+  "barra": {
+    "ativo": true,
+    "texto": "Agenda abierta para congresos y eventos · consulta disponibilidad",
+    "link": "https://wa.me/5544998787673?text=Hola%2C%20organizo%20un%20evento%20y%20me%20gustar%C3%ADa%20solicitar%20una%20propuesta%20de%20conferencia%20del%20Dr.%20Quesada"
+  },
+  "cta": {
+    "texto": "Solicitar propuesta para mi evento",
+    "link": "https://wa.me/5544998787673?text=Hola%2C%20organizo%20un%20evento%20y%20me%20gustar%C3%ADa%20solicitar%20una%20propuesta%20de%20conferencia%20del%20Dr.%20Quesada"
+  },
+  "secoes": [
+    {
+      "tipo": "hero",
+      "ativo": true,
+      "selo": "Conferencias y congresos",
+      "sobretitulo": "Dr. Alden J. Quesada",
+      "titulo": "Lleva a tu congreso al médico que habla de diabetes [[sin repetir lo de siempre]]",
+      "subtitulo": "Cardiólogo y naturópata, autor de tres libros publicados en español, inglés y portugués. Conferencias sobre diabetes, corazón y salud metabólica, en español.",
+      "imagem": "img/hero.jpg",
+      "reservar_video": true,
+      "rotulo_video": "Espacio reservado para el reel de conferencias",
+      "marcas": [
+        "Español",
+        "Presencial y online",
+        "Congresos, empresas y universidades"
+      ]
+    },
+    {
+      "tipo": "desejos",
+      "ativo": true,
+      "titulo": "Lo que tu público se lleva:",
+      "itens": [
+        "Entender [[por qué]] el cuerpo llegó a la diabetes, no solo qué medicamento tomar",
+        "Un método con fases, no una lista de consejos sueltos",
+        "Salir con algo que puede aplicar al día siguiente"
+      ]
+    },
+    {
+      "tipo": "entrega",
+      "ativo": true,
+      "selo": "Temas",
+      "titulo": "Conferencias disponibles",
+      "_conferir": "Los cuatro temas salieron de sus libros y de la mentoría. Confirma los títulos y agrega o quita los que quieras.",
+      "pilares": [
+        {
+          "rotulo": "Tema 01",
+          "titulo": "El fin de las complicaciones de la diabetes",
+          "texto": "Por qué la glucemia es el resultado y no la causa, y qué cambia en el tratamiento cuando se trata la causa. Para público general y para pacientes."
+        },
+        {
+          "rotulo": "Tema 02",
+          "titulo": "El orden que decide si el paciente sigue o abandona",
+          "texto": "Las cuatro fases del método, de los conceptos al protocolo con hora marcada. Para médicos y profesionales de la salud."
+        },
+        {
+          "rotulo": "Tema 03",
+          "titulo": "Corazón y metabolismo: la cuenta que nadie hace",
+          "texto": "Tratar el corazón sin tratar el metabolismo que lo enferma no sostiene el resultado. Cardiología y naturopatía en la misma consulta."
+        },
+        {
+          "rotulo": "Tema 04",
+          "titulo": "Mujer delgada y saludable",
+          "texto": "Pérdida de peso y reversión de la edad biológica sin pasar hambre. Para eventos dirigidos a público femenino."
+        }
+      ]
+    },
+    {
+      "tipo": "passos",
+      "ativo": true,
+      "selo": "Formatos",
+      "titulo": "Cómo puede entrar en tu programación",
+      "_conferir": "Duraciones escritas como rango. Ajusta a lo que realmente ofreces.",
+      "itens": [
+        "**Keynote** de apertura o cierre, de 45 a 60 minutos",
+        "**Charla con casos** en vivo, con lectura de exámenes delante del público",
+        "**Panel o mesa redonda**, con moderación y preguntas",
+        "**Taller** para equipo clínico, de medio día o día completo"
+      ],
+      "fecho": "Todos los formatos están disponibles en español, presencial u online.",
+      "fundo": "img/fundo-secao.jpg"
+    },
+    {
+      "tipo": "sobre",
+      "ativo": true,
+      "selo": "Sobre el conferencista",
+      "titulo": "Dr. Alden J. Quesada",
+      "credencial": "Especialista en Cardiología y Naturópata",
+      "imagem": "img/sobre.jpg",
+      "_conferir": "Faltan los números reales: cuántos eventos, en qué países, cuántas personas. Es lo que un organizador mira primero.",
+      "paragrafos": [
+        "Cardiólogo y naturópata, autor de Diabetes Mellitus: El fin de las complicaciones, El fin de la Diabetes Mellitus y Mujer Delgada & Saludable, publicados en español, inglés y portugués.",
+        "Trabaja la diabetes desde la causa: el desequilibrio metabólico que está por debajo del número del examen. Es ese enfoque, y no el tema en sí, lo que hace que el público salga con algo que no había escuchado antes.",
+        "Habla en español, con lenguaje que funciona tanto para sala de médicos como para auditorio de pacientes."
+      ]
+    },
+    {
+      "tipo": "contexto",
+      "ativo": false,
+      "_pendente": "Necesita los números reales de él: eventos realizados, países, personas alcanzadas, seguidores. Sin eso, la sección miente o queda vacía.",
+      "selo": "Trayectoria",
+      "titulo": "",
+      "dados": [],
+      "fecho": ""
+    },
+    {
+      "tipo": "prova",
+      "ativo": false,
+      "_pendente": "Logos o nombres de eventos donde ya habló. Es la prueba que un organizador pide antes de cualquier otra.",
+      "selo": "Dónde ya habló",
+      "titulo": "",
+      "casos": []
+    },
+    {
+      "tipo": "depoimentos",
+      "ativo": true,
+      "titulo": "Lo que dicen los organizadores",
+      "_conferir": "Faltan los testimonios reales. La sección reserva tres espacios para que el formato quede a la vista.",
+      "reservar": 3,
+      "itens": [],
+      "fundo": "img/fundo-secao.jpg"
+    },
+    {
+      "tipo": "perfil",
+      "ativo": true,
+      "selo": "Encaje",
+      "titulo": "Para qué tipo de evento funciona",
+      "para_quem": [
+        "congresos médicos y de profesionales de la salud",
+        "eventos de empresa sobre salud y calidad de vida del equipo",
+        "universidades y escuelas de medicina",
+        "eventos para público general sobre diabetes y salud metabólica"
+      ],
+      "nao_e": [
+        "eventos que buscan solo una presencia famosa en el escenario",
+        "programación donde la charla es relleno entre patrocinios",
+        "formatos de menos de 30 minutos, donde el método no cabe"
+      ]
+    },
+    {
+      "tipo": "entrega",
+      "ativo": true,
+      "selo": "Qué recibes",
+      "titulo": "Lo que el organizador recibe",
+      "pilares": [
+        {
+          "rotulo": "Antes",
+          "titulo": "Material para divulgación",
+          "texto": "Biografía, fotos en alta, títulos y descripciones de las charlas, listos para el material del evento."
+        },
+        {
+          "rotulo": "Durante",
+          "titulo": "Charla adaptada a tu público",
+          "texto": "El contenido se ajusta a quién está en la sala: médicos, equipo clínico o público general."
+        },
+        {
+          "rotulo": "Después",
+          "titulo": "Contenido para tus redes",
+          "texto": "Autorización para registro en foto y video, y participación en el contenido de divulgación del evento."
+        }
+      ],
+      "fundo": "img/consultorio.jpg"
+    },
+    {
+      "tipo": "faq",
+      "ativo": true,
+      "titulo": "Preguntas frecuentes",
+      "_conferir": "Respuestas escritas con lo que se sabe hoy. Las de viaje y caché dependen de ti.",
+      "perguntas": [
+        {
+          "pergunta": "¿En qué idioma son las conferencias?",
+          "resposta": "En español."
+        },
+        {
+          "pergunta": "¿Viaja fuera de su país?",
+          "resposta": "Sí, con disponibilidad de agenda. Las condiciones de viaje y estadía se acuerdan en la propuesta."
+        },
+        {
+          "pergunta": "¿Hace eventos online?",
+          "resposta": "Sí. Todos los formatos están disponibles en versión online."
+        },
+        {
+          "pergunta": "¿Adapta el contenido a nuestro público?",
+          "resposta": "Sí. El mismo tema cambia de profundidad según quién esté en la sala: no es la misma charla para médicos y para pacientes."
+        },
+        {
+          "pergunta": "¿Con cuánta anticipación hay que reservar?",
+          "resposta": "Cuanto antes mejor, porque la agenda se comparte con el consultorio. Consulta la disponibilidad para la fecha de tu evento."
+        },
+        {
+          "pergunta": "¿Cómo pido una propuesta?",
+          "resposta": "Por WhatsApp, con la fecha, la ciudad, el tipo de público y el formato que tienes en mente. La propuesta vuelve con el tema sugerido y las condiciones."
+        }
+      ]
+    },
+    {
+      "tipo": "contato",
+      "ativo": true,
+      "titulo": "¿Organizas un evento?",
+      "texto": "Cuéntanos la fecha, la ciudad y el público, y te devolvemos una propuesta.",
+      "botao": "Solicitar propuesta",
+      "link": "https://wa.me/5544998787673?text=Hola%2C%20organizo%20un%20evento.%20Fecha%3A%20/%20Ciudad%3A%20/%20P%C3%BAblico%3A%20/%20Formato%3A"
+    }
+  ],
+  "rodape": {
+    "texto": "Dr. Alden J. Quesada · Todos los derechos reservados",
+    "aviso": "El contenido de las conferencias tiene carácter informativo y educativo, y no sustituye la orientación médica individualizada.",
+    "voltar": {
+      "texto": "Volver al inicio",
+      "link": "../"
+    }
+  }
+}

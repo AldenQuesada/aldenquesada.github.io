@@ -92,3 +92,10 @@ print("Diabetes Mellitus: El fin de las complicaciones:")
 encaixar(f"{ORIG3}/capa.png", f"{DEST}/card/diabetes-es.jpg",   COR3, 0.94)
 encaixar(f"{ORIG3}/18.png",   f"{DEST}/card/diabetes-es-2.jpg", COR3, 0.80)
 encaixar(f"{ORIG3}/19.png",   f"{DEST}/card/diabetes-es-3.jpg", COR3, 0.80)
+
+
+ORIG4 = "/private/tmp/claude-501/-Users-drquesada/1aea2121-26b4-45a4-9936-e8a2d1834c55/scratchpad/mockups-insomnio"
+COR4 = "#0d1733"          # azul noite, puxado da capa
+
+print("Venciendo el Insomnio en 7 dias:")
+encaixar(f"{ORIG4}/capa.png", f"{DEST}/card/insomnio.jpg", COR4, 0.94)

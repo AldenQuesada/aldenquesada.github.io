@@ -17,7 +17,7 @@
      quem ja visitou nao ve a troca. Este numero entra como parametro em
      toda imagem e resolve isso.
      AO TROCAR QUALQUER IMAGEM EM img/, SUBA ESTE NUMERO. */
-  const VERSAO_IMAGENS = 3;
+  const VERSAO_IMAGENS = 4;
 
   function versionar(src) {
     if (!src || /^(https?:|data:)/i.test(src)) return src;

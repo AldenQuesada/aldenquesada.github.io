@@ -89,7 +89,7 @@
       "foto": "img/card/diabetes-es.jpg",
       "cor": "#241812",
       "acento": "#e07a42",
-      "link": "https://wa.me/5544998787673?text=Hola%2C%20quiero%20comprar%20el%20libro%20Diabetes%20Mellitus%3A%20El%20fin%20de%20las%20complicaciones",
+      "link": "https://www.amazon.com/dp/B0G6WVP2T2",
       "fotos": [
         "img/card/diabetes-es.jpg",
         "img/card/diabetes-es-2.jpg",
@@ -106,7 +106,7 @@
       "lado_da_foto": "esquerda",
       "foto": "img/card/fin-diabetes.jpg",
       "cor": "#0d2138",
-      "link": "https://wa.me/5544998787673?text=Hola%2C%20quiero%20comprar%20el%20libro%20El%20fin%20de%20la%20Diabetes%20Mellitus",
+      "link": "https://www.amazon.com/dp/B0CYT7LNNF",
       "fotos": [
         "img/card/fin-diabetes.jpg",
         "img/card/fin-diabetes-2.jpg",
@@ -133,8 +133,22 @@
       ]
     },
     {
-      "id": "contacto",
+      "id": "insomnio",
       "ordem": 7,
+      "ativo": true,
+      "titulo": "Venciendo el Insomnio en 7 días",
+      "sobretitulo": "Sin medicamentos controlados",
+      "descricao": "Desconecta la mente ansiosa y [[vuelve a dormir toda la noche]], de forma natural.",
+      "lado_da_foto": "esquerda",
+      "foto": "img/card/insomnio.jpg",
+      "cor": "#0d1733",
+      "acento": "#9ab6e8",
+      "link": "https://aldenquesada.github.io/test-insomnio/metodo/",
+      "nova_aba": false
+    },
+    {
+      "id": "contacto",
+      "ordem": 8,
       "ativo": true,
       "titulo": "Habla con mi equipo",
       "sobretitulo": "WhatsApp",
@@ -147,7 +161,7 @@
     },
     {
       "id": "canal-youtube",
-      "ordem": 8,
+      "ordem": 9,
       "ativo": true,
       "estilo": "canal",
       "selo": "Canal",

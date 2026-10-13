@@ -285,3 +285,13 @@ que faz o olho ir direto nele, não o tamanho.
 evento com data. Aqui diz que a agenda é limitada e pede para consultar
 disponibilidade, que é verdade o ano inteiro. Urgência inventada estraga a
 página no dia em que o prazo passa e nada acontece.
+
+## Card sem link
+
+Um card sem `link` **aparece na página**, só não é clicável. O que tira um card
+do ar é o campo `ativo`.
+
+Isso mudou em 12/10. Antes, card sem link não era desenhado, e essa regra era
+decisão minha, não dele. Ela acabou escondendo os três livros, que já tinham
+mockup, copy e cor prontos, só porque faltava o endereço do checkout. Produto
+pronto fica na vitrine; quem decide o que sai da vitrine é ele.

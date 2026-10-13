@@ -396,7 +396,12 @@
       .filter(c => c.ativo !== false)
       .sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
 
-    const visiveis = rascunho ? lista : lista.filter(temLink);
+    /* Card sem link ainda aparece: o que tira um card do ar e o campo
+       'ativo', que e decisao dele. Esconder produto pronto so porque
+       falta o endereco do checkout foi decisao minha, e estava
+       escondendo os livros com mockup, copy e tudo pronto.
+       Sem link, o card nao e clicavel, mas continua sendo vitrine. */
+    const visiveis = lista;
 
     if (rascunho) {
       const faltam = lista.filter(c => !temLink(c)).length;

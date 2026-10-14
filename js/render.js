@@ -245,17 +245,20 @@
     const ligar  = () => { if (!relogio) relogio = setInterval(avancar, CARROSSEL_MS); };
     const parar  = () => { clearInterval(relogio); relogio = null; };
 
+    let emTela = !('IntersectionObserver' in window);
+    const atualizar = () => { emTela && !document.hidden ? ligar() : parar(); };
+
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(entradas => {
-        entradas[0].isIntersecting && !document.hidden ? ligar() : parar();
+        emTela = entradas[0].isIntersecting;
+        atualizar();
       }, { threshold: 0.35 }).observe(caixa);
     } else {
-      ligar();
+      atualizar();
     }
 
-    document.addEventListener('visibilitychange', () => {
-      document.hidden ? parar() : null;
-    });
+    /* Ao voltar para a aba, retoma os cards visiveis sem exigir rolagem. */
+    document.addEventListener('visibilitychange', atualizar);
 
     return caixa;
   }

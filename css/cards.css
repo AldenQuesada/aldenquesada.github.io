@@ -201,7 +201,7 @@
 
 .card__ponto-slide.ativo { background: var(--acento); }
 
-/* Quem pediu menos movimento ve so o primeiro slide, parado. */
+/* Quem pediu menos movimento ve os slides alternarem sem fade. */
 @media (prefers-reduced-motion: reduce) {
   .card__img--carrossel img { transition: none; }
 }

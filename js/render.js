@@ -203,8 +203,8 @@
     const caixa = el('div', 'card__img');
     if (!fotos.length) return caixa;
 
-    const parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const varias = fotos.length > 1 && !parado;
+    /* Menos movimento retira o fade no CSS, sem ocultar os outros mockups. */
+    const varias = fotos.length > 1;
 
     (varias ? fotos : fotos.slice(0, 1)).forEach((src, i) => {
       const img = el('img');

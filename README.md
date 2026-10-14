@@ -137,8 +137,9 @@ Um card com o campo `fotos` (lista) troca os quadros sozinho, por fade, a cada
 gesto dentro dele competiria com o toque que leva ao checkout, e no celular o
 arrasto lateral ainda brigaria com a rolagem da página.
 
-O carrossel só gira quando o card está na tela e a aba está visível, e fica
-parado para quem tem `prefers-reduced-motion` ligado no sistema.
+O carrossel só gira quando o card está na tela e a aba está visível.
+A troca dos mockups continua com `prefers-reduced-motion` ligado; nesse caso,
+o CSS retira o fade, mas mantém todos os slides e indicadores.
 
 **Limite de tamanho:** a imagem do card tem 207 por 180 pixels na tela. Capa de
 livro, lombada e pilha se leem bem nesse espaço. Página interna de livro, com

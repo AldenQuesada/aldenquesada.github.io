@@ -11,6 +11,26 @@
   /* Tempo que cada slide do carrossel fica na tela. */
   const CARROSSEL_MS = 3400;
 
+  /* Um relogio para os livros trocarem juntos, mesmo entrando na tela
+     em momentos diferentes. Pausa quando nenhum livro esta visivel. */
+  const carrosseis = [];
+  let relogioCarrosseis = null;
+
+  function atualizarCarrosseis() {
+    const rodar = !document.hidden && carrosseis.some(c => c.emTela);
+    if (rodar && !relogioCarrosseis) {
+      relogioCarrosseis = setInterval(() => {
+        /* So avanca com a proxima imagem carregada nos tres livros. */
+        if (carrosseis.every(c => c.pronto())) carrosseis.forEach(c => c.avancar());
+      }, CARROSSEL_MS);
+    } else if (!rodar && relogioCarrosseis) {
+      clearInterval(relogioCarrosseis);
+      relogioCarrosseis = null;
+    }
+  }
+
+  document.addEventListener('visibilitychange', atualizarCarrosseis);
+
   /* Versao das imagens. Trocar o conteudo de um arquivo sem trocar o
      nome faz o navegador continuar servindo a imagem velha do cache:
      quem ja visitou nao ve a troca. Este numero entra como parametro em
@@ -189,9 +209,9 @@
   }
 
   /* Metade da imagem do card. Com uma foto so, e uma <img>. Com varias,
-     vira carrossel: os slides se alternam sozinhos, por fade.
+     vira carrossel: os slides deslizam juntos, automaticamente.
 
-     Ele so roda quando o card esta na tela e a aba esta visivel. Carrossel
+     O relogio so roda com algum livro na tela e a aba visivel. Carrossel
      girando fora de vista gasta bateria e nao e visto por ninguem. */
   function montarImagem(card) {
     /* Alguns cards tem recorte proprio para celular: no card de canal
@@ -203,7 +223,7 @@
     const caixa = el('div', 'card__img');
     if (!fotos.length) return caixa;
 
-    /* Menos movimento retira o fade no CSS, sem ocultar os outros mockups. */
+    /* Todos os mockups participam da mesma passagem suave. */
     const varias = fotos.length > 1;
 
     (varias ? fotos : fotos.slice(0, 1)).forEach((src, i) => {
@@ -211,7 +231,7 @@
       img.src = versionar(src);
       img.alt = '';
       img.setAttribute('aria-hidden', 'true');
-      img.loading = i === 0 ? 'lazy' : 'lazy';
+      img.loading = varias ? 'eager' : 'lazy';
       img.decoding = 'async';
       if (varias && i === 0) img.classList.add('ativo');
       reserva(img);
@@ -232,33 +252,42 @@
 
     const slides = caixa.querySelectorAll('img');
     const marcas = pontos.children;
-    let atual = 0, relogio = null;
+    let atual = 0;
+
+    /* Reposiciona fora da area visivel o slide que acabou de sair.
+       Assim a ultima imagem tambem desliza para a primeira sem salto. */
+    slides.forEach(img => img.addEventListener('transitionend', ev => {
+      if (ev.propertyName === 'transform') img.classList.remove('saindo');
+    }));
 
     function avancar() {
+      slides.forEach(img => img.classList.remove('saindo'));
       slides[atual].classList.remove('ativo');
+      slides[atual].classList.add('saindo');
       marcas[atual].classList.remove('ativo');
       atual = (atual + 1) % slides.length;
       slides[atual].classList.add('ativo');
       marcas[atual].classList.add('ativo');
     }
 
-    const ligar  = () => { if (!relogio) relogio = setInterval(avancar, CARROSSEL_MS); };
-    const parar  = () => { clearInterval(relogio); relogio = null; };
-
-    let emTela = !('IntersectionObserver' in window);
-    const atualizar = () => { emTela && !document.hidden ? ligar() : parar(); };
+    const controle = {
+      emTela: !('IntersectionObserver' in window),
+      pronto: () => {
+        const proxima = slides[(atual + 1) % slides.length];
+        return proxima.complete && proxima.naturalWidth > 0;
+      },
+      avancar
+    };
+    carrosseis.push(controle);
 
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(entradas => {
-        emTela = entradas[0].isIntersecting;
-        atualizar();
+        controle.emTela = entradas[0].isIntersecting;
+        atualizarCarrosseis();
       }, { threshold: 0.35 }).observe(caixa);
     } else {
-      atualizar();
+      atualizarCarrosseis();
     }
-
-    /* Ao voltar para a aba, retoma os cards visiveis sem exigir rolagem. */
-    document.addEventListener('visibilitychange', atualizar);
 
     return caixa;
   }
@@ -429,7 +458,6 @@
      terminar, cortando a animacao no meio. A classe garante a volta
      inteira, mesmo que a pagina ja esteja navegando. */
   function acenderNoToque() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     /* Registrado sempre, nao so em aparelho sem mouse: notebook com
        tela sensivel tem os dois, e quem toca ali espera o mesmo
        retorno de quem toca no celular. Em quem so tem mouse, este

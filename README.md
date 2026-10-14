@@ -122,8 +122,8 @@ Para forçar, mude o nome do arquivo ou acrescente `?v=2` na URL da metatag.
 
 ## Carrossel no card
 
-Um card com o campo `fotos` (lista) troca os quadros sozinho, por fade, a cada
-3,4 segundos. Com `foto` só, fica estático.
+Um card com o campo `fotos` (lista) desliza os quadros automaticamente a cada
+3,4 segundos, com passagem de 0,9 segundo. Com `foto` só, fica estático.
 
 ```json
 "fotos": [
@@ -137,9 +137,11 @@ Um card com o campo `fotos` (lista) troca os quadros sozinho, por fade, a cada
 gesto dentro dele competiria com o toque que leva ao checkout, e no celular o
 arrasto lateral ainda brigaria com a rolagem da página.
 
-O carrossel só gira quando o card está na tela e a aba está visível.
-A troca dos mockups continua com `prefers-reduced-motion` ligado; nesse caso,
-o CSS retira o fade, mas mantém todos os slides e indicadores.
+Os livros compartilham um relógio: capas e indicadores trocam juntos, mesmo
+quando os cards entram na tela em momentos diferentes. O relógio pausa com a
+aba oculta ou sem nenhum livro visível. As imagens são carregadas antes da
+troca; se a próxima ainda não estiver pronta, todos aguardam. A passagem suave
+continua com `prefers-reduced-motion` ligado, sem virar uma troca instantânea.
 
 **Limite de tamanho:** a imagem do card tem 207 por 180 pixels na tela. Capa de
 livro, lombada e pilha se leem bem nesse espaço. Página interna de livro, com
@@ -340,7 +342,10 @@ girando juntos fazem o navegador repintar a moldura de todos a cada quadro, e
 isso trava a rolagem em aparelho simples. Chegou a travar aqui durante o
 desenvolvimento. O `will-change` também entra só enquanto a luz corre.
 
-Quem tem redução de movimento ligada vê a borda acesa, parada.
+O hover da borda só é ativado com `(hover: hover) and (pointer: fine)`, para
+evitar que o hover sintetizado pelo toque fique preso no telefone. Com redução
+de movimento, o hover mantém a luz parada; o toque explícito continua acionando
+uma única volta de 1,9 segundo. A classe é retirada em 2,1 segundos.
 
 ## O que viaja nos links
 

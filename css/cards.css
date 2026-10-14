@@ -113,11 +113,20 @@
 /* O aviso de will-change entra so quando a luz vai correr, e sai
    depois. Deixado ligado o tempo todo em nove cards, ele reserva
    memoria de video a toa e deixa a pagina pesada em aparelho simples. */
-.card:hover .card__inner::before,
 .card--brilha .card__inner::before { will-change: --giro; }
 
-.card:hover .card__inner::before,
-.card:active .card__inner::before,
+/* Hover so aciona a luz em dispositivo com mouse. No telefone, o
+   hover sintetizado pelo toque nao pode manter o giro infinito. */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .card__inner::before { will-change: --giro; }
+
+  .card:hover .card__inner::before,
+  .card:active .card__inner::before {
+    opacity: 1;
+    animation: correr-borda 1.9s linear infinite;
+  }
+}
+
 .card:focus-visible .card__inner::before {
   opacity: 1;
   animation: correr-borda 1.9s linear infinite;
@@ -131,16 +140,16 @@
    A classe e posta pelo render no touchstart e tirada ao fim da volta.
    O :active sozinho nao serve: ele vale enquanto o dedo esta
    encostado, e o dedo sai antes da volta terminar. */
-.card--brilha .card__inner::before {
+.card.card--brilha .card__inner::before {
   opacity: 1;
   animation: correr-borda 1.9s linear 1;
 }
 
-/* Quem pediu menos movimento ve a borda acesa, parada. */
+/* O hover respeita menos movimento. O toque explicito aciona uma
+   unica volta pela classe acima, sem depender dessa preferencia. */
 @media (prefers-reduced-motion: reduce) {
-  .card:hover .card__inner::before,
-  .card:active .card__inner::before,
-  .card--brilha .card__inner::before { animation: none; }
+  .card:not(.card--brilha):hover .card__inner::before,
+  .card:not(.card--brilha):active .card__inner::before { animation: none; }
 }
 
 /* Imagem a esquerda por padrao; o JSON inverte com data-lado. */
@@ -162,7 +171,7 @@
   object-position: center 22%;
 }
 
-/* --- Carrossel: slides empilhados, troca por fade ------------------
+/* --- Carrossel: passagem lateral suave ----------------------------
    Sem seta e sem arrastar. O card inteiro e um link: qualquer gesto
    dentro dele competiria com o toque que leva ao checkout, e no celular
    o arrasto lateral ainda brigaria com a rolagem da pagina.
@@ -172,11 +181,18 @@
 
 .card__img--carrossel img {
   grid-area: 1 / 1;
-  opacity: 0;
-  transition: opacity .9s ease-in-out;
+  visibility: hidden;
+  transform: translateX(100%);
 }
 
-.card__img--carrossel img.ativo { opacity: 1; }
+.card__img--carrossel img.ativo,
+.card__img--carrossel img.saindo {
+  visibility: visible;
+  transition: transform .9s ease-in-out;
+}
+
+.card__img--carrossel img.ativo { transform: translateX(0); }
+.card__img--carrossel img.saindo { transform: translateX(-100%); }
 
 /* Tracinhos de posicao, discretos, so para avisar que ha mais de uma. */
 .card__pontos {
@@ -200,11 +216,6 @@
 }
 
 .card__ponto-slide.ativo { background: var(--acento); }
-
-/* Quem pediu menos movimento ve os slides alternarem sem fade. */
-@media (prefers-reduced-motion: reduce) {
-  .card__img--carrossel img { transition: none; }
-}
 
 /* Fio de luz na emenda das duas metades. */
 .card__img::after {

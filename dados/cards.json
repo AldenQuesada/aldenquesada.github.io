@@ -19,7 +19,7 @@
     "da Diabetes Mellitus, De invisivel a autoridade em 90 dias).",
     "",
     "fotos        = lista opcional. Com mais de uma, a metade da imagem vira",
-    "               carrossel: os quadros se alternam sozinhos por fade.",
+    "               carrossel: os quadros deslizam juntos automaticamente.",
     "               Sem seta e sem arrastar, porque o card inteiro e um link.",
     "               Os quadros atuais dos livros sao PROVISORIOS: saem das",
     "               mesmas fotos e so existem ate os mockups chegarem.",
@@ -36,7 +36,10 @@
     "               caixinha acima do nome), marca (instagram, youtube,",
     "               whatsapp, tiktok, facebook, telegram) e marca_cor.",
     "logo        = desenha o logotipo oficial da plataforma (hoje: youtube)",
-    "              acima do titulo, no card de canal."
+    "              acima do titulo, no card de canal.",
+    "",
+    "beneficios   = frases dos livros, uma por foto e na mesma ordem.",
+    "chamada      = indicacao visual fixa dentro do link: Leer más."
   ],
   "cards": [
     {
@@ -94,7 +97,13 @@
         "img/card/diabetes-es.jpg",
         "img/card/diabetes-es-2.jpg",
         "img/card/diabetes-es-3.jpg"
-      ]
+      ],
+      "beneficios": [
+        "Controla la diabetes mellitus de forma natural.",
+        "Sin tomar medicamentos.",
+        "Sin salir de tu casa."
+      ],
+      "chamada": "Leer más"
     },
     {
       "id": "fin-diabetes-es",
@@ -112,7 +121,13 @@
         "img/card/fin-diabetes-2.jpg",
         "img/card/fin-diabetes-3.jpg"
       ],
-      "acento": "#e9ce76"
+      "acento": "#e9ce76",
+      "beneficios": [
+        "Sé libre de los síntomas.",
+        "Sé libre de los medicamentos.",
+        "Sé libre de las complicaciones."
+      ],
+      "chamada": "Leer más"
     },
     {
       "id": "mujer-delgada",
@@ -130,7 +145,13 @@
         "img/card/mujer-delgada.jpg",
         "img/card/mujer-delgada-2.jpg",
         "img/card/mujer-delgada-3.jpg"
-      ]
+      ],
+      "beneficios": [
+        "Elimina entre 6 kg y 14 kg.",
+        "Revierte tu edad biológica.",
+        "En 30 días."
+      ],
+      "chamada": "Leer más"
     },
     {
       "id": "insomnio",
@@ -144,7 +165,11 @@
       "cor": "#0d1733",
       "acento": "#9ab6e8",
       "link": "https://aldenquesada.github.io/test-insomnio/metodo/",
-      "nova_aba": false
+      "nova_aba": false,
+      "beneficios": [
+        "Vuelve a dormir toda la noche."
+      ],
+      "chamada": "Leer más"
     },
     {
       "id": "contacto",

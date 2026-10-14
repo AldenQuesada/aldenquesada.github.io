@@ -143,6 +143,23 @@ aba oculta ou sem nenhum livro visível. As imagens são carregadas antes da
 troca; se a próxima ainda não estiver pronta, todos aguardam. A passagem suave
 continua com `prefers-reduced-motion` ligado, sem virar uma troca instantânea.
 
+### Beneficios dos livros
+
+`beneficios` lista as frases na mesma ordem de `fotos`: o indice da imagem e
+da frase muda na mesma chamada, usando o relogio existente. Nao ha um segundo
+temporizador. Cada lista deve ter uma frase por imagem; com uma unica imagem,
+o beneficio permanece estatico.
+
+`chamada: "Leer más"` acrescenta uma indicacao visual fixa com triangulo para a
+direita. E um `span` dentro do link existente, sem outro botao ou destino.
+
+As frases ficam sobrepostas em uma grade que reserva a altura da mais longa.
+Assim titulo, subtitulo e chamada nao mudam de posicao durante a passagem.
+As dimensoes dos cards e dos mockups, a fonte dos titulos, o intervalo de
+3,4 segundos e o deslizamento de 0,9 segundo sao preservados. Os estilos de
+beneficios e chamada sao exclusivos dos livros. Em telas estreitas, apenas os
+textos abaixo do titulo e os espacamentos se ajustam ao espaco disponivel.
+
 **Limite de tamanho:** a imagem do card tem 207 por 180 pixels na tela. Capa de
 livro, lombada e pilha se leem bem nesse espaço. Página interna de livro, com
 texto corrido, não: vira mancha cinza. Para mostrar o miolo, o lugar é a página

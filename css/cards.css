@@ -290,6 +290,74 @@
           box-decoration-break: clone;
 }
 
+/* Beneficios dos livros e chamada fixa. O formato do card e das imagens
+   continua definido pelas regras gerais acima. */
+.card--livro .card__texto { padding-block: 10px; }
+
+.card--livro .card__titulo { flex-shrink: 0; }
+
+.card--livro .card__sobretitulo {
+  flex-shrink: 0;
+  font-size: .78125rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 1;
+}
+
+.card__beneficios {
+  display: grid;
+  flex-shrink: 0;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.card__beneficios .card__beneficio {
+  grid-area: 1 / 1;
+  display: block;
+  margin: 0;
+  font-size: .875rem;
+  line-height: 1.35;
+  color: var(--acento);
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  visibility: hidden;
+  transform: translateX(100%);
+}
+
+.card__beneficios .card__beneficio.ativo,
+.card__beneficios .card__beneficio.saindo {
+  visibility: visible;
+  transition: transform .9s ease-in-out;
+}
+
+.card__beneficios .card__beneficio.ativo { transform: translateX(0); }
+.card__beneficios .card__beneficio.saindo { transform: translateX(-100%); }
+
+/* Indicacao visual dentro do unico link que ja envolve o card. */
+.card__ler {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-self: flex-start;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 3px 8px;
+  border: 1px solid var(--acento);
+  border-radius: 6px;
+  font-size: .75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--acento);
+}
+
+.card__ler-seta { font-size: .6875rem; }
+
+@media (min-width: 375px) {
+  .card--livro[data-id="diabetes-es"] .card__titulo { white-space: nowrap; }
+}
+
 /* Aneis decorativos no canto, bem apagados, como na referencia. */
 .card__aneis {
   position: absolute;
@@ -428,4 +496,17 @@
 @media (max-width: 380px) {
   .card__texto { padding: 11px 12px 9px; }
   .card__desc  { -webkit-line-clamp: 3; }
+  .card--livro .card__texto { padding-block: 6px; }
+  .card--livro .card__sobretitulo { margin-top: 3px; font-size: .6875rem; }
+  .card__beneficios { margin-top: 4px; }
+  .card__beneficios .card__beneficio { font-size: .8125rem; line-height: 1.2; }
+  .card__ler { margin-top: 4px; }
+}
+
+@media (max-width: 350px) {
+  .card--livro .card__texto { padding-block: 3px; }
+  .card--livro .card__sobretitulo { margin-top: 2px; font-size: .65625rem; line-height: 1.1; }
+  .card__beneficios { margin-top: 2px; }
+  .card__beneficios .card__beneficio { font-size: .75rem; line-height: 1.15; }
+  .card__ler { margin-top: 2px; padding-block: 0; line-height: 1.1; }
 }

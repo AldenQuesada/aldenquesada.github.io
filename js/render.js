@@ -208,12 +208,43 @@
     return p;
   }
 
+  /* Todos os beneficios ocupam a mesma celula: a frase mais longa reserva
+     o espaco, sem deslocar titulo, subtitulo ou chamada durante a troca. */
+  function montarBeneficios(frases) {
+    const caixa = el('div', 'card__beneficios');
+    const itens = frases.map((frase, i) => {
+      const p = descricaoComRealce(frase);
+      p.classList.add('card__beneficio');
+      if (i === 0) p.classList.add('ativo');
+      p.setAttribute('aria-hidden', String(i !== 0));
+      p.addEventListener('transitionend', ev => {
+        if (ev.propertyName === 'transform') p.classList.remove('saindo');
+      });
+      caixa.appendChild(p);
+      return p;
+    });
+    let atual = 0;
+    return {
+      caixa,
+      mostrar(indice) {
+        if (!itens[indice] || indice === atual) return;
+        itens.forEach(p => p.classList.remove('saindo'));
+        itens[atual].classList.remove('ativo');
+        itens[atual].classList.add('saindo');
+        itens[atual].setAttribute('aria-hidden', 'true');
+        atual = indice;
+        itens[atual].classList.add('ativo');
+        itens[atual].setAttribute('aria-hidden', 'false');
+      }
+    };
+  }
+
   /* Metade da imagem do card. Com uma foto so, e uma <img>. Com varias,
      vira carrossel: os slides deslizam juntos, automaticamente.
 
      O relogio so roda com algum livro na tela e a aba visivel. Carrossel
      girando fora de vista gasta bateria e nao e visto por ninguem. */
-  function montarImagem(card) {
+  function montarImagem(card, aoAvancar) {
     /* Alguns cards tem recorte proprio para celular: no card de canal
        as figuras ficam nas bordas, que e justo o que o corte come
        primeiro na tela estreita. */
@@ -268,6 +299,7 @@
       atual = (atual + 1) % slides.length;
       slides[atual].classList.add('ativo');
       marcas[atual].classList.add('ativo');
+      if (aoAvancar) aoAvancar(atual);
     }
 
     const controle = {
@@ -375,6 +407,9 @@
     const pendente = !temLink(card);
 
     const a = el('a', 'card');
+    const beneficios = Array.isArray(card.beneficios) && card.beneficios.length
+      ? montarBeneficios(card.beneficios) : null;
+    if (beneficios) a.classList.add('card--livro');
     a.dataset.lado = card.lado_da_foto || 'esquerda';
     a.dataset.id   = card.id || '';
     a.dataset.bloco = card.id || '';
@@ -393,7 +428,7 @@
     }
 
     const inner = el('div', 'card__inner');
-    inner.appendChild(montarImagem(card));
+    inner.appendChild(montarImagem(card, beneficios && beneficios.mostrar));
 
     const texto = el('div', 'card__texto');
 
@@ -409,7 +444,15 @@
     } else {
       if (card.titulo)      texto.appendChild(tituloComPonto(card.titulo));
       if (card.sobretitulo) texto.appendChild(el('p', 'card__sobretitulo', card.sobretitulo));
-      if (card.descricao)   texto.appendChild(descricaoComRealce(card.descricao));
+      if (beneficios) texto.appendChild(beneficios.caixa);
+      else if (card.descricao) texto.appendChild(descricaoComRealce(card.descricao));
+      if (beneficios && card.chamada) {
+        const chamada = el('span', 'card__ler', card.chamada);
+        const seta = el('span', 'card__ler-seta', '▶');
+        seta.setAttribute('aria-hidden', 'true');
+        chamada.appendChild(seta);
+        texto.appendChild(chamada);
+      }
       texto.appendChild(aneisDecorativos());
     }
 

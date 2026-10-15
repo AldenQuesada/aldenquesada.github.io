@@ -77,18 +77,18 @@ Para gerar as definitivas no Nano Banana, os prompts estão em
 
 ## Rastreamento
 
-`js/utm.js` captura todos os parâmetros da URL de chegada (`utm_source=bio-ig`,
-`fbclid` e o que mais vier) e repassa a cada link de saída. Assim a venda no
-checkout aparece creditada à bio, e não como tráfego direto.
+`js/utm.js` conserva a lista permitida de parâmetros de campanha nos links.
+Isso ajuda a atribuição; sozinho não comprova uma venda.
 
-O rastro é guardado na sessão: se a pessoa voltar pelo botão do navegador e a URL
-perder os parâmetros, o rastreamento continua de pé.
+A página inicial usa `js/analytics/`: sessões, visitas, exposição de cards,
+cliques com o mockup ativo, rolagem, tempo ativo e sinais técnicos. A coleta
+não altera o render, os textos, as dimensões ou os carrosséis. O histórico
+anterior permanece preservado em `quiz_events`.
 
-## Medição por bloco (fase 2)
-
-Cada clique dispara um evento `bloco:clique` no documento, com `id`, `titulo` e
-`link`. Ninguém escuta ainda. A contagem por bloco entra depois, no mesmo padrão
-do painel do quiz.
+O painel autenticado fica em `https://aldenquesada.github.io/test-insomnio/painel/bio/`.
+Contrato, testes, banco local, privacidade, backup e rollback estão em
+[docs/ANALYTICS.md](docs/ANALYTICS.md). Os coletores das subpáginas e do funil
+continuam na versão anterior até a próxima etapa de integração.
 
 ## Rodar local
 

@@ -41,4 +41,4 @@ elif a.action=='backup':
  snapshot=query(q)[0]['snapshot'];(a.output/'data.json').write_text(json.dumps(snapshot,ensure_ascii=False));os.chmod(a.output/'data.json',0o600)
  schema='\n'.join(f.read_text() for f in sorted((root/'supabase/migrations').glob('*_bio_analytics_*.sql')))
  (a.output/'schema.sql').write_text(schema);(a.output/'manifest.json').write_text(json.dumps({'project':a.project,'events':count,'schema_sha256':hashlib.sha256(schema.encode()).hexdigest(),'created_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}))
- print(json.dumps({'backup':str(a.output),'events':count,'scope':'analytics_private and its two API wrappers'}))
+ print(json.dumps({'backup':str(a.output),'events':count,'scope':'analytics_private and its constrained API wrappers'}))

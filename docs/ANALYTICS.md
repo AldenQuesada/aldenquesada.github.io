@@ -4,7 +4,7 @@
 
 The public page's CSS, content JSON, renderer, assets, UTM propagation and carousel code are unchanged. Only the root page replaces the old tracker. Mentoria/conferencias/quiz/TSL keep their previous collectors. Do not claim cross-funnel continuity until those collectors are migrated.
 
-Browser collection: `js/analytics/config.js` (rules), `core.js` (session identity, queue and transport), `bio.js` (passive DOM observer). Backend: versioned `supabase/migrations/`; private sites, viewers, sessions, pages and events; constrained public RPCs. Dashboard: `test-insomnio/painel/bio/`, using the existing login and API modules. Metric formulas are in the database, not duplicated in charts.
+Browser collection: `js/analytics/config.js` (rules), `core.js` (session identity, queue and transport), `bio.js` (passive DOM observer). Backend: versioned `supabase/migrations/`; private sites, viewers, sessions, pages and events; constrained public RPCs. Dashboard: `test-insomnio/painel/bio/`, using the existing owner login and modular Studio auth, request, rendering and formatting adapters. Metric formulas are in the database, not duplicated in charts.
 
 ## Measurement contract
 
@@ -32,6 +32,7 @@ Run `sh ferramentas/analytics-local.sh start` with PostgreSQL 16 installed; `ANA
 node tests/analytics-core.cjs
 node tests/bio-observer.cjs
 python3 tests/database.py
+python3 tests/studio-database.py
 ```
 
 `database.py` is fixed to localhost:55439. It tests idempotence, ownership, invalid payloads, private read restrictions, dashboard permissions, metric math, metadata exclusion and null metrics. Also inspect the page in a browser at desktop and mobile widths. Default localhost collection is off; `?medicao=test&interno=1` is for a local endpoint only. Never point a local preview at production.
@@ -43,3 +44,19 @@ Use `ferramentas/analytics-db.py migrate --project <ref> --keychain <existing-se
 `ferramentas/analytics-db.py backup --project <ref> --output <new-private-directory> --keychain <existing-service>` creates a single-snapshot JSON export plus complete versioned schema. It includes only this analytics aggregate, not clinical/quiz/Auth credentials. Beyond 100,000 events use pg_dump. Restore into an isolated database: apply schema after the appropriate auth-role prerequisites, then load sites/viewers/sessions/pages/events in dependency order with jsonb_populate_recordset, preserving UUIDs. Verify counts, grants, constraints and aggregate results. Viewer identities must match the target Auth database.
 
 Rollback: restore the original root HTML script references to resume legacy tracking; the renderer and CSS never changed. Keep the new database and event history intact, disable `analytics_private.sites.enabled` for bio if needed. Remove the panel link if rolling back its UI. Disable only the named bio-analytics-retention job if reverting maintenance; never drop unrelated schemas/extensions. No changes to quiz state, CRM, clinical records or payment integrations belong to this release.
+
+## Instituto Studio — stage 1 (2026-10-15)
+
+The premium panel unifies overview, visual funnels, analysis and data health at `test-insomnio/painel/bio/`. The previous `/painel/` entry redirects to the insomnia tab. Light/dark themes and responsive layouts affect only the authenticated panel. Public bio content, CSS, carousels, collectors, quiz and TSL assets remain unchanged in this stage. Hotmart, the page builder and cross-page journey correlation remain deferred.
+
+`public.analytics_studio_report` is a security-invoker wrapper around a viewer-checked private read model. The bio adapter delegates the existing report and adds recent activity from v1 events; the insomnia adapter delegates the three untouched legacy aggregate functions. Filters for source/device/browser apply only to the bio. Internal traffic is excluded by default, with an explicit warning when included. Historical and new session counts are not joined across modules.
+
+The client checks for fresh data 15 seconds after each successful or failed request completes, with at most one request in flight. Hidden/offline tabs pause. Resuming requests current data. Superseded filter responses are discarded; failures preserve only the last successful values for the same filter context and display a stale-data warning. Each result includes the database query timestamp, distinct from the last event timestamp. This is periodic refresh, not an instantaneous push subscription.
+
+Bio recent activity means distinct sessions with an activity signal during the last 60 seconds; the feed shows up to 12 allowlisted events from the last 5 minutes. It includes only v1 data and excludes future timestamps. It does not prove that a visitor is still present. Legacy insomnia recent signals retain their existing 10-minute definition and are labelled accordingly. Missing duration and zero-denominator rates display an em dash, not a fabricated zero. Clicks never become confirmed sales.
+
+Stage-1 migration adds one event-time index and three functions only. It does not modify existing aggregate definitions or persistently write to legacy tables. The legacy quiz report still uses its existing transaction-local temporary table. No names, phone numbers, answers or session IDs are returned by the Studio adapter. Tables stay private under RLS and the new RPC rejects anonymous or non-allowlisted accounts.
+
+Regression tests: run `python3 tests/studio-database.py` after the migrations in the disposable local database (the test installs synthetic legacy adapters there only), and `node tests/studio-client.mjs` in the quiz repository. Tests cover access control, scope, delayed/future events, internal exclusion, serial refresh, stale responses, authentication refresh/logout races, empty data and escaped labels.
+
+Rollback boundary: revert only the Stage-1 `painel/` frontend commit to recover the previous panel. The additive database functions/index can remain unused; do not delete history, alter public pages or roll back the collector. The predeploy private snapshot is `analytics-studio-2026-10-15-predeploy` under the existing external backup directory. Remaining work: actual cross-page journey correlation, builder/versioned publishing, Hotmart, stronger public-ingestion abuse controls, and scheduled private-schema backups.

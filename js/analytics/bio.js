@@ -1,4 +1,4 @@
-/* Passive observer of the existing page. Never changes links, content or styles. */
+/* Page observation and first-party link correlation. No content or style changes. */
 (function (root) {
   'use strict';
   var started = false;
@@ -13,6 +13,7 @@
       internal = local.getItem(cfg.internalKey)==='1';
       if (local.getItem(cfg.optoutKey)==='1') return;
     } catch (_) {}
+    if (params.has('interno')) internal=params.get('interno')!=='0';
     if (params.get('medicao')==='off' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname) && params.get('medicao')!=='test') return;
     if (navigator.globalPrivacyControl || navigator.doNotTrack==='1') return;
     var ua = navigator.userAgent || '', browser = /Instagram/i.test(ua)?'Instagram':/FBAN|FBAV/i.test(ua)?'Facebook':/Edg/i.test(ua)?'Edge':/CriOS|Chrome/i.test(ua)?'Chrome':/FxiOS|Firefox/i.test(ua)?'Firefox':/Safari/i.test(ua)?'Safari':'Other';
@@ -71,8 +72,10 @@
       var a=ev.target.closest && ev.target.closest('a[href]');
       if(!a || a.getAttribute('aria-disabled')==='true' || !/^https?:/.test(a.href))return;
       interact();
-      var id=a.dataset.id || null;
-      core.emit('link_click',{card:id,slide:slide(a),detail:{transitioning:!!a.querySelector('.card__img .saindo')}});
+      var id=a.dataset.id || null, destination=null, route=null;
+      try { destination=new URL(a.href);if(destination.origin===location.origin && id==='insomnio')route=cfg.journeyRoutes[destination.pathname] || null; } catch (_) {}
+      var eventId=core.emit('link_click',{card:id,slide:slide(a),detail:{transitioning:!!a.querySelector('.card__img .saindo'),journey:route}});
+      if(route){destination.searchParams.set('aq_bio',eventId);destination.searchParams.delete('aq_flow');destination.searchParams.set('aq_i',internal?'1':'0');a.href=destination.href;}
       flush();
     },true);
     document.addEventListener('visibilitychange',function(){sample();flush();last=Date.now();if(!document.hidden){page();activity=last;}});

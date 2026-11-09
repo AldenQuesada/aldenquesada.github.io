@@ -230,6 +230,26 @@ a.cta-res{
   z-index:10;
 }
 .barra-cta .principal{margin-top:0}
+/* Imagen suelta: el mockup va directo sobre la página, sin recuadro. */
+.capa-solta{display:block; margin:6px auto 10px; max-width:100%; height:auto}
+/* Haz de luz que cruza el botón de lado a lado. */
+button.brilho{position:relative; overflow:hidden}
+button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
+  width:45%; transform:skewX(-20deg); pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+  animation:brilho 2.6s ease-in-out infinite}
+@keyframes brilho{0%{left:-60%} 60%,100%{left:120%}}
+@media (prefers-reduced-motion:reduce){button.brilho::after{animation:none; display:none}}
+/* Aviso arriba a la derecha: quién acaba de hacer el test. */
+.prova{position:fixed; top:14px; right:14px; z-index:50; max-width:260px;
+  background:var(--noite-2); border:1px solid var(--linha); border-radius:12px;
+  padding:10px 13px; box-shadow:0 10px 30px rgba(0,0,0,.45);
+  font-size:13px; line-height:1.35; color:var(--luz);
+  opacity:0; transform:translateY(-8px); transition:opacity .3s ease, transform .3s ease;
+  pointer-events:none}
+.prova.vis{opacity:1; transform:none}
+.prova .estrelas{color:#f5b301; letter-spacing:2px; font-size:13px; display:block; margin-bottom:2px}
+.prova small{color:var(--luz-3); font-size:11.5px}
 .oculto{display:none !important}
 </style>
 </head>
@@ -932,6 +952,10 @@ a.cta-res{
     imagem: function(c, nome){
       var im = c[nome || 'imagem'] || {};
       if (!im.url) return '';
+      if (im.solta) {
+        return '<img class="capa-solta" src="' + esc(im.url) + '" alt="' + esc(im.alt || '') +
+               '" style="width:' + (parseInt(im.largura, 10) || 100) + '%" loading="eager">';
+      }
       // A proporção vem escrita como "largura:altura" e vira altura em % da
       // largura. Antes era uma tabela de proporções conhecidas aqui no código,
       // e trocar a imagem por uma de outro formato exigia mexer no código.
@@ -977,6 +1001,7 @@ a.cta-res{
     botao.textContent = bt.texto || t('abertura_botao','Começar');
     if (bt.cor) botao.style.background = bt.cor;
     if (bt.cor_texto) botao.style.color = bt.cor_texto;
+    if (bt.brilho) botao.classList.add('brilho');
     tela.appendChild(barra);
 
     botao.onclick = function(){
@@ -1077,6 +1102,40 @@ a.cta-res{
     return frase.charAt(0).toUpperCase() + frase.slice(1);
   }
 
+  // ── Aviso de quién hizo el test ───────────────────────────────────
+  // Solo envíos reales (país y hace cuánto), de quiz_prova_social. Sin envíos
+  // en los últimos 30 días, el aviso no aparece: nada aquí es inventado.
+  function iniciarProva(){
+    var c = quiz.schema['prova_social_' + IDIOMA] || {};
+    if (!c.ativo || PREVIA) return;
+    api('rpc/quiz_prova_social', { p_slug: CFG.slug }).then(function(lista){
+      if (!Array.isArray(lista) || !lista.length) return;
+      var caixa = document.createElement('div');
+      caixa.className = 'prova';
+      caixa.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(caixa);
+      var i = 0;
+      function quando(m){
+        if (m < 60)   return (c.tempo_min || '%d min').replace('%d', m);
+        if (m < 1440) return (c.tempo_h || '%d h').replace('%d', Math.floor(m / 60));
+        return (c.tempo_d || '%d d').replace('%d', Math.floor(m / 1440));
+      }
+      function mostrar(){
+        // Durante el WhatsApp y el resultado el aviso distrae: se queda quieto.
+        if (telaAtual === 'contato' || telaAtual === 'resultado') return;
+        var x = lista[i++ % lista.length];
+        caixa.innerHTML = (c.estrelas ? '<span class="estrelas">★★★★★</span>' : '') +
+          '<span></span><br><small></small>';
+        caixa.children[c.estrelas ? 1 : 0].textContent =
+          (x.bandeira ? x.bandeira + ' ' : '') + (c.texto || '%p').replace('%p', x.pais || '');
+        caixa.querySelector('small').textContent = quando(x.minutos);
+        caixa.classList.add('vis');
+        setTimeout(function(){ caixa.classList.remove('vis'); }, (c.dura_seg || 2) * 1000);
+      }
+      setInterval(mostrar, (c.intervalo_seg || 5) * 1000);
+    }).catch(function(){});
+  }
+
   // ── Início ────────────────────────────────────────────────────────
   api('quiz_templates?select=id,title,schema,idioma,ddi_padrao&slug=eq.' + CFG.slug + '&active=eq.true')
     .then(function(linhas){
@@ -1117,6 +1176,7 @@ a.cta-res{
       });
       if (PREVIA) { conferir(); return; }
       telaAbertura();
+      iniciarProva();
       // A origem é gravada na CHEGADA, não no envio. Quem sai na pergunta 3
       // também veio de um anúncio, e antes essa visita ficava sem dono.
       evento('page_view', contexto());

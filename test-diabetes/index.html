@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<title>Test de la Diabetes</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --noite:#11151d; --noite-2:#1a2130; --noite-3:#252e40;
+  --luz:#f4f1ea; --luz-2:#cdd3de; --luz-3:#8d97a8;
+  --linha:#2d3648;
+  --lua:#e2a04a;
+  --calmo:#57c193;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--noite); color:var(--luz);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,sans-serif;
+  font-size:16px; line-height:1.6;
+  display:flex; flex-direction:column;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+
+/* ── Progresso ── */
+.barra{height:3px; background:var(--noite-3); flex:none}
+.barra i{display:block; height:100%; width:0; background:var(--lua);
+  transition:width .35s ease}
+@media (prefers-reduced-motion:reduce){ .barra i{transition:none} }
+
+.palco{flex:1 1 auto; display:flex; align-items:center; justify-content:center;
+  padding:20px 16px 0}
+.palco:has(.barra-cta){align-items:stretch}
+.tela{width:100%; max-width:560px; display:flex; flex-direction:column;
+  padding-bottom:28px}
+.tela:has(.barra-cta){padding-bottom:0}
+
+.passo-n{font-size:12.5px; color:var(--luz-3); letter-spacing:.06em;
+  text-transform:uppercase; margin:0 0 10px}
+h1{font-family:Fraunces,Georgia,serif; font-weight:700;
+  font-size:clamp(18px,5.6vw,34px); line-height:1.3; letter-spacing:-.022em;
+  margin:0 0 8px; text-wrap:balance}
+/* Realce do trecho marcado: abraça a frase, não vai de ponta a ponta.
+   `box-decoration-break:clone` é o que dá borda e respiro em CADA linha se o
+   trecho quebrar; sem ele a caixa fica aberta no meio da quebra. */
+h1 mark{
+  padding:.1em .3em; border-radius:7px; box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+}
+h2.pergunta{font-family:Fraunces,Georgia,serif; font-weight:600;
+  font-size:clamp(21px,4.6vw,29px); line-height:1.22; letter-spacing:-.015em;
+  margin:0 0 22px; text-wrap:balance}
+p.apoio{color:var(--luz-2); margin:0 0 22px; font-size:15.5px}
+
+/* ── Opções ── */
+.opcoes{display:flex; flex-direction:column; gap:9px}
+button.opcao{
+  width:100%; text-align:left; font:inherit; font-size:16px;
+  color:var(--luz); background:var(--noite-2);
+  border:1px solid var(--linha); border-radius:11px;
+  padding:15px 17px; cursor:pointer; display:flex; align-items:center; gap:13px;
+  transition:border-color .16s, background .16s, transform .08s;
+}
+button.opcao:hover{border-color:var(--luz-3); background:var(--noite-3)}
+button.opcao:active{transform:scale(.99)}
+button.opcao:focus-visible{outline:2px solid var(--lua); outline-offset:2px}
+button.opcao .marca{
+  flex:none; width:22px; height:22px; border-radius:50%;
+  border:2px solid var(--linha); display:grid; place-items:center;
+}
+button.opcao.escolhida{border-color:var(--lua); background:var(--noite-3)}
+button.opcao.escolhida .marca{border-color:var(--lua); background:var(--lua)}
+button.opcao.escolhida .marca::after{content:""; width:8px; height:8px;
+  border-radius:50%; background:var(--noite)}
+
+/* Escolha por retrato: dois cartões lado a lado, a marca no canto. Vale a
+   coluna dupla só porque são exatamente duas opções e as duas cabem em 360px. */
+.opcoes.retratos{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.opcoes.retratos button.opcao{
+  position:relative; flex-direction:column; justify-content:center;
+  text-align:center; gap:11px; padding:20px 12px 17px; font-weight:600;
+}
+.opcoes.retratos button.opcao img{
+  width:88px; height:88px; border-radius:50%; display:block;
+  object-fit:cover;
+}
+.opcoes.retratos button.opcao .marca{position:absolute; top:11px; right:11px;
+  width:20px; height:20px}
+
+/* ── Campos ── */
+label.campo{display:block; margin-bottom:16px}
+label.campo span{display:block; font-size:13px; color:var(--luz-3);
+  margin-bottom:6px; letter-spacing:.03em}
+input{
+  width:100%; font:inherit; font-size:17px; color:var(--luz);
+  background:var(--noite-2); border:1px solid var(--linha);
+  border-radius:11px; padding:14px 16px;
+}
+input:focus{outline:none; border-color:var(--lua)}
+button.principal{
+  width:100%; font:inherit; font-size:16.5px; font-weight:600;
+  color:var(--noite); background:var(--lua); border:0; border-radius:11px;
+  padding:16px; cursor:pointer; margin-top:6px;
+}
+button.principal:disabled{opacity:.45; cursor:not-allowed}
+button.voltar{
+  background:none; border:0; color:var(--luz-3); font:inherit; font-size:14px;
+  cursor:pointer; padding:10px 0; margin-top:16px;
+}
+button.voltar:hover{color:var(--luz)}
+
+/* ── Resultado ── */
+.nota{font-family:Fraunces,Georgia,serif; font-size:clamp(56px,16vw,86px);
+  font-weight:700; line-height:1; color:var(--lua); letter-spacing:-.03em}
+.nota small{font-size:22px; color:var(--luz-3); font-weight:600}
+.faixa{display:inline-block; margin:14px 0 18px; padding:5px 13px;
+  border:1px solid var(--lua); color:var(--lua); border-radius:20px;
+  font-size:13.5px; letter-spacing:.03em}
+.aviso{font-size:13.5px; color:var(--luz-3); border-left:2px solid var(--linha);
+  padding-left:13px; margin-top:26px}
+p.chamada{
+  color:var(--luz); font-size:16.5px; line-height:1.5; margin:22px 0 0;
+}
+a.cta-res{
+  display:flex; align-items:center; justify-content:center; gap:9px;
+  background:var(--lua); color:var(--noite); font-weight:700; font-size:16.5px;
+  text-decoration:none; border-radius:11px; padding:17px; margin-top:24px;
+}
+
+.selo-previa{
+  font-size:11.5px; letter-spacing:.06em; color:var(--noite);
+  background:var(--lua); border-radius:5px; padding:5px 9px;
+  margin:0 0 16px; display:inline-block; font-weight:700;
+}
+
+/* ── Movimento do resultado ──
+   Cada peça existe para mostrar que a conta aconteceu. Nada em laço: botão
+   que pulsa sem parar lê como pressão e derruba a confiança na página. */
+.surge{opacity:0; transform:translateY(9px);
+  animation:surgir .42s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes surgir{to{opacity:1; transform:none}}
+
+.escala{position:relative; margin:20px 0 18px; padding-top:7px}
+.escala .trilho{display:flex; gap:3px; height:10px}
+.escala .trilho i{
+  height:100%; opacity:.28; transition:opacity .35s ease;
+  border-radius:3px;
+}
+.escala .trilho i:first-child{border-radius:6px 3px 3px 6px}
+.escala .trilho i:last-child{border-radius:3px 6px 6px 3px}
+.escala.chegou .trilho i.sua{opacity:1}
+/* O marcador parte de onde a pessoa começou o teste, zero, e caminha até a
+   nota dela. É esse trajeto que diz "as suas respostas foram somadas". */
+.escala .marca{
+  position:absolute; top:0; left:2%; width:24px; height:24px; margin-left:-12px;
+  border-radius:50%; border:3px solid var(--noite); background:var(--luz-3);
+  transition:left .75s cubic-bezier(.3,.85,.35,1), background .35s ease;
+}
+.escala .limites{display:flex; justify-content:space-between;
+  font-size:11.5px; color:var(--luz-3); margin-top:9px; letter-spacing:.04em}
+.pior{font-size:15.5px; color:var(--luz-2); margin:0 0 14px;
+  border-left:2px solid var(--lua); padding-left:13px}
+.pior b{color:var(--luz); font-weight:600}
+.faixa{transition:background .35s ease, color .35s ease}
+.faixa.acesa{background:var(--lua); color:var(--noite); font-weight:600}
+
+/* Quem marca "reduzir movimento" no telefone faz isso porque DESLOCAMENTO lhe
+   dá enjoo ou enxaqueca: deslizar, dar zoom, parallax. Trocar de cor e mudar
+   de opacidade não fazem mal a ninguém.
+   Então aqui some só o que anda: o bloco entra sem subir e o marcador aparece
+   já no lugar, sem percorrer a barra. A nota continua contando, que é a única
+   coisa nesta tela cujo trabalho é dizer "as suas respostas foram somadas". */
+@media (prefers-reduced-motion: reduce){
+  .surge{animation-name:surgir-parado}
+  .escala .marca{transition:background .35s ease}
+}
+@keyframes surgir-parado{from{opacity:0} to{opacity:1; transform:none}}
+.erro{color:#e38891; font-size:14.5px; margin-top:12px}
+.fone-linha{display:flex; align-items:stretch; gap:8px}
+.fone-linha select{
+  flex:none; font:inherit; font-size:16px; color:var(--luz);
+  background:var(--noite-3); border:1px solid var(--linha);
+  border-radius:11px; padding:14px 10px; cursor:pointer;
+}
+.fone-linha select:focus{outline:none; border-color:var(--lua)}
+.fone-linha input{flex:1 1 auto; min-width:0}
+.dica{font-size:13px; color:var(--luz-3); margin:-8px 0 14px}
+
+/* ── Tela de entrada ── */
+.entrada{padding-bottom:8px}
+.selos{
+  display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
+  gap:10px; margin:0 0 20px; padding:11px 14px;
+  background:var(--noite-2); border:1px solid var(--linha); border-radius:12px;
+}
+.selo{display:flex; align-items:center; gap:7px; font-size:13px; color:var(--luz-2)}
+.selo-ic{display:flex; flex:none}
+.selo-ic svg{width:15px; height:15px; display:block}
+.selo-div{width:1px; align-self:stretch; background:var(--linha); flex:none}
+.capa{
+  position:relative; width:100%; overflow:hidden; margin:0 0 22px;
+  background:var(--noite-2); border:1px solid var(--linha);
+}
+.capa img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
+.checklist{list-style:none; margin:0 0 22px; padding:0}
+.checklist li{
+  display:flex; align-items:flex-start; gap:11px; padding:11px 0;
+  border-bottom:1px solid var(--linha); font-size:15.5px; line-height:1.42;
+}
+.checklist li:last-child{border-bottom:0}
+.checklist li::before{
+  content:""; flex:none; width:21px; height:21px; margin-top:1px; border-radius:50%;
+  background:var(--lua);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/13px no-repeat,
+          linear-gradient(#000,#000);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+}
+
+/* O botão encosta no rodapé e o degradê faz o conteúdo sumir por baixo dele,
+   em vez de ser cortado por uma barra sólida. */
+.barra-cta{
+  position:sticky; bottom:0; margin-top:auto;
+  padding:14px 0 calc(10px + env(safe-area-inset-bottom,0px));
+  background:linear-gradient(180deg, rgba(17,21,29,0) 0%, var(--noite) 32%);
+  z-index:10;
+}
+.barra-cta .principal{margin-top:0}
+.oculto{display:none !important}
+</style>
+</head>
+<body>
+<div class="barra" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="barra"><i id="progresso"></i></div>
+<main class="palco"><div class="tela" id="tela"></div></main>
+
+<script src="config.js"></script>
+<script src="/test-insomnio/analytics/journey.js?v=1"></script>
+<script>
+(function(){
+  'use strict';
+  var CFG = window.QUIZ_CONFIG;
+  var tela = document.getElementById('tela');
+  var progresso = document.getElementById('progresso');
+
+  var quiz = null, perguntas = [], escalas = {}, escalasF = {};
+  var respostas = {}, passo = 0;
+  var pessoa = { sexo: null, nome: '', pais: null };
+  var paises = [];
+  var paisesPromessa = null;
+
+  // A lista de países pesa 32 KB e só é usada na última tela. Sai do
+  // carregamento inicial e é buscada quando o teste começa: a pessoa leva
+  // cerca de um minuto e meio nas sete perguntas, então ela sempre chega
+  // pronta, sem espera e sem peso na abertura.
+  function carregarPaises(){
+    if (paisesPromessa) return paisesPromessa;
+    paisesPromessa = api('paises?select=codigo,nome,ddi,bandeira,min_digitos,max_digitos,digitos_exatos&ativo=eq.true&order=ordem&limit=300')
+      .then(function(l){ paises = l || []; return paises; })
+      .catch(function(){ paises = []; return paises; });
+    return paisesPromessa;
+  }
+
+  // Concordância de gênero: em português "cansada" e "cansado" são telas
+  // diferentes, e errar isso faz a pessoa sentir que o teste não é sobre ela.
+  var IDIOMA = 'pt', T = {}, faixaFrases = {}, titulosFaixa = {}, sexoOpcoes = [];
+  // A barra da escala é desenhada com os limites de `faixas` e a cor e o rótulo
+  // curto de `faixas_<idioma>`. Guardar a faixa inteira, e não só o título,
+  // é o que permite desenhar sem cor nem número escritos no código.
+  var faixas = [], faixasIdioma = {}, faixaCorpo = {}, faixaChamada = {};
+
+  // Toda string visível vem do banco quando o quiz está em espanhol. O
+  // português continua embutido como padrão, para o quiz não ficar mudo se a
+  // tradução faltar.
+  // ── Rastreamento ───────────────────────────────────────────────────
+  // Nada é carregado se o ID não estiver no banco: página sem campanha não
+  // deve carregar rastreador, nem por engano.
+  var RAST = {}, EV = {};
+
+  function ligarPixelMeta(id){
+    if (!id || window.fbq) return;
+    /* eslint-disable */
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    /* eslint-enable */
+    window.fbq('init', id);
+  }
+
+  function ligarGA4(id){
+    if (!id || window.gtag) return;
+    var g = document.createElement('script');
+    g.async = true;
+    g.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
+    document.head.appendChild(g);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', id);
+  }
+
+  // Um id por evento, estável entre pixel e banco. Se um dia entrar a API de
+  // Conversões pelo servidor, é ele que evita contar a mesma conversão duas
+  // vezes.
+  function idEvento(nome){ return sessao + '-' + nome; }
+
+  function rastrear(chave, dados){
+    var nome = EV[chave];
+    if (!nome) return;
+    var padrao = ['ViewContent','Lead','CompleteRegistration','Contact','Search'];
+    try {
+      if (window.fbq) {
+        window.fbq(padrao.indexOf(nome) >= 0 ? 'track' : 'trackCustom',
+                   nome, dados || {}, { eventID: idEvento(chave) });
+      }
+    } catch (e) {}
+    try { if (window.gtag) window.gtag('event', nome, dados || {}); } catch (e) {}
+  }
+
+  function esc(x){
+    return String(x == null ? '' : x)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function t(chave, padrao){ return T[chave] || padrao; }
+  function es(){ return IDIOMA === 'es'; }
+
+  function f(){ return pessoa.sexo === 'f'; }
+  function primeiroNome(){ return (pessoa.nome || '').trim().split(/\s+/)[0] || ''; }
+  // Emendar o nome antes da frase exige baixar a inicial dela. Em espanhol a
+  // frase abre com "¿" ou "¡", e baixar o caractere 0 não mexia na letra:
+  // saía "Alden, ¿A dónde…". Aqui a primeira LETRA é que desce.
+  function comNome(nome, frase){
+    if (!nome) return frase;
+    var i = frase.search(/\p{L}/u);
+    if (i < 0) return nome + ', ' + frase;
+    return nome + ', ' + frase.slice(0, i) +
+           frase.charAt(i).toLowerCase() + frase.slice(i + 1);
+  }
+  var sessao = 's-' + Date.now() + '-' + Math.random().toString(36).slice(2,9);
+
+  // A UTM vem do anúncio e precisa sobreviver até o lead: é ela que diz qual
+  // criativo trouxe cada pessoa. `content` é o anúncio e `term` é o conjunto:
+  // sem os dois, sabe-se que a campanha trouxe lead, mas não QUAL peça.
+  var url = new URLSearchParams(location.search);
+  var utm = {
+    source:   url.get('utm_source'),
+    medium:   url.get('utm_medium'),
+    campaign: url.get('utm_campaign'),
+    content:  url.get('utm_content'),
+    term:     url.get('utm_term')
+  };
+
+  // Visita nossa, de teste. `?interno=1` marca o navegador e toda visita dali
+  // em diante sai da conta sem apagar nada; `?interno=0` desmarca. Antes a
+  // única saída era zerar a tabela antes de subir anúncio, e aí o histórico
+  // dos testes ia junto.
+  var INTERNO = false;
+  try {
+    if (url.get('interno') !== null) {
+      if (url.get('interno') === '0') localStorage.removeItem('insonia_interno');
+      else localStorage.setItem('insonia_interno', '1');
+    }
+    INTERNO = localStorage.getItem('insonia_interno') === '1';
+  } catch (e) {}
+
+  // Em que tela a pessoa está agora. É o que o evento de saída precisa saber:
+  // o último evento gravado diz o que ela FEZ, não onde ela parou.
+  var telaAtual = 'carregando';
+  function emTela(nome){ telaAtual = nome; }
+
+  // Estado do campo de telefone, lido pelo evento de saída. Sair com nove
+  // dígitos digitados e número ainda inválido é um problema de máscara ou de
+  // país; sair com o campo vazio é outro problema.
+  var contato = { digitos: 0, valido: false };
+
+  // O aparelho e o navegador. Quem abre dentro do Instagram está num navegador
+  // que não guarda cookie como os outros e costuma converter menos: sem esta
+  // marca, a queda aparece como culpa do criativo.
+  function contexto(){
+    var ua = navigator.userAgent || '';
+    return {
+      utm: utm,
+      fbclid: !!fbclid,
+      ref: (document.referrer || '').slice(0, 120),
+      movel: /Mobi|Android|iPhone|iPod/i.test(ua),
+      app: /Instagram/i.test(ua) ? 'instagram'
+         : /FBAN|FBAV/i.test(ua) ? 'facebook'
+         : /TikTok/i.test(ua) ? 'tiktok' : '',
+      largura: window.innerWidth,
+      idioma_nav: (navigator.language || '').slice(0, 5),
+      ms_carga: Math.round(performance.now())
+    };
+  }
+  // `?ver=<nota>` abre a tela de resultado direto, para conferir a copy de cada
+  // faixa sem responder o teste sete vezes. NÃO grava lead, NÃO grava evento e
+  // NÃO dispara pixel: é conferência, não tráfego.
+  var PREVIA = url.get('ver') !== null;
+
+  // O clique do anúncio: é o que liga o lead de volta à peça que o trouxe.
+  var fbclid = url.get('fbclid');
+
+  function api(caminho, corpo){
+    return fetch(CFG.url + '/rest/v1/' + caminho, {
+      method: corpo ? 'POST' : 'GET',
+      headers: {
+        'apikey': CFG.anon,
+        'Authorization': 'Bearer ' + CFG.anon,
+        'Content-Type': 'application/json'
+      },
+      body: corpo ? JSON.stringify(corpo) : undefined
+    }).then(function(r){ return r.json(); });
+  }
+
+  // `manter` usa keepalive: o envio sobrevive à página fechando, que é
+  // justamente quando o evento de saída é mandado.
+  function evento(tipo, extra, manter){
+    if (PREVIA) return;
+    var meta = extra || {};
+    var journey = window.InstitutoJourney && window.InstitutoJourney.meta();
+    if (journey) { meta.aq = journey; if (journey.internal) meta.interno = true; }
+    if (INTERNO) meta.interno = true;
+    // Best-effort: se o registro de evento falhar, o quiz não pode parar.
+    try {
+      fetch(CFG.url + '/rest/v1/quiz_events', {
+        method: 'POST', keepalive: !!manter,
+        headers: {
+          'apikey': CFG.anon,
+          'Authorization': 'Bearer ' + CFG.anon,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          quiz_id: quiz.id, session_id: sessao, tipo: tipo,
+          passo: passo, metadata: meta
+        })
+      }).catch(function(){});
+    } catch (e) {}
+  }
+
+  // Saída: um evento por sessão, no momento em que a página some. É ele que
+  // responde "em que tela a pessoa desistiu", sem precisar deduzir do último
+  // evento gravado. `pagehide` e `visibilitychange` disparam juntos ao fechar,
+  // daí a trava de uma vez só.
+  var saiuEnviado = false;
+  var abriuEm = Date.now();
+  function registrarSaida(){
+    if (saiuEnviado || PREVIA || !quiz) return;
+    // Quem terminou não abandonou nada: não é saída, é fim de caminho.
+    if (telaAtual === 'resultado') return;
+    saiuEnviado = true;
+    var meta = { tela: telaAtual, segundos: Math.round((Date.now() - abriuEm) / 1000) };
+    if (telaAtual === 'contato') {
+      meta.digitos = contato.digitos;
+      meta.fone_valido = contato.valido;
+    }
+    evento('abandon', meta, true);
+  }
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState === 'hidden') registrarSaida();
+  });
+  window.addEventListener('pagehide', registrarSaida);
+
+  function pintarProgresso(){
+    var bar = document.getElementById('barra');
+    // As duas telas de entrada ocupam os primeiros 16% da barra.
+    // As duas telas de entrada ocupam os primeiros 16% da barra.
+    var pct = 16 + Math.round((passo / perguntas.length) * 84);
+    progresso.style.width = pct + '%';
+    if (bar) bar.setAttribute('aria-valuenow', pct);
+  }
+
+  function irPara(n){
+    passo = n;
+    pintarProgresso();
+    if (n >= perguntas.length) { pedirContato(); return; }
+    emTela('pergunta_' + (n + 1));
+    desenharPergunta(perguntas[n]);
+  }
+
+  function desenharPergunta(q){
+    // Escala usa a lista compartilhada; escolha traz as opções dela mesma,
+    // porque rótulo de tempo não se repete em outra pergunta.
+    var proprias = q['opcoes_' + IDIOMA];
+    var opcoes = proprias
+      ? proprias.map(function(o){ return o.rotulo; })
+      : ((f() && escalasF[q.escala]) || escalas[q.escala] || []);
+    var enunciado = (f() && q['texto_' + IDIOMA + '_f']) || q['texto_' + IDIOMA]
+                    || (f() && q.texto_f) || q.texto;
+    var nome = primeiroNome();
+    var atual = respostas[q.id];
+    tela.innerHTML =
+      '<p class="passo-n">' + t('rotulo_pergunta','Pergunta') + ' ' + (passo + 1) +
+        ' ' + t('de','de') + ' ' + perguntas.length + '</p>' +
+      '<h2 class="pergunta"></h2>' +
+      '<div class="opcoes"></div>' +
+      (passo > 0 ? '<button class="voltar" type="button">' + t('voltar','← voltar') + '</button>' : '');
+    // O nome aparece nas duas primeiras e volta na última: repetir em todas
+    // soa a mala direta, não a conversa.
+    var chamado = (nome && (passo === 0 || passo === perguntas.length - 1))
+      ? comNome(nome, enunciado)
+      : enunciado;
+    tela.querySelector('h2').textContent = chamado;
+
+    var caixa = tela.querySelector('.opcoes');
+    // A tela só troca 300ms depois do toque, e nesse intervalo ela continuava
+    // aceitando toque. Dois toques seguidos avançavam DUAS perguntas: a pessoa
+    // pulava uma sem ver e, na última, a tela do telefone era desenhada duas
+    // vezes e contada duas vezes no funil.
+    var avancou = false;
+    opcoes.forEach(function(rotulo, i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      var esta = proprias ? (atual === proprias[i].valor) : (atual === i);
+      b.className = 'opcao' + (esta ? ' escolhida' : '');
+      b.innerHTML = '<span class="marca"></span><span></span>';
+      b.lastChild.textContent = rotulo;
+      b.onclick = function(){
+        if (avancou) return;
+        avancou = true;
+        caixa.querySelectorAll('.opcao').forEach(function(o){
+          o.classList.remove('escolhida');
+        });
+        b.classList.add('escolhida');
+        // Escala guarda o índice, que É a pontuação do item. Escolha guarda o
+        // código, que sobrevive a reordenar as opções; índice, não.
+        respostas[q.id] = proprias ? proprias[i].valor : i;
+        evento('answer', { pergunta: q.id, valor: respostas[q.id] });
+        rastrear('pergunta', { passo: passo + 1, total: perguntas.length });
+        // A pausa existe para a pessoa VER que a escolha foi registrada antes
+        // de a tela trocar. Sem ela, parece que o toque falhou.
+        setTimeout(function(){ irPara(passo + 1); }, 300);
+      };
+      caixa.appendChild(b);
+    });
+
+    var voltar = tela.querySelector('.voltar');
+    if (voltar) voltar.onclick = function(){ irPara(passo - 1); };
+    if (passo === 0) {
+      var v = document.createElement('button');
+      v.type='button'; v.className='voltar'; v.textContent='← voltar';
+      v.onclick = telaNome; tela.appendChild(v);
+    }
+  }
+
+  function pedirContato(){
+    // Se a lista ainda estiver a caminho, espera aqui em vez de desenhar um
+    // seletor vazio. Na prática nunca espera: foi pedida sete perguntas atrás.
+    carregarPaises().then(montarContato);
+  }
+
+  function montarContato(){
+    emTela('contato');
+    progresso.style.width = '100%';
+    var nome = primeiroNome();
+    tela.innerHTML =
+      '<p class="passo-n">' + t('contato_rotulo','Última pergunta') + '</p>' +
+      '<h1></h1>' +
+      '<p class="apoio">' + t('contato_apoio','A sua pontuação já está calculada.') + '</p>' +
+      '<label class="campo"><span>' + t('contato_campo','Seu WhatsApp') + '</span>' +
+        '<span class="fone-linha">' +
+        '<select id="ddi" aria-label="' + esc(t('aria_ddi','Código do país')) + '"></select>' +
+        '<input id="fone" type="tel" inputmode="numeric" autocomplete="tel" autofocus></span></label>' +
+      '<p class="dica" id="dica"></p>' +
+      '<button class="principal" id="enviar" disabled>' + t('contato_botao','Ver o meu resultado') + '</button>' +
+      '<div class="erro oculto" id="erro"></div>' +
+      '<button class="voltar" type="button">' + t('voltar','← voltar') + '</button>';
+    var pergTit = t('contato_titulo','Para onde envio o seu resultado?');
+    tela.querySelector('h1').textContent =
+      comNome(nome, pergTit);
+
+    var sel = document.getElementById('ddi');
+    var fone = document.getElementById('fone');
+    var botao = document.getElementById('enviar');
+    var dica = document.getElementById('dica');
+
+    paises.forEach(function(pa){
+      var o = document.createElement('option');
+      o.value = pa.codigo;
+      o.textContent = pa.bandeira + '  +' + pa.ddi;
+      if (pa.codigo === (quiz.ddi_padrao || 'BR')) o.selected = true;
+      sel.appendChild(o);
+    });
+
+    function paisAtual(){
+      var c = sel.value;
+      return paises.filter(function(p){ return p.codigo === c; })[0] || null;
+    }
+
+    function validar(){
+      var pa = paisAtual();
+      var n = fone.value.replace(/\D/g, '').length;
+      if (!pa) { botao.disabled = true; return; }
+      // O texto de ajuda só aparece quando o número já foi começado: mostrar
+      // "faltam dígitos" num campo vazio é ruído, não ajuda.
+      var ok = n >= pa.min_digitos && n <= pa.max_digitos;
+      // Guardado para o evento de saída: diz se quem desistiu aqui chegou a
+      // digitar e se o número ainda estava inválido quando ela foi embora.
+      contato.digitos = n;
+      contato.valido = ok;
+      // Só avisa quantos dígitos onde a contagem foi verificada. Dica errada
+      // atrapalha mais que dica nenhuma.
+      dica.textContent = (n > 0 && !ok && pa.digitos_exatos)
+        ? (pa.min_digitos === pa.max_digitos
+             ? t('digitos_um','%s tem %d dígitos.').replace('%s',pa.nome).replace('%d',pa.min_digitos)
+             : t('digitos_dois','%s tem %d ou %d dígitos.').replace('%s',pa.nome)
+                 .replace('%d',pa.min_digitos).replace('%d',pa.max_digitos))
+        : '';
+      botao.disabled = !ok;
+    }
+    sel.onchange = function(){ pessoa.pais = paisAtual(); validar(); fone.focus(); };
+    pessoa.pais = paisAtual();
+    fone.oninput = validar;
+    fone.onkeydown = function(e){ if (e.key === 'Enter' && !botao.disabled) botao.click(); };
+    evento('contact');
+    rastrear('contato');
+    setTimeout(function(){ fone.focus(); }, 60);
+
+    botao.onclick = function(){
+      botao.disabled = true;
+      botao.textContent = t('contato_enviando','Calculando…');
+      fetch(CFG.url + '/rest/v1/rpc/submit_quiz', {
+        method: 'POST',
+        headers: {
+          'apikey': CFG.anon,
+          'Authorization': 'Bearer ' + CFG.anon,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          p_slug: CFG.slug,
+          p_answers: respostas,
+          p_nome: pessoa.nome,
+          p_whatsapp: fone.value,
+          p_sexo: pessoa.sexo,
+          p_pais: pessoa.pais && pessoa.pais.codigo,
+          p_fbclid: fbclid,
+          p_session_id: sessao,
+          p_utm: utm
+        })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if (!res || !res.ok) throw new Error((res && res.erro) || 'falhou');
+        // A conversão que importa: só dispara quando o banco confirmou que
+        // gravou. Disparar no clique contaria lead que nunca existiu.
+        // Sem a nota: ela é dado de saúde e não vai para o Pixel nem para o
+        // GA4, a mesma regra que o rastreio da página de venda já segue. Como
+        // `value`, ainda por cima, a Meta leria a nota como dinheiro.
+        rastrear('final', { content_name: 'quiz-' + CFG.slug });
+        guardarResultado(res);
+        mostrarResultado(res);
+      })
+      .catch(function(){
+        // Lead que chegou até aqui e não gravou é o pior tipo de perda: a
+        // pessoa quis e o sistema falhou. Sem este evento, ela some do funil
+        // como se tivesse desistido.
+        evento('erro', { motivo: 'submit', pais: pessoa.pais && pessoa.pais.codigo });
+        botao.disabled = false;
+        botao.textContent = t('contato_botao','Ver o meu resultado');
+        var e = document.getElementById('erro');
+        e.textContent = t('contato_erro','Não consegui enviar agora. Confira a conexão e toque de novo.');
+        e.classList.remove('oculto');
+      });
+    };
+
+    tela.querySelector('.voltar').onclick = function(){ irPara(perguntas.length - 1); };
+  }
+
+  function semMovimento(){
+    try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+    catch (e) { return false; }
+  }
+
+  // Qual pergunta puxou a nota para cima. Sai das respostas que já estão na
+  // memória da página, então não custa nem uma consulta a mais. É a linha que
+  // prova que o teste leu quem respondeu, e não devolveu um número qualquer.
+  // As perguntas que entram na nota. A duração está entre as perguntas da tela
+  // mas fora da conta, e confundir as duas coisas aqui elegeria como "o que
+  // mais pesa" um item que não pesa nada.
+  function pontuaveis(){
+    return perguntas.filter(function(q){ return q.pontua; });
+  }
+
+  function piorItem(){
+    var alvo = null, maior = 0;
+    pontuaveis().forEach(function(q){
+      var v = respostas[q.id];
+      if (typeof v === 'number' && v > maior) { maior = v; alvo = q; }
+    });
+    return alvo && maior ? (alvo['rotulo_' + IDIOMA] || '') : '';
+  }
+
+  // Sobe de 0 até a nota em vez de aparecer pronta. Desacelera no fim, para o
+  // número assentar em vez de parar seco.
+  function contar(el, alvo){
+    if (alvo <= 0) { el.textContent = alvo; return; }
+    var t0 = null;
+    requestAnimationFrame(function passo(agora){
+      if (t0 === null) t0 = agora;
+      var k = Math.min(1, (agora - t0) / 900);
+      el.textContent = Math.round(alvo * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) requestAnimationFrame(passo);
+    });
+  }
+
+  // Os limites de cada trecho vêm de `faixas`, a cor de `faixas_<idioma>`.
+  // Nenhum número e nenhuma cor da escala estão escritos aqui.
+  function barraEscala(faixa, maximo, atraso){
+    if (!faixas.length) return '';
+    var trechos = faixas.map(function(f){
+      var d = faixasIdioma[f.codigo] || {};
+      // O rótulo curto da faixa só existe para quem ouve a página: a barra é
+      // cor pura, e sem isso um leitor de tela não encontra nada aqui.
+      return '<i style="flex:' + (f.ate - f.de + 1) +
+             ';background:' + cor(d.cor, '#7f8a9c') + '"' +
+             ' aria-label="' + esc(d.rotulo || '') + ' (' + f.de + '-' + f.ate + ')"' +
+             (f.codigo === faixa ? ' class="sua"' : '') + '></i>';
+    }).join('');
+    return '<div class="escala surge"' + atraso + '><span class="marca"></span>' +
+           '<div class="trilho">' + trechos + '</div>' +
+           '<div class="limites"><span>0</span><span>' + maximo + '</span></div></div>';
+  }
+
+  // Conferência da tela de resultado sem passar pelo teste.
+  //   ?ver=19            nota
+  //   &sexo=m            para ver a concordância masculina (padrão: f)
+  //   &nome=Marta        (padrão: o que estiver em `resultado_rotulo`)
+  //   &peor=q3           força qual item aparece como o que mais pesou
+  // Nada daqui vai para o banco.
+  function conferir(){
+    var nota = Math.max(0, Math.min(4 * pontuaveis().length, parseInt(url.get('ver'), 10) || 0));
+    pessoa.sexo = url.get('sexo') === 'm' ? 'm' : 'f';
+    pessoa.nome = url.get('nome') || 'Alden';
+
+    // Espalha a nota pelas perguntas para a linha do "que mais pesa" ter o que
+    // apontar. O resto vai para o item pedido, ou para o último, e é ele que
+    // sobe ao topo.
+    var forcado = url.get('peor');
+    var lista = pontuaveis();
+    var alvo = lista.filter(function(q){ return q.id === forcado; })[0]
+               || lista[lista.length - 1];
+    var base = Math.min(4, Math.floor(nota / lista.length)), resto = nota;
+    lista.forEach(function(q){
+      if (q === alvo) return;
+      respostas[q.id] = Math.min(base, resto); resto -= respostas[q.id];
+    });
+    respostas[alvo.id] = Math.min(4, resto);
+
+    // Na conferência o botão aparece mesmo sem a TSL pronta: é a copy da
+    // chamada e do botão que mais precisa ser lida ANTES de existir página
+    // para onde mandar.
+    var cta = quiz.schema.resultado_cta || (quiz.schema.resultado_cta = {});
+    if (!cta.url) cta.url = '#';
+
+    var f = faixas.filter(function(x){ return nota >= x.de && nota <= x.ate; })[0] || {};
+    mostrarResultado({
+      score: nota, maximo: 4 * pontuaveis().length, faixa: f.codigo, titulo: f.titulo,
+      aviso: quiz.schema['aviso_' + IDIOMA] || quiz.schema.aviso || ''
+    });
+
+    var selo = document.createElement('p');
+    selo.className = 'selo-previa';
+    selo.textContent = 'VISTA PREVIA · nada de esta pantalla se guarda';
+    tela.insertBefore(selo, tela.firstChild);
+  }
+
+  // Guarda o resultado NO APARELHO dela, para a página do método poder
+  // continuar a conversa em vez de recomeçar do zero.
+  //
+  // Fica só no navegador: nota de insônia e tempo de sintoma são dado de
+  // saúde, e por isso NÃO vão na URL. Na URL eles apareceriam na barra de
+  // endereço, no cabeçalho de referência e em tudo que a página de destino
+  // carregar, inclusive os pixels de anúncio. A política de privacidade diz
+  // que dado de saúde não é usado para segmentar, e isso aqui é o que faz a
+  // frase ser verdade.
+  //
+  // `dur` é o código da resposta de tempo, não a classificação: quem lê
+  // traduz pelo mesmo `schema`, que é a única fonte dessa tabela.
+  function guardarResultado(res){
+    try {
+      localStorage.setItem(CFG.slug + '_resultado', JSON.stringify({
+        v: 1,
+        nota:   res.score,
+        maximo: res.maximo,
+        faixa:  res.faixa,
+        dur:    respostas.dur || '',
+        nome:   pessoa.nome || '',
+        sexo:   pessoa.sexo || '',
+        quando: Date.now(),
+        // A página do método reusa esta sessão nos eventos dela: assim o
+        // funil de uma mesma pessoa se lê de ponta a ponta.
+        sessao: sessao
+      }));
+    } catch (e) {}   // janela anônima, armazenamento bloqueado, cota cheia
+  }
+
+  function mostrarResultado(res){
+    emTela('resultado');
+    var cta  = quiz.schema.resultado_cta || {};
+    var pior = piorItem();
+    var n = 0;
+    function atraso(){ return ' style="animation-delay:' + (n++ * 70) + 'ms"'; }
+
+    tela.innerHTML =
+      '<p class="passo-n surge"' + atraso() + '>' +
+        esc(t('resultado_rotulo','seu resultado')) + '</p>' +
+      '<div class="nota surge"' + atraso() + '><span id="conta">0</span>' +
+        '<small> / ' + res.maximo + '</small></div>' +
+      barraEscala(res.faixa, res.maximo, atraso()) +
+      '<div class="faixa surge"' + atraso() + '></div>' +
+      '<h1 class="surge"' + atraso() + '></h1>' +
+      (pior ? '<p class="pior surge"' + atraso() + '></p>' : '') +
+      '<p class="apoio surge"' + atraso() + '></p>' +
+      // A chamada e o botão são uma peça só: a chamada manda tocar no botão,
+      // então sem botão ela não pode existir. E sem a URL da TSL no banco o
+      // botão não existe: botão que não leva a lugar nenhum custa mais do que
+      // botão nenhum.
+      (cta.url ? '<p class="chamada surge"' + atraso() + '></p>' +
+                 '<a class="cta-res surge"' + atraso() + ' href="' + esc(cta.url) + '"' +
+                 // Destino externo abre em outra aba: o resultado dela continua
+                 // aberto atrás, e `noopener` impede que a página de destino
+                 // mexa nesta.
+                 ' target="_blank" rel="noopener">' +
+                 esc(cta.texto || '') + '</a>' : '') +
+      '<p class="aviso surge"' + atraso() + '></p>';
+
+    var pilula = tela.querySelector('.faixa');
+    pilula.textContent = tituloTraduzido(res.faixa) || res.titulo;
+    tela.querySelector('h1').textContent = tituloDaFaixa(res.faixa);
+    tela.querySelector('.apoio').textContent = faixaCorpo[res.faixa] || '';
+    tela.querySelector('.aviso').textContent = res.aviso;
+    if (cta.url) {
+      tela.querySelector('.cta-res').addEventListener('click', function(ev){
+        if (window.InstitutoJourney) window.InstitutoJourney.decorate(ev.currentTarget);
+        evento('cta_resultado', { destino: cta.url });
+      });
+      tela.querySelector('.chamada').textContent =
+        preencherNome(faixaChamada[res.faixa] || '');
+    }
+    if (pior) {
+      tela.querySelector('.pior').innerHTML =
+        esc(t('resultado_pior','O que mais pesa: %s.'))
+          .replace('%s', '<b>' + esc(pior) + '</b>');
+    }
+
+    contar(document.getElementById('conta'), res.score);
+
+    var caixa = tela.querySelector('.escala');
+    if (!caixa) return;
+    var marca = caixa.querySelector('.marca');
+    var tom   = cor((faixasIdioma[res.faixa] || {}).cor, '#7f8a9c');
+    var passo = 2 + (res.score / res.maximo) * 96;
+    function andar(){ marca.style.left = passo + '%'; marca.style.background = tom; }
+    function acender(){ caixa.classList.add('chegou'); pilula.classList.add('acesa'); }
+    // Com movimento reduzido o marcador não percorre a barra, mas ainda espera
+    // a nota parar: aparecer antes dela quebraria a leitura da conta.
+    setTimeout(andar, semMovimento() ? 900 : 450);
+    setTimeout(acender, semMovimento() ? 950 : 1150);
+  }
+
+  // ── Tela de entrada ────────────────────────────────────────────────
+  // Nada aqui é escrito no código: cada bloco lê o seu conteúdo de
+  // `schema.intro_<idioma>` e some se o campo estiver vazio. Até a ordem vem
+  // de lá, na lista `ordem`, porque reordenar landing é o que mais se faz.
+  // Os mesmos seis ícones que a clínica usa, desenhados inline: sem requisição
+  // extra e sem depender de fonte de ícone que pode não carregar.
+  var ICONES = {
+    star:  '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+    users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>',
+    clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+    check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
+    heart: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
+    shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'
+  };
+
+  // Alinhamento da headline e da subheadline, do banco. Sem a chave, segue
+  // encostado à esquerda como sempre foi.
+  // Cor vinda do banco entra num atributo `style`, então só passa o que tem
+  // forma de cor. Sem isso um valor com aspas escaparia do atributo.
+  function cor(v, padrao){
+    return /^(#[0-9a-f]{3,8}|[a-z]+|rgba?\([\d\s,.%]+\))$/i.test(v || '') ? v : padrao;
+  }
+
+  // ==assim== marca o trecho realçado. A marca vive no texto do banco porque
+  // o que realçar muda a cada teste de anúncio, e escapar vem ANTES de trocar
+  // a marca: o conteúdo nunca consegue injetar HTML.
+  function realcar(txt, c){
+    var d = c.destaque || {};
+    var est = 'background:' + cor(d.fundo, '#00897b') +
+              ';color:' + cor(d.texto, '#ffffff');
+    return esc(txt).replace(/==([^=]+)==/g, function(_, t){
+      return '<mark style="' + est + '">' + t + '</mark>';
+    });
+  }
+
+  function alinhar(c){
+    var m = { centro:'center', direita:'right', esquerda:'left' };
+    return m[c.alinhamento] ? ' style="text-align:' + m[c.alinhamento] + '"' : '';
+  }
+
+  var BLOCOS = {
+    headline: function(c){
+      if (!c.headline) return '';
+      // Uma quebra escrita no texto do banco parte a linha aqui: onde a frase
+      // parte é decisão de copy, e ela muda a cada teste de anúncio.
+      return '<h1'+alinhar(c)+'>' + realcar(c.headline, c).replace(/\n/g, '<br>') + '</h1>';
+    },
+    subheadline: function(c){
+      return c.subheadline
+        ? '<p class="apoio"'+alinhar(c)+'>' + esc(c.subheadline) + '</p>' : '';
+    },
+    badges: function(c){
+      var b = (c.badges || []).filter(function(x){ return x && (x.texto || x.text); });
+      if (!b.length) return '';
+      // Cartão único com divisores, igual ao da clínica: selos soltos parecem
+      // etiqueta, agrupados parecem atestado.
+      var itens = b.map(function(x){
+        var icone = ICONES[x.icone] || ICONES.star;
+        var cor = x.cor || 'var(--lua)';
+        return '<div class="selo"><span class="selo-ic" style="color:' + esc(cor) + '">' +
+               icone + '</span><span>' + esc(x.texto || x.text) + '</span></div>';
+      }).join('<span class="selo-div"></span>');
+      return '<div class="selos">' + itens + '</div>';
+    },
+    // Serve a `imagem` e a qualquer `imagem_<nome>` da ordem: cada uma lê a
+    // chave de mesmo nome, então uma foto a mais é só uma entrada no banco.
+    imagem: function(c, nome){
+      var im = c[nome || 'imagem'] || {};
+      if (!im.url) return '';
+      // A proporção vem escrita como "largura:altura" e vira altura em % da
+      // largura. Antes era uma tabela de proporções conhecidas aqui no código,
+      // e trocar a imagem por uma de outro formato exigia mexer no código.
+      var r = /^(\d+(?:\.\d+)?):(\d+(?:\.\d+)?)$/.exec(im.aspecto || '');
+      var alto = r ? (parseFloat(r[2]) / parseFloat(r[1]) * 100) : 56.25;
+      return '<div class="capa" style="padding-top:' + alto + '%' +
+             ';border-radius:' + (im.raio || 12) + 'px">' +
+             '<img src="' + esc(im.url) + '" alt="" style="object-position:' +
+             esc(im.foco || 'center center') + '" loading="eager"></div>';
+    },
+    checklist: function(c){
+      var l = c.checklist || [];
+      if (!l.length) return '';
+      return '<ul class="checklist">' + l.map(function(x){
+        return '<li>' + esc(x) + '</li>';
+      }).join('') + '</ul>';
+    }
+  };
+
+  function telaAbertura(){
+    emTela('abertura');
+    progresso.style.width = '0%';
+    var c = quiz.schema['intro_' + IDIOMA] || quiz.schema.intro || {};
+    var ordem = c.ordem || ['headline','subheadline','badges','imagem','checklist'];
+
+    var corpo = ordem.map(function(nome){
+      var montar = BLOCOS[nome] || (/^imagem_/.test(nome) && BLOCOS.imagem);
+      return montar ? montar(c, nome) : '';
+    }).join('');
+
+    var bt = c.botao || {};
+    tela.innerHTML =
+      '<div class="entrada">' + corpo +
+      (c.rodape ? '<p class="aviso">' + esc(c.rodape) + '</p>' : '') +
+      '</div>';
+
+    // O botão vive fora do conteúdo que rola: fica colado no rodapé e só
+    // acompanha a rolagem até encostar ali.
+    var barra = document.createElement('div');
+    barra.className = 'barra-cta';
+    barra.innerHTML = '<button class="principal" id="comecar"></button>';
+    var botao = barra.querySelector('button');
+    botao.textContent = bt.texto || t('abertura_botao','Começar');
+    if (bt.cor) botao.style.background = bt.cor;
+    if (bt.cor_texto) botao.style.color = bt.cor_texto;
+    tela.appendChild(barra);
+
+    botao.onclick = function(){
+      evento('start');
+      rastrear('inicio');
+      carregarPaises();
+      telaSexo();
+    };
+  }
+
+  function telaSexo(){
+    emTela('sexo');
+    progresso.style.width = '8%';
+    tela.innerHTML =
+      '<p class="passo-n">' + t('rotulo_inicio','Para começar') + '</p>' +
+      '<h2 class="pergunta">' + t('sexo_titulo','Você é homem ou mulher?') + '</h2>' +
+      '<p class="apoio">' + t('sexo_apoio','O sono muda bastante entre os dois, e as próximas perguntas se ajustam.') + '</p>' +
+      '<div class="opcoes"></div>' +
+      '<button class="voltar" type="button">' + t('voltar','← voltar') + '</button>';
+    var caixa = tela.querySelector('.opcoes');
+    tela.querySelector('.voltar').onclick = telaAbertura;
+    // A lista vem do banco com rótulo, retrato e ordem. Os dois rótulos soltos
+    // de `textos_es` continuam sendo o retorno seguro se a lista não vier.
+    var opcoes = sexoOpcoes.length ? sexoOpcoes
+      : [{ valor:'f', rotulo:t('sexo_f','Mulher') },
+         { valor:'m', rotulo:t('sexo_m','Homem') }];
+    if (opcoes.some(function(o){ return o.imagem; })) caixa.className = 'opcoes retratos';
+    // Mesma trava das perguntas: sem ela, dois toques gravavam a resposta duas
+    // vezes.
+    var avancou = false;
+    opcoes.forEach(function(o){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'opcao';
+      b.innerHTML = '<span class="marca"></span>' +
+        (o.imagem ? '<img src="' + esc(o.imagem) + '" alt="' + esc(o.alt || '') +
+                    '" width="88" height="88" loading="eager">' : '') +
+        '<span></span>';
+      b.lastChild.textContent = o.rotulo;
+      b.onclick = function(){
+        if (avancou) return;
+        avancou = true;
+        caixa.querySelectorAll('.opcao').forEach(function(x){ x.classList.remove('escolhida'); });
+        b.classList.add('escolhida');
+        pessoa.sexo = o.valor;
+        evento('answer', { pergunta: 'sexo', valor: o.valor });
+        rastrear('sexo', { sexo: o.valor });
+        setTimeout(telaNome, 300);
+      };
+      caixa.appendChild(b);
+    });
+  }
+
+  function telaNome(){
+    emTela('nome');
+    progresso.style.width = '16%';
+    tela.innerHTML =
+      '<p class="passo-n">' + t('rotulo_inicio','Para começar') + '</p>' +
+      '<h2 class="pergunta">' + t('nome_titulo','Como você se chama?') + '</h2>' +
+      '<p class="apoio">' + t('nome_apoio','Só para eu não te tratar por "você" o teste inteiro.') + '</p>' +
+      '<label class="campo"><input id="nome" type="text" autocomplete="given-name" placeholder="' + t('nome_placeholder','Seu primeiro nome') + '" autofocus></label>' +
+      '<button class="principal" id="seguir" disabled>' + t('nome_botao','Continuar') + '</button>' +
+      '<button class="voltar" type="button">' + t('voltar','← voltar') + '</button>';
+    var campo = document.getElementById('nome');
+    var botao = document.getElementById('seguir');
+    campo.value = pessoa.nome;
+    function validar(){ botao.disabled = campo.value.trim().length < 2; }
+    campo.oninput = validar; validar();
+    campo.onkeydown = function(e){ if (e.key === 'Enter' && !botao.disabled) botao.click(); };
+    botao.onclick = function(){
+      pessoa.nome = campo.value.trim();
+      evento('answer', { pergunta: 'nome' });
+      rastrear('nome');
+      irPara(0);
+    };
+    tela.querySelector('.voltar').onclick = telaSexo;
+    setTimeout(function(){ campo.focus(); }, 60);
+  }
+
+  function tituloTraduzido(codigo){ return titulosFaixa[codigo] || null; }
+
+  function tituloDaFaixa(codigo){
+    var frase = faixaFrases[codigo] || {
+      grave:       'O seu sono precisa de atenção agora.',
+      moderada:    'Já não é só uma noite ruim.',
+      subclinica:  'Ainda dá para virar o jogo cedo.',
+      sem_insonia: 'O seu sono está em faixa saudável.'
+    }[codigo] || 'Resultado calculado.';
+    return preencherNome(frase);
+  }
+
+  // Frase de banco que abre com "%s, ": o %s vira o primeiro nome. Sem nome a
+  // marca sai inteira, e a primeira letra volta a ser maiúscula, senão a frase
+  // começaria minúscula.
+  function preencherNome(frase){
+    var nome = primeiroNome();
+    if (nome) return frase.replace('%s', nome);
+    frase = String(frase).replace(/^%s,\s*/, '');
+    return frase.charAt(0).toUpperCase() + frase.slice(1);
+  }
+
+  // ── Início ────────────────────────────────────────────────────────
+  api('quiz_templates?select=id,title,schema,idioma,ddi_padrao&slug=eq.' + CFG.slug + '&active=eq.true')
+    .then(function(linhas){
+      if (!linhas || !linhas.length) throw new Error('quiz não encontrado');
+      quiz = linhas[0];
+      IDIOMA = quiz.idioma || 'pt';
+      T = quiz.schema['textos_' + IDIOMA] || {};
+      faixaFrases = quiz.schema['faixa_frases_' + IDIOMA] || {};
+      sexoOpcoes  = quiz.schema['sexo_opcoes_' + IDIOMA] || [];
+      faixas = quiz.schema.faixas || [];
+      faixaCorpo   = quiz.schema['faixa_corpo_' + IDIOMA] || {};
+      faixaChamada = quiz.schema['faixa_chamada_' + IDIOMA] || {};
+      (quiz.schema['faixas_' + IDIOMA] || []).forEach(function(x){
+        titulosFaixa[x.codigo] = x.titulo;
+        faixasIdioma[x.codigo] = x;
+      });
+      escalas  = quiz.schema['escalas_' + IDIOMA]     || quiz.schema.escalas   || {};
+      escalasF = quiz.schema['escalas_' + IDIOMA + '_f'] || quiz.schema.escalas_f || {};
+      // Título, descrição e idioma do documento também vêm do banco: são o
+      // que aparece na aba e no cartão de compartilhamento.
+      var tags = quiz.schema.lang_tag || {};
+      document.documentElement.lang = tags[IDIOMA] || IDIOMA;
+      if (T.titulo_aba) document.title = T.titulo_aba;
+      var md = document.querySelector('meta[name="description"]');
+      if (md && T.descricao) md.setAttribute('content', T.descricao);
+      var bar = document.getElementById('barra');
+      if (bar && T.aria_progresso) bar.setAttribute('aria-label', T.aria_progresso);
+
+      RAST = quiz.schema.rastreio || {};
+      EV = RAST.eventos || {};
+      ligarPixelMeta(RAST.meta_pixel);
+      ligarGA4(RAST.ga4);
+      // Entram as de escala e as de escolha. O que decide se a resposta soma
+      // na nota é a marca `pontua` no banco, e quem soma é a função: aqui a
+      // conta não é feita, então a tela não tem como desalinhar da nota.
+      perguntas = (quiz.schema.perguntas || []).filter(function(q){
+        return q.tipo === 'scale' || q.tipo === 'escolha';
+      });
+      if (PREVIA) { conferir(); return; }
+      telaAbertura();
+      // A origem é gravada na CHEGADA, não no envio. Quem sai na pergunta 3
+      // também veio de um anúncio, e antes essa visita ficava sem dono.
+      evento('page_view', contexto());
+      rastrear('abertura', { content_name: quiz.slug || CFG.slug });
+    })
+    .catch(function(){
+      tela.innerHTML =
+        '<h1>' + t('erro_carregar','Não consegui carregar o teste') + '</h1>' +
+        '<p class="apoio">' + t('erro_recarregar','Recarregue a página em alguns instantes.') + '</p>';
+    });
+})();
+</script>
+</body>
+</html>

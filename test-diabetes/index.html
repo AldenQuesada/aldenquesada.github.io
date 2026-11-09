@@ -1004,6 +1004,18 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
     if (bt.brilho) botao.classList.add('brilho');
     tela.appendChild(barra);
 
+    // `destaque.uma_linha`: el tramo resaltado no se parte. Se achica la letra
+    // solo lo necesario para que entre en el ancho de la columna.
+    if ((c.destaque || {}).uma_linha) {
+      var mk = tela.querySelector('.entrada h1 mark');
+      if (mk) {
+        mk.style.whiteSpace = 'nowrap';
+        mk.style.display = 'inline-block';
+        var ancho = mk.parentNode.clientWidth, px = parseFloat(getComputedStyle(mk).fontSize);
+        while (mk.offsetWidth > ancho && px > 12) { px -= 0.5; mk.style.fontSize = px + 'px'; }
+      }
+    }
+
     botao.onclick = function(){
       evento('start');
       rastrear('inicio');

@@ -230,6 +230,21 @@ a.cta-res{
   z-index:10;
 }
 .barra-cta .principal{margin-top:0}
+/* Imagen de cada pregunta (antes y después de la glucosa). */
+.perg-img{display:block; width:100%; height:auto; border-radius:12px; margin:4px 0 14px}
+/* Varias respuestas: marca cuadrada en vez de círculo. */
+button.opcao.caixa-marca .marca{border-radius:5px}
+/* Escala 0-10 */
+.opcoes.nps{display:grid; grid-template-columns:repeat(6,1fr); gap:8px}
+.nps-n{font:600 17px/1 'IBM Plex Sans',sans-serif; color:var(--luz); background:var(--noite-2);
+  border:1px solid var(--linha); border-radius:10px; padding:14px 0; cursor:pointer}
+.nps-n.escolhida{background:var(--lua); color:var(--noite); border-color:var(--lua)}
+.nps-lim{display:flex; justify-content:space-between; font-size:12.5px; color:var(--luz-3); margin-top:8px}
+/* Lo que la persona contó, repetido en el resultado. */
+.eco{list-style:none; padding:12px 14px; margin:14px 0 4px; background:var(--noite-2);
+  border:1px solid var(--linha); border-radius:12px; font-size:14.5px; line-height:1.45}
+.eco li{padding:4px 0 4px 20px; position:relative}
+.eco li::before{content:"•"; position:absolute; left:4px; color:var(--lua)}
 /* Imagen suelta: el mockup va directo sobre la página, sin recuadro. */
 .capa-solta{display:block; margin:6px auto 10px; max-width:100%; height:auto}
 /* Haz de luz que cruza el botón de lado a lado. */
@@ -527,7 +542,90 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
       : enunciado;
     tela.querySelector('h2').textContent = chamado;
 
+    // Apoyo e imagen propios de la pregunta, del banco. Sin campo, no aparecen.
+    var h2 = tela.querySelector('h2');
+    var apoio = q['apoio_' + IDIOMA];
+    if (apoio) {
+      var pa = document.createElement('p'); pa.className = 'apoio'; pa.textContent = apoio;
+      h2.after(pa);
+    }
+    if (q.imagem) {
+      var im = document.createElement('img');
+      im.className = 'perg-img'; im.src = q.imagem; im.alt = q.imagem_alt || '';
+      (tela.querySelector('.apoio') || h2).after(im);
+    }
+
     var caixa = tela.querySelector('.opcoes');
+
+    // Varias respuestas: se marcan y se confirma con el botón. La opción
+    // `exclusiva` ("No, ninguno") desmarca las demás y viceversa.
+    if (q.tipo === 'multipla') {
+      var sel = Array.isArray(atual) ? atual.slice() : [];
+      var seguir = document.createElement('button');
+      seguir.className = 'principal'; seguir.type = 'button';
+      seguir.textContent = t('multipla_botao', 'Continuar');
+      function pintar(){
+        caixa.querySelectorAll('.opcao').forEach(function(b, i){
+          b.classList.toggle('escolhida', sel.indexOf(proprias[i].valor) >= 0);
+        });
+        seguir.disabled = !sel.length;
+      }
+      proprias.forEach(function(o){
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'opcao caixa-marca';
+        b.innerHTML = '<span class="marca"></span><span></span>';
+        b.lastChild.textContent = o.rotulo;
+        b.onclick = function(){
+          var k = sel.indexOf(o.valor);
+          if (k >= 0) sel.splice(k, 1);
+          else if (o.exclusiva) sel = [o.valor];
+          else {
+            sel = sel.filter(function(v){
+              return !proprias.some(function(p){ return p.exclusiva && p.valor === v; });
+            });
+            sel.push(o.valor);
+          }
+          pintar();
+        };
+        caixa.appendChild(b);
+      });
+      caixa.after(seguir);
+      pintar();
+      seguir.onclick = function(){
+        if (seguir.disabled) return;
+        seguir.disabled = true;
+        respostas[q.id] = sel.slice();
+        evento('answer', { pergunta: q.id, valor: respostas[q.id] });
+        rastrear('pergunta', { passo: passo + 1, total: perguntas.length });
+        irPara(passo + 1);
+      };
+    }
+
+    // Escala de 0 a 10: once botones en grilla, con las puntas rotuladas.
+    if (q.tipo === 'nps') {
+      caixa.className = 'opcoes nps';
+      var travou = false;
+      for (var n = 0; n <= 10; n++) (function(n){
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'nps-n' + (atual === n ? ' escolhida' : '');
+        b.textContent = n;
+        b.onclick = function(){
+          if (travou) return; travou = true;
+          b.classList.add('escolhida');
+          respostas[q.id] = n;
+          evento('answer', { pergunta: q.id, valor: n });
+          rastrear('pergunta', { passo: passo + 1, total: perguntas.length });
+          setTimeout(function(){ irPara(passo + 1); }, 300);
+        };
+        caixa.appendChild(b);
+      })(n);
+      var lim = document.createElement('div'); lim.className = 'nps-lim';
+      lim.innerHTML = '<span></span><span></span>';
+      lim.children[0].textContent = q['min_' + IDIOMA] || '0';
+      lim.children[1].textContent = q['max_' + IDIOMA] || '10';
+      caixa.after(lim);
+    }
+    if (q.tipo === 'multipla' || q.tipo === 'nps') opcoes = [];
     // A tela só troca 300ms depois do toque, e nesse intervalo ela continuava
     // aceitando toque. Dois toques seguidos avançavam DUAS perguntas: a pessoa
     // pulava uma sem ver e, na última, a tela do telefone era desenhada duas
@@ -706,6 +804,19 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
     return perguntas.filter(function(q){ return q.pontua; });
   }
 
+  // Misma regla que submit_quiz: opción con `pontos` vale lo que dice (suma,
+  // en las de varias respuestas); sin `pontos`, escala 0-4.
+  function maxPontos(){
+    return pontuaveis().reduce(function(t, q){
+      var ops = q['opcoes_' + IDIOMA] || [];
+      var pts = ops.filter(function(o){ return 'pontos' in o; }).map(function(o){ return +o.pontos || 0; });
+      if (!pts.length) return t + 4;
+      return t + (q.tipo === 'multipla'
+        ? pts.reduce(function(a, b){ return a + Math.max(b, 0); }, 0)
+        : Math.max.apply(null, pts));
+    }, 0);
+  }
+
   function piorItem(){
     var alvo = null, maior = 0;
     pontuaveis().forEach(function(q){
@@ -753,23 +864,19 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
   //   &peor=q3           força qual item aparece como o que mais pesou
   // Nada daqui vai para o banco.
   function conferir(){
-    var nota = Math.max(0, Math.min(4 * pontuaveis().length, parseInt(url.get('ver'), 10) || 0));
+    var nota = Math.max(0, Math.min(maxPontos(), parseInt(url.get('ver'), 10) || 0));
     pessoa.sexo = url.get('sexo') === 'm' ? 'm' : 'f';
     pessoa.nome = url.get('nome') || 'Alden';
 
-    // Espalha a nota pelas perguntas para a linha do "que mais pesa" ter o que
-    // apontar. O resto vai para o item pedido, ou para o último, e é ele que
-    // sobe ao topo.
-    var forcado = url.get('peor');
-    var lista = pontuaveis();
-    var alvo = lista.filter(function(q){ return q.id === forcado; })[0]
-               || lista[lista.length - 1];
-    var base = Math.min(4, Math.floor(nota / lista.length)), resto = nota;
-    lista.forEach(function(q){
-      if (q === alvo) return;
-      respostas[q.id] = Math.min(base, resto); resto -= respostas[q.id];
+    // Respuestas de ejemplo para ver la lista de lo que la persona contó:
+    // la primera opción con puntos de cada pregunta y 9 en la escala 0-10.
+    perguntas.forEach(function(q){
+      var ops = q['opcoes_' + IDIOMA] || [];
+      var com = ops.filter(function(o){ return o.pontos > 0; });
+      if (q.tipo === 'nps') respostas[q.id] = 9;
+      else if (q.tipo === 'multipla') respostas[q.id] = com.slice(0, 2).map(function(o){ return o.valor; });
+      else if (com.length) respostas[q.id] = com[0].valor;
     });
-    respostas[alvo.id] = Math.min(4, resto);
 
     // Na conferência o botão aparece mesmo sem a TSL pronta: é a copy da
     // chamada e do botão que mais precisa ser lida ANTES de existir página
@@ -779,7 +886,7 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
 
     var f = faixas.filter(function(x){ return nota >= x.de && nota <= x.ate; })[0] || {};
     mostrarResultado({
-      score: nota, maximo: 4 * pontuaveis().length, faixa: f.codigo, titulo: f.titulo,
+      score: nota, maximo: maxPontos(), faixa: f.codigo, titulo: f.titulo,
       aviso: quiz.schema['aviso_' + IDIOMA] || quiz.schema.aviso || ''
     });
 
@@ -835,6 +942,7 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
       '<div class="faixa surge"' + atraso() + '></div>' +
       '<h1 class="surge"' + atraso() + '></h1>' +
       (pior ? '<p class="pior surge"' + atraso() + '></p>' : '') +
+      '<ul class="eco surge"' + atraso() + '></ul>' +
       '<p class="apoio surge"' + atraso() + '></p>' +
       // A chamada e o botão são uma peça só: a chamada manda tocar no botão,
       // então sem botão ela não pode existir. E sem a URL da TSL no banco o
@@ -867,6 +975,27 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
         esc(t('resultado_pior','O que mais pesa: %s.'))
           .replace('%s', '<b>' + esc(pior) + '</b>');
     }
+
+    // Lo que la persona contó, en sus propias respuestas. Cada pregunta trae su
+    // frase en `eco_<idioma>` con %s; la opción puede traer su `eco` propio.
+    var eco = tela.querySelector('.eco');
+    perguntas.forEach(function(q){
+      var modelo = q['eco_' + IDIOMA], r = respostas[q.id];
+      if (!modelo || r === undefined || r === null) return;
+      var ops = q['opcoes_' + IDIOMA] || [];
+      var vals = Array.isArray(r) ? r : [r];
+      var txt = q.tipo === 'nps' ? String(r) : vals.map(function(v){
+        var o = ops.filter(function(x){ return x.valor === v; })[0];
+        return o ? (o.eco !== undefined ? o.eco : o.rotulo) : '';
+      }).filter(Boolean).join(', ');
+      if (!txt) return;
+      var li = document.createElement('li');
+      li.textContent = modelo.replace('%s', txt);
+      eco.appendChild(li);
+    });
+    if (!eco.children.length) eco.remove();
+    var ch = tela.querySelector('.chamada');
+    if (ch && respostas.urg !== undefined) ch.textContent = ch.textContent.replace('%u', respostas.urg);
 
     contar(document.getElementById('conta'), res.score);
 
@@ -1184,7 +1313,7 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
       // na nota é a marca `pontua` no banco, e quem soma é a função: aqui a
       // conta não é feita, então a tela não tem como desalinhar da nota.
       perguntas = (quiz.schema.perguntas || []).filter(function(q){
-        return q.tipo === 'scale' || q.tipo === 'escolha';
+        return ['scale','escolha','multipla','nps'].indexOf(q.tipo) >= 0;
       });
       if (PREVIA) { conferir(); return; }
       telaAbertura();

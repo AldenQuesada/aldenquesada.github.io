@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Todos os caminhos relativos (css, js, img, dados) saem da raiz do site:
+     a vitrine reaproveita a bio principal, sem copiar nenhum arquivo. -->
+<base href="/">
+<title>Vivir con Salud · Dr. Alden J. Quesada</title>
+<meta name="description" content="Libros del Dr. Alden J. Quesada: insomnio y diabetes.">
+<meta name="theme-color" content="#120e0b">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aldenquesada.github.io/vivirconsalud/">
+<meta property="og:site_name" content="Vivir con Salud">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Vivir con Salud · Dr. Alden J. Quesada">
+<meta property="og:description" content="Libros del Dr. Alden J. Quesada: insomnio y diabetes.">
+<meta property="og:image" content="https://aldenquesada.github.io/img/social/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<link rel="icon" href="img/social/favicon.png" sizes="64x64">
+<link rel="apple-touch-icon" href="img/social/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Mrs+Saint+Delafield&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css?v=30">
+<link rel="stylesheet" href="css/base.css?v=30">
+<link rel="stylesheet" href="css/cards.css?v=34">
+</head>
+<body>
+
+<div class="cenario" aria-hidden="true"></div>
+
+<!-- Montado por js/render.js a partir de dados/vivirconsalud/*.json. -->
+<div class="pagina">
+  <header class="perfil" id="perfil" hidden></header>
+  <main class="vitrine" id="vitrine" aria-label="Enlaces"></main>
+  <footer class="pie" id="pie" hidden></footer>
+</div>
+
+<!-- id = utm_campaign de tudo que sai daqui; dados = pasta do conteudo. -->
+<script>window.VITRINE = { id: 'vivirconsalud', dados: 'dados/vivirconsalud/' };</script>
+<script src="js/vitrine.js?v=1"></script>
+<script src="js/medicao-config.js?v=30"></script>
+<script src="js/utm.js?v=30"></script>
+<script src="js/rastreio.js?v=20"></script>
+<script src="js/render.js?v=35"></script>
+<script>Rastreio.iniciar({ url: MEDICAO.url, anon: MEDICAO.anon, quizId: MEDICAO.quizId,
+                           prefixo: 'vit_', site: window.VITRINE.id });</script>
+</body>
+</html>

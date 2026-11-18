@@ -544,7 +544,11 @@
 
   /* --- inicio --- */
 
-  Promise.all([carregar('dados/perfil.json'), carregar('dados/cards.json')])
+  /* Pagina de outra conta (vitrine) aponta outra pasta de dados em
+     window.VITRINE.dados; sem isso vale a bio principal. */
+  const DADOS = (window.VITRINE && window.VITRINE.dados) || 'dados/';
+
+  Promise.all([carregar(DADOS + 'perfil.json'), carregar(DADOS + 'cards.json')])
     .then(([perfil, conteudo]) => {
       montarPerfil(perfil.perfil);
       montarVitrine(conteudo.cards);

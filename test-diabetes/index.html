@@ -392,6 +392,21 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
     term:     url.get('utm_term')
   };
 
+  // Checkout da Hotmart: leva a origem da visita em src e sck, que aparecem
+  // no relatório de vendas da Hotmart e no aviso de compra (hotmart_eventos).
+  // Sem UTM na chegada, o link fica como está no banco.
+  function comOrigem(destino){
+    try {
+      var d = new URL(destino);
+      if (!/(^|\.)hotmart\.com$/.test(d.hostname)) return destino;
+      var limpa = function(v){ return String(v || '').replace(/[^a-zA-Z0-9._-]/g, '').slice(0, 40); };
+      if (utm.source && !d.searchParams.has('src')) d.searchParams.set('src', limpa(utm.source));
+      var sck = [utm.campaign, utm.source, utm.content].map(limpa).filter(Boolean).join('_');
+      if (sck && !d.searchParams.has('sck')) d.searchParams.set('sck', sck);
+      return d.toString();
+    } catch (e) { return destino; }
+  }
+
   // Visita nossa, de teste. `?interno=1` marca o navegador e toda visita dali
   // em diante sai da conta sem apagar nada; `?interno=0` desmarca. Antes a
   // única saída era zerar a tabela antes de subir anúncio, e aí o histórico
@@ -930,6 +945,7 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
   function mostrarResultado(res){
     emTela('resultado');
     var cta  = quiz.schema.resultado_cta || {};
+    if (cta.url) cta = { url: comOrigem(cta.url), texto: cta.texto };
     var pior = piorItem();
     var n = 0;
     function atraso(){ return ' style="animation-delay:' + (n++ * 70) + 'ms"'; }

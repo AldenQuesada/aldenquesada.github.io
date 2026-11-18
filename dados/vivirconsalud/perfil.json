@@ -1,0 +1,20 @@
+{
+  "_leia": [
+    "Topo e rodape da vitrine VivirConSalud. Mesmo formato de dados/perfil.json.",
+    "Rodape sem redes ate o Luiz passar os enderecos das contas novas."
+  ],
+  "perfil": {
+    "mostrar": true,
+    "assinatura": "Alden Quesada",
+    "nome": "Dr. Alden J. Quesada",
+    "verificado": false,
+    "credencial": "Especialista en Cardiología y Naturópata",
+    "avatar": "img/dr/avatar.jpg",
+    "assinatura_titulo": "Dr."
+  },
+  "pie": {
+    "mostrar": true,
+    "texto": "Dr. Alden J. Quesada · Todos los derechos reservados",
+    "redes": []
+  }
+}

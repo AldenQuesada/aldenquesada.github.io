@@ -4,5 +4,10 @@
 window.QUIZ_CONFIG = {
   url:  'https://gqibxdwvagjvvhixmcsg.supabase.co',
   anon: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdxaWJ4ZHd2YWdqdnZoaXhtY3NnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAyODQ4MzIsImV4cCI6MjEwNTg2MDgzMn0.W1J5Ykd5zg5KmyQ91Hzas2NfAZytJmIgmfi8SwBWLyw',
-  slug: 'diabetes'
+  // ?q=<slug> abre outra cópia do quiz (ex.: diabetes-vcs, da parceria com o
+  // Luiz Fernando). Cada cópia tem checkout e estatística próprios no banco.
+  slug: (function () {
+    var q = new URLSearchParams(location.search).get('q') || '';
+    return /^diabetes(-[a-z0-9]{1,30})?$/.test(q) ? q : 'diabetes';
+  })()
 };

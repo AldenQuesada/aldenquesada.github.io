@@ -392,7 +392,7 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
     term:     url.get('utm_term')
   };
 
-  // Checkout da Hotmart: leva a origem da visita em src e sck, que aparecem
+  // Checkout da Hotmart: leva o produto em src e a origem da visita em sck, que aparecem
   // no relatório de vendas da Hotmart e no aviso de compra (hotmart_eventos).
   // Sem UTM na chegada, o link fica como está no banco.
   function comOrigem(destino){
@@ -400,7 +400,8 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
       var d = new URL(destino);
       if (!/(^|\.)hotmart\.com$/.test(d.hostname)) return destino;
       var limpa = function(v){ return String(v || '').replace(/[^a-zA-Z0-9._-]/g, '').slice(0, 40); };
-      if (utm.source && !d.searchParams.has('src')) d.searchParams.set('src', limpa(utm.source));
+      // src = qual produto (o slug do quiz); sck = de onde veio.
+      if (!d.searchParams.has('src')) d.searchParams.set('src', limpa(CFG.slug));
       var sck = [utm.campaign, utm.source, utm.content].map(limpa).filter(Boolean).join('_');
       if (sck && !d.searchParams.has('sck')) d.searchParams.set('sck', sck);
       return d.toString();

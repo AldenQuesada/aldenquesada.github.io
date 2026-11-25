@@ -1,0 +1,249 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Recetas para Dormir Mejor</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: una columna de lectura (celular primero), índice fijo de categorías arriba, cada receta es una ficha con ancla propia */
+:root{
+  --paper:#FFFDF8;
+  --ink:#231F20;
+  --muted:#5C5650;
+  --night:#162B57;
+  --blue:#2B4570;
+  --gold:#D9AD70;
+  --gold-ink:#8C6224;
+  --cream:#F6EADB;
+  --line:#E8DCC8;
+  --chip:#FFFFFF;
+  --f-display:"Bebas Neue","Oswald","Arial Narrow",sans-serif;
+  --f-serif:"EB Garamond","Garamond","Georgia",serif;
+  --f-body:"Montserrat","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0F1B36;--ink:#F2ECE2;--muted:#B9B2A6;--night:#0A1430;--blue:#9DB3DA;--gold:#E2BC85;--gold-ink:#E2BC85;--cream:#182848;--line:#2A3B62;--chip:#14244A;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0F1B36;--ink:#F2ECE2;--muted:#B9B2A6;--night:#0A1430;--blue:#9DB3DA;--gold:#E2BC85;--gold-ink:#E2BC85;--cream:#182848;--line:#2A3B62;--chip:#14244A;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--night)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+header.hero{background:#162B57;color:#F6EADB}
+header.hero .wrap{padding-block:36px 28px}
+.eyebrow{font-family:var(--f-display);letter-spacing:.18em;font-size:15px;color:#D9AD70}
+.hero h1{font-family:var(--f-display);font-weight:400;font-size:clamp(44px,11vw,72px);line-height:.95;margin:6px 0 10px;color:#D9AD70;text-wrap:balance}
+.hero p{margin:0;max-width:60ch;font-size:15px;color:#E9E1D4}
+.hero .by{font-family:var(--f-serif);font-style:italic;font-weight:600;font-size:19px;color:#F6EADB;margin-top:12px}
+
+nav.cats{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+nav.cats .wrap{display:flex;gap:8px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+nav.cats a{flex:0 0 auto;font-size:13px;font-weight:600;text-decoration:none;color:var(--ink);background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+nav.cats a:focus-visible,nav.cats a:hover{border-color:var(--gold);outline:none}
+
+main .wrap{padding-block:8px 48px}
+.cat{margin-top:36px}
+.cat > h2{font-family:var(--f-display);font-weight:400;font-size:34px;letter-spacing:.04em;color:var(--gold-ink);margin:0 0 4px}
+.cat > .cat-intro{color:var(--muted);font-size:14px;margin:0 0 14px}
+
+.ficha{scroll-margin-top:calc(64px + env(safe-area-inset-top,0px));border-top:2px solid var(--gold);padding:18px 0 22px}
+.ficha:target{background:linear-gradient(var(--cream),var(--cream));border-radius:4px;padding-inline:14px}
+.ficha h3{font-family:var(--f-serif);font-style:italic;font-weight:700;font-size:28px;line-height:1.15;margin:0;color:var(--ink);text-wrap:balance}
+.ficha .sub{font-size:13px;color:var(--muted);margin-top:2px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+.meta span{font-size:12px;font-weight:600;background:var(--night);color:#F6EADB;border-radius:4px;padding:3px 8px}
+.meta span.pg{background:transparent;color:var(--gold-ink);border:1px solid var(--gold)}
+.ficha p{margin:10px 0 0;max-width:65ch}
+.blk{margin-top:14px}
+.blk h4{font-family:var(--f-display);font-weight:400;font-size:18px;letter-spacing:.12em;margin:0 0 6px;color:var(--blue)}
+.ing{list-style:none;margin:0;padding:12px 14px;background:var(--cream);border-radius:6px;display:grid;gap:4px}
+.ing li{padding-left:18px;position:relative}
+.ing li::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:9px;border:1.5px solid var(--gold-ink);border-radius:2px}
+.ing b{font-weight:600}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:8px}
+ol.steps li{counter-increment:s;position:relative;padding-left:34px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#162B57;font-family:var(--f-serif);font-style:italic;font-weight:700;font-size:15px;display:grid;place-items:center;line-height:1}
+ul.notes{margin:0;padding-left:18px;color:var(--muted);font-size:14px;display:grid;gap:4px}
+.callout{margin-top:14px;padding:12px 14px;border-left:4px solid var(--gold);background:var(--cream);border-radius:0 6px 6px 0;font-size:15px}
+.callout b{color:var(--gold-ink)}
+
+.plato{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;margin-top:12px}
+.plato svg{width:150px;height:150px;max-width:100%}
+.plato ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px}
+.plato .sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px;vertical-align:-1px}
+@media (max-width:460px){.plato{grid-template-columns:1fr;justify-items:center}}
+
+.bici{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:10px}
+.bici div{background:var(--cream);border-radius:6px;text-align:center;padding:6px 2px;font-variant-numeric:tabular-nums}
+.bici small{display:block;font-size:11px;color:var(--muted)}
+.bici strong{font-family:var(--f-display);font-weight:400;font-size:22px;color:var(--ink);letter-spacing:.02em}
+.bici div.meta30{background:var(--night)}
+.bici div.meta30 small,.bici div.meta30 strong{color:#F6EADB}
+
+footer{border-top:1px solid var(--line)}
+footer .wrap{padding-block:22px 40px;font-size:13px;color:var(--muted)}
+footer b{color:var(--ink)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+.frases{display:grid;gap:10px}
+.par{display:grid;gap:4px;padding:10px 14px;background:var(--cream);border-radius:6px}
+.pen{color:var(--muted);font-style:italic}
+.res{font-weight:600}
+</style>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Venciendo el Insomnio en 7 días</div>
+    <h1>Recetas y técnicas de tu programa</h1>
+    <p>Las comidas, el ritual de la noche y las herramientas para cuando el sueño no llega. Cada ficha indica la página del libro donde está la explicación completa.</p>
+    <div class="by">Dr. Alden J. Quesada</div>
+  </div>
+</header>
+
+<nav class="cats" aria-label="Categorías">
+  <div class="wrap" id="nav"></div>
+</nav>
+
+<main><div class="wrap" id="contenido"></div></main>
+
+<footer><div class="wrap">
+  <p><b>Fuente:</b> libro <i>Venciendo el Insomnio en 7 días</i>, Dr. Alden J. Quesada. Los números de página se refieren al libro.</p>
+  <p>Si tienes alergia a algún ingrediente, no lo uses. No suspendas, reduzcas ni cambies el horario de ningún medicamento por tu cuenta.</p>
+  <p>@aldenquesada.dr</p>
+</div></footer>
+
+<script>
+const CATS = [
+ {id:"manana", nombre:"Mañana", intro:"El sueño comienza cuando despiertas.", fichas:[
+  {id:"luz", t:"Levantarte, luz natural y registro", sub:"Tu sueño comienza cuando despiertas", when:["7:00"], time:"15 a 30 minutos", pg:"Libro, pág. 35",
+   steps:["<b>Levántate a una hora regular</b>, todos los días, incluso los fines de semana. Evita compensar una mala noche quedándote varias horas más en la cama.","<b>Recibe luz natural</b> justo después de levantarte, de 15 a 30 minutos: sal al patio, al balcón o acércate a una ventana abierta, en un lugar seguro.","<b>Registra brevemente la noche</b> en tu diario: a qué hora comenzaste a intentar dormir y a qué hora te levantaste, cuánto tardaste en dormirte, cuánto tiempo estuviste despierto después y cómo descansaste."],
+   notes:["No mires directamente al sol y mantén la protección ocular que te hayan indicado.","No necesitas contar cada minuto. Si mirar el reloj aumenta tu ansiedad, anota solo una impresión general de la noche."]},
+  {id:"desayuno", t:"Yogur con avena y fruta", sub:"Desayuno", when:["7:30"], pg:"Libro, pág. 37",
+   ing:["<b>Yogur natural:</b> aproximadamente 160 a 170 g","<b>Avena:</b> 2 cucharadas","<b>Papaya o banana:</b> 1 porción"],
+   steps:["Prepara un recipiente de yogur natural con dos cucharadas de avena y una porción de papaya o banana."],
+   notes:["Para variar, elige pan integral con huevo y una fruta. Alterna las opciones durante la semana.","Siéntate a comer y reserva ese momento antes de comenzar a trabajar.","Si tomas café, concéntralo en esta primera parte de la mañana. El café no sustituye la comida.","Después de una noche difícil, no añadas bebidas energéticas ni dosis extra de cafeína."]}
+ ]},
+ {id:"colaciones", nombre:"Colaciones y meriendas", intro:"A las 10:00 y a las 16:00, si tienes hambre. Elige una opción.", fichas:[
+  {id:"huevos", t:"Huevos con tostada y aguacate", sub:"Colación de media mañana", when:["10:00"], pg:"Libro, pág. 41",
+   ing:["<b>Huevos:</b> 2, cocidos o revueltos","<b>Pan 100 % integral:</b> 1 o 2 rebanadas","<b>Aceite de oliva o aguacate machacado</b>","<b>Fruta:</b> 1, como banana, manzana o pera"],
+   steps:["Sirve los dos huevos sobre una o dos rebanadas de pan 100 % integral con aceite de oliva o aguacate machacado.","Acompaña con una fruta."],
+   notes:["Aprovecha para beber un vaso grande de agua."]},
+  {id:"crepioca", t:"Crepioca o panqueque proteico", sub:"Colación de media mañana", when:["10:00"], pg:"Libro, pág. 42",
+   ing:["<b>Huevos:</b> 2","<b>Avena en hojuelas o tapioca:</b> 2 a 3 cucharadas","<b>Semillas de calabaza:</b> 1 cucharada","<b>Relleno:</b> queso fresco, pollo desmenuzado o 1 cucharada de crema de cacahuate"],
+   steps:["Bate los dos huevos con la avena o la tapioca y las semillas de calabaza.","Cocina en la sartén.","Rellena con queso fresco, pollo desmenuzado o crema de cacahuate."],
+   notes:["La avena añade fibra; la tapioca tiene otra composición. Elige según tu tolerancia."]},
+  {id:"bol", t:"Bol de yogur y frutos secos", sub:"Colación de media mañana", when:["10:00"], pg:"Libro, pág. 42",
+   ing:["<b>Yogur natural o griego sin azúcar:</b> 170 a 200 g","<b>Avena:</b> 3 cucharadas","<b>Cacahuates o frutos secos:</b> 1 puñado","<b>Fruta troceada:</b> 1, como manzana, banana o fresas"],
+   steps:["Mezcla el yogur con la avena, el puñado de cacahuates o frutos secos y la fruta troceada."],
+   notes:["El puñado es una medida casera: ajústalo a tu hambre."]},
+  {id:"merienda-pan", t:"Pan integral con huevo o queso fresco", sub:"Merienda", when:["16:00"], pg:"Libro, pág. 51",
+   ing:["<b>Pan integral:</b> una o dos rebanadas","<b>Huevo o queso fresco</b>","<b>Fruta:</b> una, como kiwi"],
+   notes:["Deja la fruta y los ingredientes preparados para que la tarde no se llene solo de café e improvisos.","Si vas a estar fuera de casa, planea la merienda."]},
+  {id:"merienda-yogur", t:"Yogur natural con avena", sub:"Merienda", when:["16:00"], pg:"Libro, pág. 51",
+   ing:["<b>Yogur natural</b>","<b>Avena</b>","<b>Semillas de calabaza</b>","<b>Fruta:</b> una"]}
+ ]},
+ {id:"comidas", nombre:"Almuerzo y cena", intro:"Almuerzo a las 12:30 y cena a las 20:00, si te acuestas hacia las 23:00.", fichas:[
+  {id:"plato", t:"El plato del programa", sub:"Almuerzo", when:["12:30"], pg:"Libro, pág. 45", plato:true},
+  {id:"sopa", t:"Sopa con caldo de huesos", sub:"Primera opción para cenar los 7 días", when:["20:00"], pg:"Libro, pág. 53",
+   ing:["<b>Caldo de huesos:</b> la base","<b>Verduras cocidas:</b> zanahoria, calabacín o chayote","<b>Pollo desmenuzado</b>","<b>Papa o arroz integral:</b> 1 porción, según tu apetito y tolerancia"],
+   steps:["Usa caldo de huesos como base.","Añade verduras cocidas, como zanahoria, calabacín o chayote.","Complétala con pollo desmenuzado y una porción de papa o arroz integral."],
+   notes:["Si preparas el caldo para varios días, divide en porciones y congela las del final de la semana.","Si sueles despertarte para orinar, observa si el volumen de la sopa influye en tus despertares."]},
+  {id:"plato-ligero", t:"Plato ligero", sub:"Si no te apetece la sopa", when:["20:00"], pg:"Libro, pág. 54",
+   ing:["<b>Verduras cocidas:</b> medio plato (calabacín, chayote, zanahoria, espinaca o judías verdes)","<b>Proteína:</b> un cuarto (pescado a la plancha, pollo desmenuzado o tortilla de huevo)","<b>Guarnición:</b> un cuarto (arroz integral, garbanzos, frijoles, lentejas o batata)"],
+   steps:["Sirve medio plato de verduras cocidas.","Completa con un cuarto de proteína y un cuarto de guarnición."],
+   notes:["Si tienes reflujo, termina de cenar unas tres horas antes de ir a la cama.","Evita usar alcohol para dormir."]}
+ ]},
+ {id:"ritual", nombre:"Ritual de las 21:00", intro:"Unos veinte minutos fuera del dormitorio: infusión, baño de pies, aroma, respiración y música. No necesitas hacerlo todo si algo no te resulta cómodo.", fichas:[
+  {id:"preparar-ritual", t:"Prepara un espacio sencillo y seguro", sub:"Antes de comenzar el ritual", pg:"Libro, pág. 65",
+   steps:["<b>Silla:</b> elige una silla con respaldo, fuera de la cama.","<b>Recipiente:</b> sobre una superficie estable, con la toalla al alcance.","<b>Taza:</b> sobre una mesa firme, lejos del borde y de los cables.","<b>Difusor:</b> sobre una superficie estable, con el paso libre.","<b>Agua:</b> prepárala antes de introducir los pies. No añadas agua hirviendo con los pies dentro.","<b>Al terminar:</b> sécate los pies y seca el suelo antes de levantarte."]},
+  {id:"infusion", t:"Infusión relajante", sub:"Melisa con manzanilla, o melisa con pasiflora", when:["21:00"], time:"Reposo de 5 a 8 minutos", pg:"Libro, pág. 66",
+   ing:["<b>Agua:</b> 200 mL","<b>Opción 1:</b> 2 g de hojas secas de melisa (Melissa officinalis) y 2 g de flores secas de manzanilla (Matricaria recutita)","<b>Opción 2:</b> 2 g de hojas secas de melisa y 2 g de partes aéreas secas de pasiflora (Passiflora incarnata)"],
+   steps:["Hierve 200 mL de agua y apaga el fuego.","Elige una de las dos mezclas.","Vierte el agua sobre la mezcla.","Tapa, deja reposar de cinco a ocho minutos y cuela.","Bébela tibia y sin azúcar."],
+   notes:["Pesa las plantas secas y deja la mezcla lista antes del ritual.","No la uses en el embarazo ni en la lactancia. En niños, solo con orientación profesional.","No combines la pasiflora con sedantes o medicamentos para dormir. Informa de su uso antes de una cirugía o anestesia.","Después de tomarla, no conduzcas ni operes maquinaria. Suspéndela si aparece mareo, confusión o somnolencia excesiva.","Si te despiertas con la vejiga llena, toma la taza a las 20:30 y deja los vasos grandes de agua para las primeras horas del día."]},
+  {id:"lavanda", t:"Aromaterapia con lavanda", sub:"Solo en el ambiente", when:["21:00"], pg:"Libro, pág. 68",
+   ing:["<b>Aceite esencial de lavanda:</b> preferiblemente Lavandula angustifolia","<b>Difusor</b> compatible con aceites esenciales"],
+   steps:["Llena el difusor con agua según las instrucciones del aparato.","Añade dos gotas de aceite esencial de lavanda.","Enciéndelo al comenzar el ritual, fuera del dormitorio.","Al terminar el ritual, apágalo. Mantén las dos gotas, sin aumentar después de una noche difícil."],
+   notes:["No lo ingieras, no lo apliques sobre la piel ni lo mezcles con el agua del baño de pies.","Interrumpe si provoca dolor de cabeza, irritación, tos o falta de aire, y ventila el lugar.","Contraindicaciones: asma, embarazo y lactancia, epilepsia, sensibilidad a fragancias o alergia a la lavanda.","Guárdalo lejos de niños y mascotas. No uses el difusor donde hay gatos."]},
+  {id:"bano-pies", t:"Baño de pies tibio", sub:"Unos diez minutos, mientras tomas la infusión", when:["21:00"], time:"10 minutos (máximo 20)", pg:"Libro, pág. 70",
+   ing:["<b>Recipiente</b> limpio y estable, con agua hasta los tobillos","<b>Agua tibia:</b> alrededor de 40 °C, agradable al tacto","<b>Sal marina sin refinar:</b> 5 gramos (opcional)","<b>Silla con respaldo y toalla</b>"],
+   steps:["Prepara el agua a unos 40 °C y comprueba la temperatura con la mano.","Añade los 5 gramos de sal marina, si la usas, y remueve.","Siéntate en una silla con apoyo y sumerge los pies hasta los tobillos.","Permanece unos diez minutos mientras bebes la infusión y respiras con calma.","Retira los pies, sécalos y seca el suelo antes de levantarte."],
+   notes:["No intentes soportar el calor para intensificar el efecto.","Si hay mareo, ardor, dolor o cualquier molestia, retira los pies. Si tienes la presión baja, ponte de pie despacio.","<b>Contraindicaciones:</b> diabetes, pérdida de sensibilidad en los pies, problemas circulatorios y heridas en los pies. En estos casos, pide orientación antes."]},
+  {id:"respiracion", t:"Respiración lenta y música", sub:"4 segundos inhalando, 6 exhalando", when:["21:00"], pg:"Libro, pág. 72",
+   steps:["Siéntate con la espalda apoyada y suelta los hombros.","Inhala suavemente por la nariz durante unos cuatro segundos.","Exhala despacio por la boca durante unos seis segundos.","Cuando aparezca un pensamiento, vuelve la atención al aire que entra y sale. La preocupación ya tiene su momento por escrito.","Si quieres, pon música tranquila y familiar a volumen bajo, elegida antes, entre 60 y 80 pulsaciones por minuto."],
+   notes:["Respira sin llenar los pulmones al máximo y sin retener el aire.","Ante mareo, hormigueo o falta de aire, retoma tu ritmo habitual.","Si tienes una enfermedad respiratoria o cardíaca, consulta el ritmo adecuado para ti."]},
+  {id:"cuidado", t:"Cuidado compartido", sub:"Para quien comparte la casa o la cama", when:["21:00"], pg:"Libro, pág. 74",
+   steps:["Elijan juntos un masaje breve en las manos, un abrazo tranquilo o unos minutos de escucha.","Mantengan un contacto cómodo y deseado por ambos.","Dejen los asuntos difíciles para el día."],
+   notes:["Si necesitas salir de la cama de madrugada, explica que es una estrategia para la vigilia, no un distanciamiento."]}
+ ]},
+ {id:"noche", nombre:"Antes de dormir", intro:"El Protocolo de Preparación para el Descanso comienza a las 20:45.", fichas:[
+  {id:"preocupaciones", t:"Preocupaciones en el papel, no en la almohada", sub:"Paso 1 del protocolo", when:["20:45"], time:"10 a 15 minutos", pg:"Libro, pág. 61",
+   steps:["Fuera de la cama, escribe lo que ocupa tu mente.","Junto a cada preocupación, anota la próxima acción posible.","Anota cuándo piensas realizarla.","Da por terminado el plan y guarda el papel.","Si la preocupación vuelve de madrugada, recuerda: «Esto está anotado y lo retomaré a la hora acordada»."],
+   notes:["Ejemplo: en lugar de «tengo que resolver ese cobro», escribe «mañana, después del desayuno, revisaré el importe y me pondré en contacto con la empresa».","Si no hay una acción inmediata, anota cuándo lo retomarás. Por ejemplo: «hablaré de ello en la consulta»."]},
+  {id:"desconecta", t:"Desconecta del día", sub:"Paso 2 del protocolo", pg:"Libro, pág. 63",
+   steps:["Apaga los celulares, las computadoras y la televisión.","Cierra el correo de trabajo.","Apaga las luces blancas centrales del techo.","Enciende solo lámparas de luz amarilla y suave."]},
+  {id:"despues-ritual", t:"Después del ritual", sub:"Paso 4 del protocolo", pg:"Libro, pág. 77",
+   steps:["Sécate bien los pies, también entre los dedos, y termina la higiene.","Guarda los materiales del ritual.","Deja el dormitorio oscuro, silencioso, fresco y cómodo. Si la necesitas, una luz discreta para caminar con seguridad.","Aleja el celular y gira el reloj para que no lo veas.","Lee algunas páginas de un libro físico con luz tenue. Cuando llegue la somnolencia, ve a la cama."]},
+  {id:"relajacion", t:"Relajación muscular progresiva", sub:"Paso 5: si todavía hay tensión", pg:"Libro, pág. 79",
+   intro:"En cada grupo, contrae con fuerza leve unos cinco segundos y suelta, percibiendo el cambio durante diez a quince segundos. Sin retener la respiración.",
+   steps:["<b>Manos y brazos:</b> cierra las manos sin apretar con fuerza y suelta. Flexiona ligeramente los brazos y relaja.","<b>Hombros:</b> elévalos suavemente hacia las orejas y suelta.","<b>Rostro y mandíbula:</b> cierra los ojos suavemente, relaja la frente y afloja la mandíbula.","<b>Abdomen:</b> contrae ligeramente mientras respiras y suelta.","<b>Piernas y pies:</b> contrae suavemente los muslos y suelta; mueve los pies con suavidad."],
+   notes:["Recorre los grupos una vez. Termina cuando sientas somnolencia y ve a la cama.","En caso de dolor, lesión o cirugía reciente, percibe la zona y relájala sin contraerla."]},
+  {id:"cuenta", t:"Técnica de la cuenta regresiva", sub:"Paso 6: ya en la cama", pg:"Libro, pág. 83",
+   steps:["Acuéstate cuando sientas somnolencia.","Acomódate, cierra los ojos y suelta la mandíbula.","Cuenta hacia atrás con cada salida del aire: 100… 99… 98… 97…","Si pierdes la cuenta, retoma desde el número que recuerdes.","Si contar te genera tensión, vuelve a tu respiración natural."],
+   notes:["Contar es una tarea neutra para frenar los pensamientos. No necesitas llegar a cero."]}
+ ]},
+ {id:"madrugada", nombre:"Si el sueño no llega", intro:"Herramientas de la Terapia Cognitivo-Conductual para el Insomnio (TCC-I).", fichas:[
+  {id:"pausa", t:"La pausa fuera de la cama, en 3 pasos", sub:"Cuando llevas un tiempo claramente despierto", pg:"Libro, págs. 93-94",
+   intro:"En un despertar breve, si sigues cómodo y somnoliento, cambia de posición y deja que el descanso continúe. Unos veinte minutos despierto son una referencia aproximada; no necesitas mirar el reloj.",
+   steps:["<b>Sal de la cama y detén la exigencia.</b> Ve a un lugar tranquilo, con poca luz, y dite: «En este momento, solo voy a descansar el cuerpo, sin forzar el sueño».","<b>Acomoda el cuerpo y suaviza la respiración.</b> Espalda apoyada, pies en el suelo, hombros y mandíbula sueltos. Exhala despacio.","<b>Elige una actividad tranquila y espera la somnolencia.</b> Lee un libro ligero o escucha música suave. No mires la hora en el celular. Vuelve a la cama cuando percibas somnolencia."],
+   notes:["Prepara antes de la semana un lugar seguro para esta pausa: una silla con apoyo, una lectura tranquila y una luz discreta.","Si tienes mareos o riesgo de caídas, define una alternativa segura con el profesional que te acompaña.","Por la mañana, levántate a tu hora habitual y registra la noche.","Si hay dolor, falta de aire, ganas de orinar o inquietud en las piernas, atiende primero esa necesidad."]},
+  {id:"pensamientos", t:"Cuatro frases para los pensamientos de la madrugada", sub:"Distinguir pensamiento, predicción y hecho", pg:"Libro, págs. 98-99",
+   intro:"Prepara la frase durante el día. De madrugada, solo recuérdala y vuelve a la actividad tranquila.",
+   frases:[["«Si duermo mal, mañana será un desastre».","«Si mañana me cuesta más, ajustaré mis actividades y cuidaré mi seguridad»."],["«Si me he despertado, he perdido la noche entera».","«Estoy despierto en este momento. No necesito convertir este tramo en una conclusión sobre toda la noche»."],["«Tengo que conseguir dormir de inmediato».","«Puedo crear condiciones de descanso y elegir cómo actuar, sin exigirme dormir de inmediato»."],["«Nada funciona para mí».","«Aún necesito comprender mi respuesta. Utilizaré los registros y buscaré apoyo cuando lo necesite»."]]},
+  {id:"reloj", t:"El reloj fuera de la vista", sub:"Interrumpir los cálculos y las comprobaciones", pg:"Libro, pág. 100",
+   steps:["Deja la alarma programada y el reloj fuera de tu campo de visión.","Si compruebas todo el tiempo si la técnica funciona, lleva la atención a algo sencillo: el apoyo de la espalda, el aire, unas líneas de lectura.","Deja el diario y las aplicaciones para la mañana."]},
+  {id:"senales", t:"Cuándo buscar una evaluación", sub:"Señales que no deben esperar", pg:"Libro, págs. 26 y 105-115",
+   steps:["Ronquidos con pausas respiratorias o despertares con sensación de ahogo.","Somnolencia importante durante el día, sobre todo si conduces.","Inquietud recurrente en las piernas al acostarte.","Dolores nocturnos, pesadillas recurrentes o conductas con riesgo de lesión durante el sueño.","Tristeza persistente, pérdida de interés o un sufrimiento importante."],
+   notes:["<b>Si ya tomas medicamentos para dormir:</b> no los suspendas, reduzcas ni cambies de horario por tu cuenta. La interrupción brusca de las benzodiacepinas conlleva riesgo de abstinencia grave, incluidas convulsiones."]}
+ ]}
+];
+
+function ficha(f){
+  let h = `<article class="ficha" id="${f.id}"><h3>${f.t}</h3>`;
+  if (f.sub) h += `<div class="sub">${f.sub}</div>`;
+  const chips = [];
+  (f.when||[]).forEach(w => chips.push(`<span>${w}</span>`));
+  if (f.time) chips.push(`<span>${f.time}</span>`);
+  if (f.pg) chips.push(`<span class="pg">${f.pg}</span>`);
+  if (chips.length) h += `<div class="meta">${chips.join("")}</div>`;
+  if (f.intro) h += `<p>${f.intro}</p>`;
+  if (f.plato) h += plato();
+  if (f.ing) h += `<div class="blk"><h4>Ingredientes</h4><ul class="ing">${f.ing.map(i=>`<li>${i}</li>`).join("")}</ul></div>`;
+  if (f.steps) h += `<div class="blk"><h4>${f.ing ? "Modo de preparación" : "Cómo hacerlo"}</h4><ol class="steps">${f.steps.map(s=>`<li>${s}</li>`).join("")}</ol></div>`;
+  if (f.frases) h += `<div class="blk"><h4>Pensamiento y respuesta posible</h4><div class="frases">${f.frases.map(([a,b])=>`<div class="par"><div class="pen">${a}</div><div class="res">${b}</div></div>`).join("")}</div></div>`;
+  if (f.notes) h += `<div class="blk"><h4>Notas importantes</h4><ul class="notes">${f.notes.map(n=>`<li>${n}</li>`).join("")}</ul></div>`;
+  return h + `</article>`;
+}
+function plato(){
+  return `<div class="plato">
+   <svg viewBox="0 0 150 150" role="img" aria-label="Plato dividido: mitad verduras, un cuarto proteína, un cuarto carbohidratos">
+    <circle cx="75" cy="75" r="72" fill="var(--cream)" stroke="var(--gold)" stroke-width="3"/>
+    <path d="M75 75 L75 9 A66 66 0 0 0 75 141 Z" fill="#6E9A5B"/>
+    <path d="M75 75 L75 9 A66 66 0 0 1 141 75 Z" fill="#C98B4B"/>
+    <path d="M75 75 L141 75 A66 66 0 0 1 75 141 Z" fill="#E6D3A3"/>
+    <text x="42" y="80" text-anchor="middle" font-family="Bebas Neue, Arial Narrow, sans-serif" font-size="18" fill="#FFFFFF">50 %</text>
+    <text x="104" y="52" text-anchor="middle" font-family="Bebas Neue, Arial Narrow, sans-serif" font-size="15" fill="#FFFFFF">25 %</text>
+    <text x="104" y="110" text-anchor="middle" font-family="Bebas Neue, Arial Narrow, sans-serif" font-size="15" fill="#5C4520">25 %</text>
+   </svg>
+   <ul>
+    <li><span class="sw" style="background:#6E9A5B"></span><b>50 %:</b> verduras y hortalizas variadas, crudas y cocidas (lechuga, tomate, zanahoria, calabacín, brócoli).</li>
+    <li><span class="sw" style="background:#C98B4B"></span><b>25 %:</b> proteína: pescado, pollo, huevos o tofu.</li>
+    <li><span class="sw" style="background:#E6D3A3"></span><b>25 %:</b> carbohidratos con fibra: arroz integral, garbanzos, frijoles, lentejas o quinoa.</li>
+   </ul></div>
+   <p>Comienza por los vegetales, añade la proteína y completa con la guarnición. Varía los vegetales y las proteínas durante la semana. Introduce la fibra de a poco para evitar gases y distensión, y reparte el agua a lo largo del día.</p>`;
+}
+document.getElementById("nav").innerHTML = CATS.map(c=>`<a href="#cat-${c.id}">${c.nombre}</a>`).join("");
+document.getElementById("contenido").innerHTML = CATS.map(c=>`<section class="cat" id="cat-${c.id}"><h2>${c.nombre}</h2><p class="cat-intro">${c.intro}</p>${c.fichas.map(ficha).join("")}</section>`).join("");
+function irAncla(){ const id = decodeURIComponent(location.hash.slice(1)); if(!id) return; const el = document.getElementById(id); if(el) el.scrollIntoView({block:"start"}); }
+irAncla(); window.addEventListener("hashchange", irAncla);
+</script>
+
+</body></html>

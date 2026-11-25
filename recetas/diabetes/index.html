@@ -1,0 +1,305 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Recetas del Tratamiento</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@1,600;1,700&family=Montserrat:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: una columna de lectura (celular primero), índice fijo de categorías arriba, cada receta es una ficha con ancla propia */
+:root{
+  --paper:#FFFDF8;
+  --ink:#231F20;
+  --muted:#5C5650;
+  --night:#162B57;
+  --blue:#2B4570;
+  --gold:#D9AD70;
+  --gold-ink:#8C6224;
+  --cream:#F6EADB;
+  --line:#E8DCC8;
+  --chip:#FFFFFF;
+  --f-display:"Bebas Neue","Oswald","Arial Narrow",sans-serif;
+  --f-serif:"EB Garamond","Garamond","Georgia",serif;
+  --f-body:"Montserrat","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0F1B36;--ink:#F2ECE2;--muted:#B9B2A6;--night:#0A1430;--blue:#9DB3DA;--gold:#E2BC85;--gold-ink:#E2BC85;--cream:#182848;--line:#2A3B62;--chip:#14244A;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0F1B36;--ink:#F2ECE2;--muted:#B9B2A6;--night:#0A1430;--blue:#9DB3DA;--gold:#E2BC85;--gold-ink:#E2BC85;--cream:#182848;--line:#2A3B62;--chip:#14244A;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--night)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+header.hero{background:#162B57;color:#F6EADB}
+header.hero .wrap{padding-block:36px 28px}
+.eyebrow{font-family:var(--f-display);letter-spacing:.18em;font-size:15px;color:#D9AD70}
+.hero h1{font-family:var(--f-display);font-weight:400;font-size:clamp(44px,11vw,72px);line-height:.95;margin:6px 0 10px;color:#D9AD70;text-wrap:balance}
+.hero p{margin:0;max-width:60ch;font-size:15px;color:#E9E1D4}
+.hero .by{font-family:var(--f-serif);font-style:italic;font-weight:600;font-size:19px;color:#F6EADB;margin-top:12px}
+
+nav.cats{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+nav.cats .wrap{display:flex;gap:8px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+nav.cats a{flex:0 0 auto;font-size:13px;font-weight:600;text-decoration:none;color:var(--ink);background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+nav.cats a:focus-visible,nav.cats a:hover{border-color:var(--gold);outline:none}
+
+main .wrap{padding-block:8px 48px}
+.cat{margin-top:36px}
+.cat > h2{font-family:var(--f-display);font-weight:400;font-size:34px;letter-spacing:.04em;color:var(--gold-ink);margin:0 0 4px}
+.cat > .cat-intro{color:var(--muted);font-size:14px;margin:0 0 14px}
+
+.ficha{scroll-margin-top:calc(64px + env(safe-area-inset-top,0px));border-top:2px solid var(--gold);padding:18px 0 22px}
+.ficha:target{background:linear-gradient(var(--cream),var(--cream));border-radius:4px;padding-inline:14px}
+.ficha h3{font-family:var(--f-serif);font-style:italic;font-weight:700;font-size:28px;line-height:1.15;margin:0;color:var(--ink);text-wrap:balance}
+.ficha .sub{font-size:13px;color:var(--muted);margin-top:2px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+.meta span{font-size:12px;font-weight:600;background:var(--night);color:#F6EADB;border-radius:4px;padding:3px 8px}
+.meta span.pg{background:transparent;color:var(--gold-ink);border:1px solid var(--gold)}
+.ficha p{margin:10px 0 0;max-width:65ch}
+.blk{margin-top:14px}
+.blk h4{font-family:var(--f-display);font-weight:400;font-size:18px;letter-spacing:.12em;margin:0 0 6px;color:var(--blue)}
+.ing{list-style:none;margin:0;padding:12px 14px;background:var(--cream);border-radius:6px;display:grid;gap:4px}
+.ing li{padding-left:18px;position:relative}
+.ing li::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:9px;border:1.5px solid var(--gold-ink);border-radius:2px}
+.ing b{font-weight:600}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:8px}
+ol.steps li{counter-increment:s;position:relative;padding-left:34px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#162B57;font-family:var(--f-serif);font-style:italic;font-weight:700;font-size:15px;display:grid;place-items:center;line-height:1}
+ul.notes{margin:0;padding-left:18px;color:var(--muted);font-size:14px;display:grid;gap:4px}
+.callout{margin-top:14px;padding:12px 14px;border-left:4px solid var(--gold);background:var(--cream);border-radius:0 6px 6px 0;font-size:15px}
+.callout b{color:var(--gold-ink)}
+
+.plato{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;margin-top:12px}
+.plato svg{width:150px;height:150px;max-width:100%}
+.plato ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px}
+.plato .sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px;vertical-align:-1px}
+@media (max-width:460px){.plato{grid-template-columns:1fr;justify-items:center}}
+
+.bici{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:10px}
+.bici div{background:var(--cream);border-radius:6px;text-align:center;padding:6px 2px;font-variant-numeric:tabular-nums}
+.bici small{display:block;font-size:11px;color:var(--muted)}
+.bici strong{font-family:var(--f-display);font-weight:400;font-size:22px;color:var(--ink);letter-spacing:.02em}
+.bici div.meta30{background:var(--night)}
+.bici div.meta30 small,.bici div.meta30 strong{color:#F6EADB}
+
+footer{border-top:1px solid var(--line)}
+footer .wrap{padding-block:22px 40px;font-size:13px;color:var(--muted)}
+footer b{color:var(--ink)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">El fin de la Diabetes Mellitus · 30 días</div>
+    <h1>Recetas de tu tratamiento</h1>
+    <p>Todo lo que preparas en el día, con cantidades y modo de preparación. Cada receta indica la página del libro donde está la explicación completa.</p>
+    <div class="by">Dr. Alden J. Quesada</div>
+  </div>
+</header>
+
+<nav class="cats" aria-label="Categorías">
+  <div class="wrap" id="nav"></div>
+</nav>
+
+<main><div class="wrap" id="contenido"></div></main>
+
+<footer><div class="wrap">
+  <p><b>Fuente:</b> libro <i>El fin de la Diabetes Mellitus</i>, Dr. Alden J. Quesada. Los números de página se refieren al libro.</p>
+  <p>Si tienes alergia a algún ingrediente, no lo uses y prepara la receta con los demás. No cambies tu medicación por cuenta propia: el ajuste se hace en consulta.</p>
+  <p>@aldenquesada.dr</p>
+</div></footer>
+
+<script>
+const NOTAS_ARROZ = [
+  "Si eres alérgico(a) a algún componente, simplemente no lo adiciones.",
+  "Puedes comer la cantidad que desees hasta que estés satisfecho(a), priorizando la ensalada.",
+  "Si el arroz integral se remoja por unas horas, o toda la noche, se hace más digerible.",
+  "Cada taza de arroz integral crudo rinde, en media, 3 tazas de arroz cocinado.",
+  "Recaliéntalo en una vaporera, o en una cacerola con un poco de agua, tapado, por unos minutos.",
+  "Acompaña siempre con abundante ensalada de vegetales crudos o al vapor, con limón, sal marina y vinagre de manzana."
+];
+const ING_ARROZ = x => ["<b>Arroz integral:</b> 2 tazas", x, "<b>Cebolla:</b> 1 unidad finamente cortada", "<b>Ajo:</b> 2 dientes finamente cortados", "<b>Pimiento verde (o rojo):</b> ½ unidad", "<b>Ora pro nobis:</b> 5 hojas", "<b>Agua:</b> 3½ a 4 tazas", "<b>Sal marina (o gruesa sin refinar):</b> 2 pizcas"];
+const PASOS_LEGUMBRE = n => [
+  `Lave y remoje ${n} por unas horas, o toda la noche.`,
+  `Cocine ${n} antes del arroz: en la olla de presión, con agua suficiente para cubrir, lleve a ebullición lentamente sin tapa y tape a los 10-15 minutos.`,
+  `Cocine a fuego lento por 1 hora o más, hasta que ${n} estén cocidos en un 75%. Si el agua baja, añada más, dejándola correr por las paredes de la olla.`,
+  `Deje enfriar. Añada el arroz integral con el agua de cocción (cuenta como parte del agua de la receta), la sal marina y los demás ingredientes, y remueva.`,
+  "Cocine a presión por 40-50 minutos. Retire del fuego y deje que pierda la presión de manera natural (unos 5 minutos).",
+  "Retire la tapa y deje descansar unos minutos para que el grano no se pegue al fondo.",
+  "Sirva y decore con zanahoria, brócolis y perejil al gusto. Por encima: linaza, chía y sésamo (mejor en polvo)."
+];
+const PASOS_GRANO = [
+  "Lave los granos y el arroz integral cuidadosamente y colóquelos en la olla de presión.",
+  "Ponga la olla al fuego y, cuando el agua esté caliente, añada la sal marina y los demás ingredientes, y remueva.",
+  "Tape, lleve a presión y cocine por unos 45-50 minutos.",
+  "Retire la tapa y deje descansar unos minutos para que el grano no se pegue al fondo.",
+  "Sirva y decore con zanahoria, brócolis y perejil al gusto. Por encima: linaza, chía y sésamo (mejor en polvo)."
+];
+const NOTAS_SOPA = [
+  "Si eres alérgico(a) a algún componente, simplemente no lo adiciones.",
+  "Puedes pasar la sopa por la licuadora para mejorar la consistencia.",
+  "Puedes comer hasta sentirte satisfecho(a). Acompaña con ensalada de vegetales crudos o al vapor.",
+  "Evita tomar agua u otro líquido durante la comida y hasta 1 hora después. Mastica cada bocado entre 20 y 50 veces."
+];
+const BASE_SOPA = ["<b>Cebolla:</b> 1 unidad finamente cortada","<b>Ajo:</b> 2 dientes finamente cortados","<b>Puerro:</b> al gusto","<b>Col:</b> al gusto finamente cortada","<b>Zanahoria:</b> 1 unidad en rodajas","<b>Espinaca:</b> al gusto","<b>Hongo shiitake:</b> 1 unidad finamente cortada","<b>Pimiento verde o rojo:</b> ½ finamente cortado","<b>Ora pro nobis:</b> 5 hojas","<b>Shoyu:</b> al gusto"];
+
+const CATS = [
+ {id:"te", nombre:"Té Normoglicemiante", intro:"1½ litros por día. Una taza en cada horario y el resto como agua común.", fichas:[
+  {id:"te-semana", t:"Té de lunes a viernes", sub:"Canela, romero, jengibre y clavo de olor", when:["7:00","11:30","14:00","18:30","21:00"], time:"15 minutos", pg:"Libro, pág. 190",
+   ing:["<b>Agua:</b> 1½ litros (1500 ml)","<b>Canela:</b> 1 palito o 1 cucharada de sopa en polvo","<b>Romero:</b> 2 cucharadas de sopa de hojas secas","<b>Jengibre:</b> al gusto (rallado o en polvo)","<b>Clavo de olor:</b> 6 unidades","<b>Limón:</b> el jugo de 1 unidad"],
+   steps:["Coloque el agua en el fuego con la canela, el jengibre y el clavo de olor.","Deje hervir el agua durante 1 minuto y agregue las hojas de romero. Apague el fuego y, con la olla tapada, deje reposar de 5 a 10 minutos.","Cuele el té y agregue el jugo de 1 limón cuando esté tibio, nunca caliente.","Guárdalo en un termo y llévalo contigo si sales de casa."],
+   notes:["Toma una taza en ayunas (7:00), 30 minutos antes del almuerzo (11:30), 2 horas después del almuerzo (14:00), 30 minutos antes de la cena (18:30) y 2 horas después de la cena (21:00). El resto, como agua común.","No coloques azúcar ni edulcorante.","Nunca pongas el limón en la bebida caliente: pierde sus propiedades.","Si tienes alergia a algún ingrediente, no lo pongas, pero no dejes de hacer el té con los otros.","Si tienes restricción de líquidos (insuficiencia cardíaca o renal), prepara la cantidad que indique tu médico.","Romero, canela y pata de vaca no se recomiendan a menores de 12 años, embarazadas ni en lactancia. El romero tampoco en alergia a la aspirina, enfermedad del hígado o de la vesícula, o convulsiones. La canela puede subir la presión en personas sensibles."]},
+  {id:"te-finde", t:"Té de sábado y domingo", sub:"Hojas de guayaba, pata de vaca, papaya y mango", when:["7:00","11:30","14:00","18:30","21:00"], time:"15 minutos", pg:"Libro, pág. 190",
+   ing:["<b>Agua:</b> 1½ litros (1500 ml)","<b>Hojas de guayaba:</b> 10 g de hojas secas","<b>Pata de vaca (Bauhinia forficata):</b> 2 cucharadas de sopa de hojas secas","<b>Hojas de papaya:</b> 1 cucharada de sopa, secas y picadas","<b>Hojas de mango:</b> 1 cucharada de sopa, secas y picadas","<b>Limón:</b> el jugo de 1 unidad"],
+   steps:["Coloque el agua en el fuego y deje hervir durante 1 minuto.","Agregue las hojas de guayaba, pata de vaca, papaya y mango. Apague el fuego y, con la olla tapada, deje reposar de 5 a 10 minutos.","Cuele el té y agregue el jugo de 1 limón cuando esté tibio, nunca caliente.","Guárdalo en un termo."],
+   notes:["Mismos horarios del té de la semana: 7:00, 11:30, 14:00, 18:30 y 21:00, y el resto como agua común.","Sin azúcar ni edulcorante.","Si tienes alergia a algún ingrediente, no lo pongas, pero no dejes de hacer el té con los otros."]}
+ ]},
+ {id:"ayunas", nombre:"En ayunas", intro:"A las 7:00, con sorbos del Té Normoglicemiante, durante el Pediluvio.", fichas:[
+  {id:"ajo", t:"Ajo en ayunas", sub:"1 diente crudo, cortado en cuadritos", when:["7:00"], time:"10 minutos", pg:"Libro, pág. 192",
+   ing:["<b>Ajo:</b> 1 diente fresco de tamaño medio"],
+   steps:["Descascare el ajo y córtelo en rodajas y luego en cuadritos muy pequeños.","Déjelo reposar de 1 a 3 minutos antes de consumirlo.","Tráguelo sin masticar, con sorbos del Té Normoglicemiante."],
+   notes:["Comerlo entero, sin cortar, trae pocos beneficios.","Limítate a un diente para evitar irritación del estómago.","Si tienes alergia al ajo, no lo consumas."]},
+  {id:"aloe", t:"Aloe vera (sábila) en ayunas", sub:"2 cápsulas de cristal congelado", when:["7:00"], time:"10 minutos", pg:"Libro, pág. 194",
+   ing:["<b>Aloe vera:</b> 1 hoja (para preparar varias cápsulas)"],
+   steps:["Corta la hoja por la base y retira los bordes con espinas.","Lava bien, retira la corteza y la capa amarillenta de debajo (es irritante y muy amarga).","Lava de nuevo hasta que solo queden los cristales transparentes.","Córtalos en cuadrados del tamaño de una cápsula y guárdalos en el congelador (sirven los moldes de hielo).","Traga 2 cápsulas sin masticar, con sorbos del té."],
+   notes:["Si tienes algún grado, o sospecha, de insuficiencia renal, no consumas aloe vera.","Consúmelo 30 días y descansa 30 días.","Si tienes alergia al aloe vera, no lo consumas."]}
+ ]},
+ {id:"desayuno", nombre:"Desayuno", intro:"A las 8:00, una hora después de las indicaciones de ayunas. Escoge una opción; puedes tomar dos vasos grandes.", fichas:[
+  {id:"jugo-cereza", t:"Jugo de cereza", sub:"Con jengibre y cúrcuma", when:["8:00"], time:"10 minutos", pg:"Libro, pág. 196",
+   ing:["<b>Cerezas:</b> 2 tazas","<b>Manzana:</b> 1 unidad","<b>Jengibre:</b> al gusto","<b>Cúrcuma:</b> al gusto","<b>Agua:</b> 250 ml"],
+   steps:["Lave bien las cerezas y la manzana.","Licúe todo hasta que quede homogéneo.","Si prefieres, cuela presionando para extraer el líquido.","Puedes añadir un cubo de hielo. Tómalo inmediatamente."], notes:["Sin azúcar ni edulcorante."]},
+  {id:"jugo-naranja", t:"Jugo de naranja", sub:"Con cereza, jengibre y cúrcuma", when:["8:00"], time:"10 minutos", pg:"Libro, pág. 197",
+   ing:["<b>Naranjas:</b> 2 unidades","<b>Cerezas:</b> 2 tazas","<b>Jengibre:</b> al gusto","<b>Cúrcuma:</b> al gusto"],
+   steps:["Lave bien las naranjas y las cerezas.","Exprima las naranjas y recoja el jugo con la pulpa, sin semillas.","Licúe las cerezas con la cúrcuma y el jengibre y mézclelo con el jugo de naranja.","Puedes añadir un cubo de hielo. Tómalo inmediatamente."], notes:["Sin azúcar ni edulcorante."]},
+  {id:"jugo-pina", t:"Jugo de piña", sub:"Con cereza, jengibre y cúrcuma", when:["8:00"], time:"10 minutos", pg:"Libro, pág. 197",
+   ing:["<b>Piña:</b> cantidad al gusto","<b>Cerezas:</b> 2 tazas","<b>Jengibre:</b> al gusto","<b>Cúrcuma:</b> al gusto","<b>Agua:</b> 250 ml"],
+   steps:["Lave bien las cerezas.","Licúe las rodajas de piña con el agua, las cerezas, el jengibre y la cúrcuma.","Si prefieres, cuela presionando para extraer el líquido.","Puedes añadir un cubo de hielo. Tómalo inmediatamente."], notes:["Sin azúcar ni edulcorante."]}
+ ]},
+ {id:"meriendas", nombre:"Meriendas", intro:"A las 10:00 y a las 16:00. Puedes tomar dos vasos grandes, hasta sentirte satisfecho(a).", fichas:[
+  {id:"jugo-pepino", t:"Jugo de pepino", sub:"Con cundeamor, cereza, chayote y limón", when:["10:00","16:00"], time:"10 minutos", pg:"Libro, pág. 198",
+   ing:["<b>Pepino:</b> 1 unidad","<b>Cundeamor (Momordica charantia):</b> 1 unidad","<b>Chayote:</b> ½ unidad","<b>Cerezas:</b> ½ taza","<b>Limón:</b> jugo de 1 unidad (opcional)","<b>Agua:</b> 250 ml"],
+   steps:["Lave bien todos los ingredientes. Si prefieres, retira la cáscara del pepino y del chayote.","Corta las puntas del cundeamor, ábrelo al medio, retira las semillas con una cuchara y córtalo en trozos.","Licúa todo hasta que quede homogéneo.","Añade un cubo de hielo para tomarlo a temperatura agradable, nunca frío."],
+   notes:["Tómalo con pajita, un sorbo cada 30 segundos.","Puedes prepararlo temprano y llevarlo en un termo para tomar cuando tengas hambre.","Si tienes restricción de líquidos, prepara la cantidad que indique tu médico."]}
+ ]},
+ {id:"shots", nombre:"Shots", intro:"El inmunoestimulante 10 minutos antes del almuerzo y de la cena. El desintoxicante a las 22:00.", fichas:[
+  {id:"shot-inmuno", t:"Shot inmunoestimulante", sub:"Vinagre de manzana y propóleo", when:["11:50","18:50"], time:"1 minuto", pg:"Libro, pág. 200",
+   ing:["<b>Vinagre de manzana:</b> 1 cucharadita","<b>Propóleo:</b> 10 a 15 gotas","<b>Limón:</b> jugo de 1 unidad","<b>Agua mineral:</b> 250 ml"],
+   steps:["En un vaso de 300 ml coloca el vinagre de manzana.","Añade el agua mineral, las 10 a 15 gotas de propóleo y el jugo del limón.","Bébelo con pajita y sin prisa, un sorbo por minuto."],
+   notes:["Días 1 y 2: solo ½ cucharadita de vinagre. Desde el día 3: 1 cucharadita.","Diluye siempre el vinagre en agua: puro daña la garganta y el esmalte dental.","Si no te gusta, añade una pizca de canela o prepáralo solo con propóleo, limón y agua.","Si tienes alergia al vinagre o al propóleo, no lo pongas."]},
+  {id:"shot-detox", t:"Shot desintoxicante", sub:"Aceite de oliva extra virgen con limón", when:["22:00"], time:"1 minuto", pg:"Libro, pág. 224",
+   ing:["<b>Aceite de oliva extra virgen (no refinado):</b> 1 cucharada de sopa","<b>Limón:</b> jugo de 1 unidad"],
+   steps:["En un vaso de cristal mezcla el aceite con el jugo del limón.","Bébelo de un sorbo, después del té de la noche y antes de dormir."],
+   notes:["Si te resulta desagradable, puedes añadir una pizca de miel, siempre que esté comprobado que la miel no sube tu glicemia."]}
+ ]},
+ {id:"almuerzo", nombre:"Almuerzo", intro:"A las 12:00. Una receta de arroz integral, a tu elección, servida según el Plato.", fichas:[
+  {id:"plato", t:"El Plato", sub:"Cómo servir el almuerzo", pg:"Libro, págs. 88-90 y 144", plato:true},
+  {id:"arroz-garbanzos", t:"Arroz integral con garbanzos", when:["12:00"], time:"60 minutos", pg:"Libro, pág. 202", ing:ING_ARROZ("<b>Garbanzos:</b> ½ taza"), steps:PASOS_LEGUMBRE("los garbanzos"), notes:NOTAS_ARROZ},
+  {id:"arroz-lentejas", t:"Arroz integral con lentejas", when:["12:00"], time:"60 minutos", pg:"Libro, pág. 204", ing:ING_ARROZ("<b>Lentejas:</b> ½ taza"), steps:PASOS_LEGUMBRE("las lentejas"), notes:NOTAS_ARROZ},
+  {id:"arroz-maiz", t:"Arroz integral con maíz", when:["12:00"], time:"60 minutos", pg:"Libro, pág. 206", ing:ING_ARROZ("<b>Maíz en granos:</b> 1 taza"), steps:PASOS_GRANO, notes:NOTAS_ARROZ},
+  {id:"arroz-quinoa", t:"Arroz integral con quinoa", when:["12:00"], time:"60 minutos", pg:"Libro, pág. 208", ing:ING_ARROZ("<b>Quinoa:</b> 1 taza"), steps:PASOS_GRANO, notes:NOTAS_ARROZ},
+  {id:"arroz-millo", t:"Arroz integral con millo o cebada", when:["12:00"], time:"60 minutos", pg:"Libro, pág. 210", ing:ING_ARROZ("<b>Millo o cebada:</b> 1 taza"), steps:PASOS_GRANO, notes:NOTAS_ARROZ},
+  {id:"vegetales", t:"Vegetales al vapor", sub:"Para acompañar almuerzo y cena", when:["12:00","19:00"], time:"15 minutos", pg:"Libro, pág. 212",
+   ing:["Escoge 4: repollo, brócolis, coliflor, espinaca, berro, puerro, zanahoria, daikon, nabo, perejil, cebollino, hojas de diente de león","<b>Limón:</b> 1 unidad","<b>Vinagre de manzana:</b> 2 cucharadas","<b>Sal:</b> una pizca"],
+   steps:["Lava y corta las verduras.","Pon un poco de agua (1 cm) a hervir en la vaporera y, cuando hierva por completo, coloca las verduras.","Cocina de 2 a 3 minutos, según la textura, y pásalas enseguida a un bol para que no se cocinen de más.","Adereza con el vinagre de manzana, la sal y el jugo del limón."],
+   notes:["Deben quedar de color brillante y crujientes. Al hervir, no tapes la olla o pierden el verde.","Puedes añadir unas gotas de shoyu al final.","Sin límite de cantidad.","Pepino y tomate son frutas: no van en la ensalada de verduras."]}
+ ]},
+ {id:"cena", nombre:"Cena", intro:"A las 19:00. Una sopa, a tu elección, con ensalada de vegetales. Nunca las recetas del almuerzo en la cena, ni al revés.", fichas:[
+  {id:"guiso-cebada", t:"Guiso de cebada", when:["19:00"], time:"60 minutos", pg:"Libro, pág. 214",
+   ing:["<b>Cebada:</b> 1 taza","<b>Maíz en granos:</b> 1 taza"].concat(BASE_SOPA,["<b>Agua:</b> 5 a 6 tazas","<b>Sal marina:</b> 1 pizca"]),
+   steps:["Lave bien todos los ingredientes.","Coloque los vegetales en capas en la olla: la cebolla abajo, luego el maíz y, por último, la cebada.","Cocine suavemente hasta que la cebada esté hecha (unos 45 minutos).","Añada shoyu al gusto hacia el final.","Sirva con cebollino y perejil. Por encima: linaza, chía y sésamo."], notes:NOTAS_SOPA},
+  {id:"sopa-lentejas", t:"Sopa de lentejas", when:["19:00"], time:"60 minutos", pg:"Libro, pág. 216",
+   ing:["<b>Lentejas verdes o pardas:</b> 1 taza"].concat(BASE_SOPA,["<b>Agua:</b> 5 a 6 tazas","<b>Sal marina:</b> 1 pizca"]),
+   steps:["Lave bien todos los ingredientes.","Ponga la cebolla en el fondo de la cacerola, después la zanahoria y las lentejas encima.","Añada el agua y una pizca de sal marina.","Lleve a ebullición, baje el fuego, tape y cocine a fuego lento 45 minutos.","Añada el perejil y el resto de la sal y cocine 10-15 minutos más. Al final, un poco de shoyu.","Sirva con cebollino y perejil. Por encima: linaza, chía y sésamo."], notes:NOTAS_SOPA},
+  {id:"sopa-maiz", t:"Sopa de maíz", when:["19:00"], time:"60 minutos", pg:"Libro, pág. 218",
+   ing:["<b>Maíz fresco:</b> 2 tazas","<b>Apio:</b> 1 tallo en dados"].concat(BASE_SOPA,["<b>Berro y cebollino:</b> al gusto","<b>Agua:</b> 5 a 6 tazas","<b>Sal marina:</b> 1 pizca"]),
+   steps:["Lave bien todos los ingredientes y separe los granos de la mazorca con un cuchillo.","Coloque el apio, la cebolla, el maíz y el resto de los ingredientes en una cacerola.","Añada el agua y una pizca de sal.","Cuando hierva, baje el fuego, tape y cocine a fuego lento hasta que el maíz y el apio estén blandos.","Añada el resto de la sal y el shoyu al gusto.","Sirva con cebollino, berro y perejil. Por encima: linaza, chía y sésamo."], notes:NOTAS_SOPA},
+  {id:"sopa-miso", t:"Sopa de miso", when:["19:00"], time:"60 minutos", pg:"Libro, pág. 220",
+   ing:["<b>Miso de cebada:</b> ½ a 1 cucharadita por taza de caldo","<b>Maíz en granos:</b> 1 taza","<b>Wakame seco:</b> 1 pieza pequeña","<b>Apio:</b> 1 tallo en dados"].concat(BASE_SOPA.filter(x=>!x.includes("Espinaca")),["<b>Agua:</b> 6 tazas","<b>Sal marina:</b> 1 pizca"]),
+   steps:["Lave bien todos los ingredientes.","Remoje el wakame 5 minutos y córtelo en pedacitos.","Ponga el wakame en el agua y lleve a ebullición.","Añada la cebolla y el resto de los ingredientes y hierva 3-5 minutos, hasta que la cebolla esté blanda. Baje el fuego.","Diluya el miso en un poco de caldo, añádalo y cocine a fuego bajo 3-4 minutos, sin dejar que hierva.","Sirva con cebollino y perejil. Por encima: linaza, chía y sésamo."],
+   notes:["El miso no debe hervir: pierde sus propiedades.","Prepárala en el momento de comer; no la dejes para el día siguiente."].concat(NOTAS_SOPA.slice(2))},
+  {id:"sopa-millo", t:"Sopa de millo y vegetales dulces", when:["19:00"], time:"50 minutos", pg:"Libro, pág. 222",
+   ing:["<b>Millo:</b> 1 taza","<b>Maíz en granos:</b> 1 taza","<b>Apio:</b> 1 tallo en cubos","<b>Calabacín:</b> ½ taza","<b>Coliflor y brócolis:</b> al gusto","<b>Zanahoria:</b> ½ taza","<b>Col:</b> ½ taza","<b>Cebolla:</b> ½ unidad","<b>Wakame:</b> 1 pieza pequeña","<b>Hongo shiitake:</b> 1 pieza pequeña","<b>Shoyu:</b> unas gotas","<b>Cebollino o perejil:</b> al gusto","<b>Agua:</b> 6 tazas","<b>Sal marina:</b> 1 pizca"],
+   steps:["Lave bien todos los ingredientes.","Mezcle el millo con los ingredientes, excepto los sazonadores.","Añada 3 veces más agua que ingredientes y una pizca de sal.","Lleve a ebullición, baje el fuego y cocine unos 30 minutos.","Al final, sazone con gotas de shoyu y cocine 3-4 minutos más.","Sirva con cebollino y perejil. Por encima: linaza, chía y sésamo."], notes:NOTAS_SOPA}
+ ]},
+ {id:"practicas", nombre:"Prácticas del día", intro:"Al despertar, en ayunas y por la noche.", fichas:[
+  {id:"pediluvio", t:"Pediluvio con sal marina", sub:"Baño de pies tibio", when:["7:00","21:00"], time:"30 minutos", pg:"Libro, pág. 234",
+   ing:["<b>Agua tibia (36 a 39 ºC):</b> unos 3 litros","<b>Sal marina (o gruesa sin refinar):</b> 1 taza","<b>Jengibre rallado:</b> ¼ de unidad (opcional)","<b>Palangana</b> y <b>toalla</b>"],
+   steps:["Pon a hervir unos 3 litros de agua con el jengibre rallado. Cuando hierva, apaga y deja enfriar hasta que esté tibia.","Coloca el agua en la palangana hasta cubrir el tobillo.","Añade la sal y remueve para disolver.","Sumerge los pies 30 minutos, comprobando que la temperatura sea agradable. Mientras tanto, toma el té.","Moja una toalla pequeña en el agua y masajea suavemente las piernas en círculos, de los pies a las rodillas, de 1 a 3 minutos.","Seca los pies y ponte calcetines."],
+   notes:["No se recomienda a embarazadas ni a personas con cáncer en metástasis.","Si tienes presión alta, el agua debe estar tibia, nunca muy fría ni muy caliente."]},
+  {id:"hipopresivos", t:"Ejercicios hipopresivos", sub:"En la cama, al despertar, 1 minuto cada uno", when:["Al despertar"], time:"3 a 5 minutos", pg:"Libro, pág. 228",
+   intro:"Boca arriba, con las rodillas dobladas y los pies apoyados en la cama.",
+   steps:["<b>Rodillas al pecho.</b> Respira profundo. Lleva la rodilla derecha al pecho con las dos manos mientras inspiras, mantén 5 segundos contrayendo el abdomen y vuelve espirando. Repite con la izquierda y luego con las dos juntas.","<b>Rotación de cadera.</b> Brazos abiertos en T. Deja caer las rodillas hacia un lado y gira el tronco al lado contrario, espirando. Mantén 5 segundos con los hombros apoyados. Vuelve inspirando y repite al otro lado.","<b>Elevación de caderas.</b> Apretando abdomen y glúteos, levanta la cadera hasta formar una línea recta de rodillas a hombros, metiendo el abdomen hacia adentro. Respira profundo tres veces, baja y repite."],
+   notes:["Debes sentir estiramiento, nunca dolor.","No los hagas si tienes hernia discal o problemas de columna; en ese caso, solo escucha el audio."]},
+  {id:"audios", t:"Audio de reprogramación mental y respiración", sub:"Al despertar y por la noche", when:["Al despertar","21:00"], pg:"Libro, págs. 226 y 232",
+   intro:"Al despertar escucha un audio de reprogramación mental. En el libro se recomienda buscar en internet: «Va Directo a Tu Mente Subconsciente. YO SOY: Afirmaciones de Éxito, Riqueza y Felicidad», o cualquier otro de tu agrado. Por la noche, durante el pediluvio, haz ejercicios de respiración guiados (por ejemplo, respiración de Wim Hof guiada) con música relajante.",
+   notes:["Si tienes Alexa o un aparato parecido, programa el despertador con el audio."]},
+  {id:"oracion", t:"Mi Oración", sub:"Al despertar y antes de dormir", when:["Al despertar","Antes de dormir"], pg:"Libro, pág. 19",
+   intro:"<i>Yo [tu nombre], declaro, con todas las fuerzas de mi corazón y apoyado(a) en mis deseos de vivir libre de síntomas, medicamentos, riesgos y complicaciones, que aplicaré el método «El fin de la Diabetes Mellitus». El Método me acompañará durante toda mi vida y me brindará la tranquilidad y seguridad que yo merezco y que merece mi familia. Declaro que Yo Soy Libre de Complicaciones. Yo puedo. Yo merezco. Yo consigo.</i>"}
+ ]},
+ {id:"movimiento", nombre:"Sol y movimiento", intro:"Lo nuevo de tu plan, además del libro.", fichas:[
+  {id:"sol", t:"15 minutos de sol por la mañana", sub:"Para formar vitamina D", when:["Antes de las 10:00"], time:"15 minutos",
+   intro:"La vitamina D se forma en tu piel cuando le da el sol. Ayuda a que la insulina trabaje mejor y a que tus músculos tomen la glucosa de la sangre, y además protege tus huesos, tus músculos y tus defensas. Muchas personas con diabetes la tienen baja.",
+   steps:["Toma el sol 15 minutos, todos los días, antes de las 10:00.","Deja los brazos y las piernas descubiertos y sin protector solar durante esos 15 minutos. La cara la puedes proteger.","Lo más fácil: haz el pediluvio de las 7:00 al sol, mirando hacia el sol en tus respiraciones, como indica el libro."],
+   notes:["Si tomas algún medicamento que te hace sensible al sol, o tienes antecedentes de cáncer de piel, coméntalo en la consulta."]},
+  {id:"pantorrillas", t:"Pantorrillas sentado", sub:"Flexión del sóleo: quema glucosa sin cansarte", when:["Después del almuerzo","Después de la cena"], time:"10 minutos",
+   intro:"El sóleo es un músculo de la pantorrilla que puede trabajar mucho tiempo sin cansarse, usando la glucosa de la sangre como combustible. En un estudio de la Universidad de Houston (Hamilton, 2022), este movimiento hecho sentado redujo a la mitad la subida de glucosa después de comer.",
+   steps:["Siéntate con los pies planos en el suelo y las rodillas en ángulo recto.","Levanta los talones manteniendo la punta del pie en el suelo, hasta donde llegue.","Baja los talones despacio. Repite a un ritmo tranquilo, sin parar.","Hazlo 10 minutos después del almuerzo y 10 minutos después de la cena. Puedes hacerlo mirando la televisión o trabajando."],
+   notes:["No debe doler ni cansar. Si se cansa, baja el ritmo."]},
+  {id:"bicicleta", t:"Bicicleta estática en crescendo", sub:"Empieza con 3 minutos y suma 3 cada día", when:["Después de la cena"], time:"3 a 45 minutos", bici:true,
+   intro:"Pedalear después de comer hace que tus músculos usen la glucosa de esa comida. Empieza suave y aumenta poco a poco: el cuerpo se adapta sin dolor.",
+   steps:["Día 1: 3 minutos. Cada día suma 3 minutos más.","Día 10: llegas a 30 minutos. Día 15: llegas a 45 minutos.","Desde el día 15, pedalea entre 30 y 45 minutos todos los días.","Ritmo: puedes hablar mientras pedaleas, pero no cantar.","Hazlo después de la cena (entre 19:30 y 20:30), antes del control de glicemia de las 21:00."],
+   notes:["Si usas insulina o gliclazida y sientes temblor, sudor frío o mareo, para y mide tu glicemia.","No cambies tu medicación por cuenta propia: el ajuste se hace en consulta."]},
+  {id:"musculo", t:"Construye músculo sin volverte «rata de gimnasio»", sub:"20 minutos, 3 veces por semana, en casa", when:["Lunes, miércoles y viernes, 17:00"], time:"20 minutos",
+   intro:"Tus músculos son la esponja de glucosa más grande del cuerpo: cuanto más músculo tienes, más azúcar sale de la sangre y menos insulina necesitas. No hace falta gimnasio, ni pesas, ni pasar horas entrenando. Basta con tu propio peso, una silla y una botella de agua.",
+   steps:["<b>Sentarse y levantarse de la silla:</b> 10 veces, sin usar las manos si puedes.","<b>Flexiones en la pared:</b> 10 veces, con las manos en la pared a la altura del pecho.","<b>Puente de cadera:</b> 10 veces, acostado(a) boca arriba, subiendo la cadera.","<b>Remo con botella:</b> 10 veces con cada brazo, apoyado(a) en una silla, subiendo una botella de agua de 1,5 litros hacia la cintura.","<b>Puntillas de pie:</b> 15 veces, sujetándote de una silla.","Descansa 1 minuto y repite todo. Haz 3 vueltas."],
+   notes:["Cuando se vuelva fácil, suma 2 repeticiones a cada ejercicio o una cuarta vuelta.","Debes sentir esfuerzo, nunca dolor."]}
+ ]}
+];
+
+const esc = s => s;
+function ficha(f){
+  let h = `<article class="ficha" id="${f.id}"><h3>${f.t}</h3>`;
+  if (f.sub) h += `<div class="sub">${f.sub}</div>`;
+  const chips = [];
+  (f.when||[]).forEach(w => chips.push(`<span>${w}</span>`));
+  if (f.time) chips.push(`<span>${f.time}</span>`);
+  if (f.pg) chips.push(`<span class="pg">${f.pg}</span>`);
+  if (chips.length) h += `<div class="meta">${chips.join("")}</div>`;
+  if (f.intro) h += `<p>${f.intro}</p>`;
+  if (f.plato) h += plato();
+  if (f.ing) h += `<div class="blk"><h4>Ingredientes</h4><ul class="ing">${f.ing.map(i=>`<li>${i}</li>`).join("")}</ul></div>`;
+  if (f.steps) h += `<div class="blk"><h4>${f.ing ? "Modo de preparación" : "Cómo hacerlo"}</h4><ol class="steps">${f.steps.map(s=>`<li>${s}</li>`).join("")}</ol></div>`;
+  if (f.bici) h += bici();
+  if (f.notes) h += `<div class="blk"><h4>Notas importantes</h4><ul class="notes">${f.notes.map(n=>`<li>${n}</li>`).join("")}</ul></div>`;
+  return h + `</article>`;
+}
+function plato(){
+  return `<div class="plato">
+   <svg viewBox="0 0 150 150" role="img" aria-label="Plato dividido: mitad vegetales, un cuarto proteína vegetal, un cuarto arroz integral">
+    <circle cx="75" cy="75" r="72" fill="var(--cream)" stroke="var(--gold)" stroke-width="3"/>
+    <path d="M75 75 L75 9 A66 66 0 0 0 75 141 Z" fill="#6E9A5B"/>
+    <path d="M75 75 L75 9 A66 66 0 0 1 141 75 Z" fill="#C98B4B"/>
+    <path d="M75 75 L141 75 A66 66 0 0 1 75 141 Z" fill="#E6D3A3"/>
+    <text x="42" y="80" text-anchor="middle" font-family="Bebas Neue, Arial Narrow, sans-serif" font-size="20" fill="#FFFFFF">½</text>
+    <text x="104" y="52" text-anchor="middle" font-family="Bebas Neue, Arial Narrow, sans-serif" font-size="18" fill="#FFFFFF">¼</text>
+    <text x="104" y="110" text-anchor="middle" font-family="Bebas Neue, Arial Narrow, sans-serif" font-size="18" fill="#5C4520">¼</text>
+   </svg>
+   <ul>
+    <li><span class="sw" style="background:#6E9A5B"></span><b>Mitad:</b> ensalada de vegetales crudos o al vapor.</li>
+    <li><span class="sw" style="background:#C98B4B"></span><b>Un cuarto:</b> proteína vegetal: garbanzos, lentejas, frijoles, quinoa o miso.</li>
+    <li><span class="sw" style="background:#E6D3A3"></span><b>Un cuarto:</b> arroz integral (o maíz, millo, cebada).</li>
+   </ul></div>
+   <div class="callout"><b>Primeros 30 días:</b> la proteína del plato es solo la vegetal de alto valor biológico del libro (garbanzos, lentejas, frijoles, quinoa, miso). Sin carnes. Desde el día 31 el libro permite añadir carnes blancas y huevos, poco a poco.</div>
+   <p>Por encima, linaza, chía y sésamo en polvo. Sin agua ni otro líquido durante la comida y hasta 1 hora después. Mastica cada bocado entre 20 y 50 veces. Si el deseo de carne se vuelve incontrolable, el libro permite una porción pequeña de pollo o pescado al almuerzo, cocinado en olla de presión, nunca con papa, batata, yuca u otro carbohidrato.</p>`;
+}
+function bici(){
+  let c = "";
+  for (let d=1; d<=15; d++){ const m=d*3; c += `<div class="${m===30||m===45?'meta30':''}"><small>Día ${d}</small><strong>${m}</strong></div>`; }
+  return `<div class="blk"><h4>Minutos por día</h4><div class="bici">${c}</div></div>`;
+}
+document.getElementById("nav").innerHTML = CATS.map(c=>`<a href="#cat-${c.id}">${c.nombre}</a>`).join("");
+document.getElementById("contenido").innerHTML = CATS.map(c=>`<section class="cat" id="cat-${c.id}"><h2>${c.nombre}</h2><p class="cat-intro">${c.intro}</p>${c.fichas.map(ficha).join("")}</section>`).join("");
+function irAncla(){ const id = decodeURIComponent(location.hash.slice(1)); if(!id) return; const el = document.getElementById(id); if(el) el.scrollIntoView({block:"start"}); }
+irAncla(); window.addEventListener("hashchange", irAncla);
+</script>
+
+</body></html>

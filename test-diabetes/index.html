@@ -163,6 +163,12 @@ a.cta-res{
 }
 .escala .limites{display:flex; justify-content:space-between;
   font-size:11.5px; color:var(--luz-3); margin-top:9px; letter-spacing:.04em}
+.dominios{margin:4px 0 16px; display:grid; gap:12px}
+.dom-cab{display:flex; justify-content:space-between; margin:0 0 5px; font-size:14.5px; color:var(--luz-2)}
+.dom-cab b{color:var(--luz); font-weight:600}
+.dom-barra{height:7px; border-radius:4px; background:var(--noite-2); overflow:hidden}
+.dom-barra i{display:block; height:100%; background:var(--lua); border-radius:4px}
+.dom-faixa{margin:4px 0 0; font-size:13px; color:var(--luz-3)}
 .pior{font-size:15.5px; color:var(--luz-2); margin:0 0 14px;
   border-left:2px solid var(--lua); padding-left:13px}
 .pior b{color:var(--luz); font-weight:600}
@@ -306,7 +312,7 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
   // A barra da escala é desenhada com os limites de `faixas` e a cor e o rótulo
   // curto de `faixas_<idioma>`. Guardar a faixa inteira, e não só o título,
   // é o que permite desenhar sem cor nem número escritos no código.
-  var faixas = [], faixasIdioma = {}, faixaCorpo = {}, faixaChamada = {};
+  var dominios = [], faixas = [], faixasIdioma = {}, faixaCorpo = {}, faixaChamada = {};
 
   // Toda string visível vem do banco quando o quiz está em espanhol. O
   // português continua embutido como padrão, para o quiz não ficar mudo se a
@@ -554,7 +560,8 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
       (passo > 0 ? '<button class="voltar" type="button">' + t('voltar','← voltar') + '</button>' : '');
     // O nome aparece nas duas primeiras e volta na última: repetir em todas
     // soa a mala direta, não a conversa.
-    var chamado = (nome && (passo === 0 || passo === perguntas.length - 1))
+    // `nome_nas_perguntas: false` no banco: pergunta que e so o nome de um sintoma
+    var chamado = (nome && quiz.schema.nome_nas_perguntas !== false && (passo === 0 || passo === perguntas.length - 1))
       ? comNome(nome, enunciado)
       : enunciado;
     tela.querySelector('h2').textContent = chamado;
@@ -823,15 +830,26 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
 
   // Misma regla que submit_quiz: opción con `pontos` vale lo que dice (suma,
   // en las de varias respuestas); sin `pontos`, escala 0-4.
+  function maxPergunta(q){
+    var ops = q['opcoes_' + IDIOMA] || [];
+    var pts = ops.filter(function(o){ return 'pontos' in o; }).map(function(o){ return +o.pontos || 0; });
+    if (!pts.length) return 4;
+    return q.tipo === 'multipla'
+      ? pts.reduce(function(a, b){ return a + Math.max(b, 0); }, 0)
+      : Math.max.apply(null, pts);
+  }
   function maxPontos(){
-    return pontuaveis().reduce(function(t, q){
-      var ops = q['opcoes_' + IDIOMA] || [];
-      var pts = ops.filter(function(o){ return 'pontos' in o; }).map(function(o){ return +o.pontos || 0; });
-      if (!pts.length) return t + 4;
-      return t + (q.tipo === 'multipla'
-        ? pts.reduce(function(a, b){ return a + Math.max(b, 0); }, 0)
-        : Math.max.apply(null, pts));
-    }, 0);
+    return pontuaveis().reduce(function(t, q){ return t + maxPergunta(q); }, 0);
+  }
+  // Pontos de UMA resposta, pela mesma regra de submit_quiz (escala = indice 0-4;
+  // opcao com `pontos` = o que ela diz; varias respostas = soma).
+  function pontosResposta(q){
+    var r = respostas[q.id], ops = q['opcoes_' + IDIOMA] || [];
+    if (r === undefined || r === null) return 0;
+    if (!ops.some(function(o){ return 'pontos' in o; })) return typeof r === 'number' ? r : 0;
+    var vals = Array.isArray(r) ? r : [r];
+    return ops.filter(function(o){ return vals.indexOf(o.valor) >= 0; })
+              .reduce(function(a, o){ return a + (+o.pontos || 0); }, 0);
   }
 
   function piorItem(){
@@ -909,7 +927,7 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
 
     var selo = document.createElement('p');
     selo.className = 'selo-previa';
-    selo.textContent = 'VISTA PREVIA · nada de esta pantalla se guarda';
+    selo.textContent = t('selo_previa', 'VISTA PREVIA · nada de esta pantalla se guarda');
     tela.insertBefore(selo, tela.firstChild);
   }
 
@@ -960,6 +978,7 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
       '<div class="faixa surge"' + atraso() + '></div>' +
       '<h1 class="surge"' + atraso() + '></h1>' +
       (pior ? '<p class="pior surge"' + atraso() + '></p>' : '') +
+      (dominios.length ? '<div class="dominios surge"' + atraso() + '></div>' : '') +
       '<ul class="eco surge"' + atraso() + '></ul>' +
       '<p class="apoio surge"' + atraso() + '></p>' +
       // A chamada e o botão são uma peça só: a chamada manda tocar no botão,
@@ -987,6 +1006,28 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
       });
       tela.querySelector('.chamada').textContent =
         preencherNome(faixaChamada[res.faixa] || '');
+    }
+    // Subtotais por grupo de perguntas (`dominios_<idioma>` no banco): cada
+    // grupo soma as respostas dele, com barra e a faixa propria do grupo.
+    if (dominios.length) {
+      var dom = tela.querySelector('.dominios');
+      dominios.forEach(function(g){
+        var ids = g.itens || [], soma = 0, max = 0;
+        perguntas.forEach(function(q){
+          if (ids.indexOf(q.id) < 0) return;
+          max += maxPergunta(q); soma += pontosResposta(q);
+        });
+        var fx = (g.faixas || []).filter(function(x){ return soma >= x.de && soma <= x.ate; })[0] || {};
+        var linha = document.createElement('div');
+        linha.className = 'dom';
+        linha.innerHTML = '<p class="dom-cab"><span></span><b></b></p>' +
+          '<div class="dom-barra"><i style="width:' + (max ? Math.round(100 * soma / max) : 0) + '%"></i></div>' +
+          (fx.rotulo ? '<p class="dom-faixa"></p>' : '');
+        linha.querySelector('.dom-cab span').textContent = g.rotulo || '';
+        linha.querySelector('.dom-cab b').textContent = soma + ' / ' + max;
+        if (fx.rotulo) linha.querySelector('.dom-faixa').textContent = fx.rotulo;
+        dom.appendChild(linha);
+      });
     }
     if (pior) {
       tela.querySelector('.pior').innerHTML =
@@ -1167,7 +1208,9 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
       evento('start');
       rastrear('inicio');
       carregarPaises();
-      telaSexo();
+      // `sexo_fixo` no banco (ex.: teste da menopausa) pula a tela de sexo
+      if (quiz.schema.sexo_fixo) { pessoa.sexo = quiz.schema.sexo_fixo; telaNome(); }
+      else telaSexo();
     };
   }
 
@@ -1235,7 +1278,7 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
       rastrear('nome');
       irPara(0);
     };
-    tela.querySelector('.voltar').onclick = telaSexo;
+    tela.querySelector('.voltar').onclick = quiz.schema.sexo_fixo ? telaAbertura : telaSexo;
     setTimeout(function(){ campo.focus(); }, 60);
   }
 
@@ -1312,6 +1355,7 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
         faixasIdioma[x.codigo] = x;
       });
       escalas  = quiz.schema['escalas_' + IDIOMA]     || quiz.schema.escalas   || {};
+      dominios = quiz.schema['dominios_' + IDIOMA] || [];
       escalasF = quiz.schema['escalas_' + IDIOMA + '_f'] || quiz.schema.escalas_f || {};
       // Título, descrição e idioma do documento também vêm do banco: são o
       // que aparece na aba e no cartão de compartilhamento.

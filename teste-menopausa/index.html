@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Teste da Menopausa</title>
+<!-- Endereço curto do QR do livro "Dormir bem na menopausa". O teste é o mesmo
+     motor do /test-diabetes/, aberto com o modelo `menopausa` do banco: um sistema
+     só, nenhuma cópia do código. Os parâmetros da chegada (UTM, interno) seguem. -->
+<script>
+  (function () {
+    var p = new URLSearchParams(location.search);
+    p.set('q', 'menopausa');
+    if (!p.has('utm_source')) p.set('utm_source', 'livro');
+    if (!p.has('utm_medium')) p.set('utm_medium', 'qrcode');
+    location.replace('/test-diabetes/?' + p.toString());
+  })();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=/test-diabetes/?q=menopausa&utm_source=livro&utm_medium=qrcode"></noscript>
+</head>
+<body></body>
+</html>

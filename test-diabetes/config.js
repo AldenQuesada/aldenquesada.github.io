@@ -8,6 +8,7 @@ window.QUIZ_CONFIG = {
   // Luiz Fernando). Cada cópia tem checkout e estatística próprios no banco.
   slug: (function () {
     var q = new URLSearchParams(location.search).get('q') || '';
-    return /^diabetes(-[a-z0-9]{1,30})?$/.test(q) ? q : 'diabetes';
+    // qualquer slug: quem decide se existe e esta ativo e o banco
+    return /^[a-z][a-z0-9-]{2,40}$/.test(q) ? q : 'diabetes';
   })()
 };

@@ -561,7 +561,10 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
     // O nome aparece nas duas primeiras e volta na última: repetir em todas
     // soa a mala direta, não a conversa.
     // `nome_nas_perguntas: false` no banco: pergunta que e so o nome de um sintoma
-    var chamado = (nome && quiz.schema.nome_nas_perguntas !== false && (passo === 0 || passo === perguntas.length - 1))
+    // `nome_a_cada: 2` no banco: o nome entra numa pergunta sim, na outra não (1ª, 3ª, 5ª…).
+    var cada = parseInt(quiz.schema.nome_a_cada, 10);
+    var vezDoNome = cada > 0 ? passo % cada === 0 : (passo === 0 || passo === perguntas.length - 1);
+    var chamado = (nome && quiz.schema.nome_nas_perguntas !== false && vezDoNome)
       ? comNome(nome, enunciado)
       : enunciado;
     tela.querySelector('h2').textContent = chamado;

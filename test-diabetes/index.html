@@ -964,6 +964,10 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
   function mostrarResultado(res){
     emTela('resultado');
     var cta  = quiz.schema.resultado_cta || {};
+    // `ocultar_origem` (lista de utm_source no banco): quem chega por ali não vê o
+    // botão. O QR impresso no livro abre o teste com utm_source=libro, e a leitora
+    // que já tem o livro não pode receber o botão de comprar o mesmo livro.
+    if ((cta.ocultar_origem || []).indexOf(utm.source) >= 0) cta = {};
     if (cta.url) cta = { url: comOrigem(cta.url), texto: cta.texto };
     var pior = piorItem();
     var n = 0;

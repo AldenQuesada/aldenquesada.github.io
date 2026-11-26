@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Test de la Menopausia</title>
+<!-- Dirección corta del QR del libro "Venciendo la menopausia en 21 días". El test es el
+     mismo motor de /test-diabetes/, abierto con el modelo `menopausia` del banco: un solo
+     sistema, ninguna copia del código. Los parámetros de llegada (UTM, interno) siguen. -->
+<script>
+  (function () {
+    var p = new URLSearchParams(location.search);
+    p.set('q', 'menopausia');
+    if (!p.has('utm_source')) p.set('utm_source', 'libro');
+    if (!p.has('utm_medium')) p.set('utm_medium', 'qrcode');
+    location.replace('/test-diabetes/?' + p.toString());
+  })();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=/test-diabetes/?q=menopausia&utm_source=libro&utm_medium=qrcode"></noscript>
+</head>
+<body></body>
+</html>

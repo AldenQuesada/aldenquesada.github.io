@@ -685,7 +685,7 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
     if (voltar) voltar.onclick = function(){ irPara(passo - 1); };
     if (passo === 0) {
       var v = document.createElement('button');
-      v.type='button'; v.className='voltar'; v.textContent='← voltar';
+      v.type='button'; v.className='voltar'; v.textContent=t('voltar','← voltar');
       v.onclick = telaNome; tela.appendChild(v);
     }
   }

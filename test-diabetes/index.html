@@ -1269,7 +1269,9 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
     tela.innerHTML =
       '<p class="passo-n">' + t('rotulo_inicio','Para começar') + '</p>' +
       '<h2 class="pergunta">' + t('nome_titulo','Como você se chama?') + '</h2>' +
-      '<p class="apoio">' + t('nome_apoio','Só para eu não te tratar por "você" o teste inteiro.') + '</p>' +
+      // `nome_apoio: ""` no banco tira a frase de apoio (o vazio não cai no padrão).
+      (T.nome_apoio === '' ? '' :
+        '<p class="apoio">' + t('nome_apoio','Só para eu não te tratar por "você" o teste inteiro.') + '</p>') +
       '<label class="campo"><input id="nome" type="text" autocomplete="given-name" placeholder="' + t('nome_placeholder','Seu primeiro nome') + '" autofocus></label>' +
       '<button class="principal" id="seguir" disabled>' + t('nome_botao','Continuar') + '</button>' +
       '<button class="voltar" type="button">' + t('voltar','← voltar') + '</button>';

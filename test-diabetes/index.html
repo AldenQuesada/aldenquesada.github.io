@@ -1004,8 +1004,19 @@ button.brilho::after{content:""; position:absolute; top:0; bottom:0; left:-60%;
     var pilula = tela.querySelector('.faixa');
     pilula.textContent = tituloTraduzido(res.faixa) || res.titulo;
     tela.querySelector('h1').textContent = tituloDaFaixa(res.faixa);
-    tela.querySelector('.apoio').textContent = faixaCorpo[res.faixa] || '';
-    tela.querySelector('.aviso').textContent = res.aviso;
+    // `livro_so_origem` (lista de utm_source no banco): o texto da faixa e o aviso
+    // falam com quem JÁ TEM o livro (capítulos, "refaz no dia 21"). Com a lista
+    // preenchida, só quem chega por ali (o QR do livro) vê esses dois textos;
+    // quem vem do anúncio ainda não comprou e fica só com a chamada e o botão.
+    var soLivro = quiz.schema.livro_so_origem;
+    var temLivro = !soLivro || soLivro.indexOf(utm.source) >= 0;
+    tela.querySelector('.apoio').textContent = temLivro ? (faixaCorpo[res.faixa] || '') : '';
+    tela.querySelector('.aviso').textContent = temLivro ? res.aviso : '';
+    // Vazio some da tela: o aviso tem filete na borda e ficaria um risco solto.
+    ['.apoio', '.aviso'].forEach(function(sel){
+      var el = tela.querySelector(sel);
+      if (el && !el.textContent) el.remove();
+    });
     if (cta.url) {
       tela.querySelector('.cta-res').addEventListener('click', function(ev){
         if (window.InstitutoJourney) window.InstitutoJourney.decorate(ev.currentTarget);
